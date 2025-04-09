@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b2e93b78d90c1744815b9382c95b795, type: 3}
-  m_Name: Fireball
+  m_Name: Mind Control
   m_EditorClassIdentifier: 
   description: 
-  staminaCost: 60
+  staminaCost: 30
   spellAttack:
-    targetingType: 1
-    damage: 50
+    targetingType: 0
+    damage: 1
     healAction: 0
-    particleEffect: {fileID: 7512594599114799122, guid: ea1d7aa7da812424eb9dafbbb5ea8674, type: 3}
+    particleEffect: {fileID: 5835862890695531006, guid: 6cc5a039dd2ae584c99c9d58ff585d36, type: 3}
     applyCondition:
-    - condition: {fileID: 11400000, guid: 129bbea2cd3631840b23c57fbfc52432, type: 2}
-      timeFrame: 3
-      level: 0
-    conditionChance: 60
+    - condition: {fileID: 11400000, guid: 01cc4268b6ed3cf429b740468c78a6e9, type: 2}
+      timeFrame: 5
+    conditionChance: 100

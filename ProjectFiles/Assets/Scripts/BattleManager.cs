@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 public class BattleManager : MonoBehaviour
 {
     private GameState _state;
@@ -13,11 +14,14 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private TMP_Text attackLabel;
     [SerializeField] private MenuButton[] menuButtons;
     [SerializeField] private Image portrait;
-    [SerializeField] private List<PlayerCharacter> playerUnits;
+    [SerializeField] private List<BaseCharacter> playerUnits;
     [SerializeField] private List<BaseCharacter> enemyUnits;
     private int battleIndex;
-    [SerializeField] private BattleCharObject[] playerBattleObjects;
-    [SerializeField] private BattleCharObject[] enemyBattleObjects;
+    [SerializeField] private BattleCharObject battleCharPrefab;
+    [SerializeField] private GameObject playerObjPanel;
+    [SerializeField] private GameObject enemyObjPanel;
+    [SerializeField] private List<BattleCharObject> playerBattleObjects;
+    [SerializeField] private List<BattleCharObject> enemyBattleObjects;
 
     [Header("EnemyAttackSettings")]
     [SerializeField] private GameObject enemyAttackField;
@@ -38,18 +42,50 @@ public class BattleManager : MonoBehaviour
         foreach (var button in menuButtons)
             button.DeselectButton();
         menuButtons[currentMenuButton].SelectButton();
-        for (int i = 0; i < playerBattleObjects.Length; i++)
-        {
-            playerBattleObjects[i].SetCharacterObject(playerUnits[i]);
-            playerBattleObjects[i].InitialiseUI();
-        }
-        for (int i = 0; i < enemyBattleObjects.Length; i++)
-        {
-            enemyUnits[i].InitialiseChar();
-            enemyBattleObjects[i].SetCharacterObject(enemyUnits[i]);
-            enemyBattleObjects[i].InitialiseUI();
-        }
+        
+        foreach (BaseCharacter unit in enemyUnits)
+            unit.InitialiseChar();
+
+        CreateCharObjectDisplay(playerObjPanel, playerUnits, playerBattleObjects);
+        CreateCharObjectDisplay(enemyObjPanel, enemyUnits, enemyBattleObjects);
         SetActiveAttacker();
+    }
+
+    private void CreateCharObjectDisplay(GameObject panel, List<BaseCharacter> unitList, List<BattleCharObject> objList)
+    {
+        foreach (BattleCharObject c in objList)
+        {
+            Destroy(c.gameObject);
+        }
+        objList.Clear();
+        float panelPos = panel.transform.position.y + (float)6.3 / 2;
+        float panelStep = (float)6.3/unitList.Count;
+        float step = 0.5f;
+        foreach (BaseCharacter unit in unitList)
+        {
+            Vector2 panelPosition = new Vector2(panel.transform.position.x, panelPos + -(panelStep*step));
+            BattleCharObject newCharObject = Instantiate(battleCharPrefab, panelPosition, panel.transform.rotation, panel.transform);
+            newCharObject.transform.Translate(transform.right * -step/2);
+            newCharObject.SetCharacterObject(unit, (int)step);
+            objList.Add(newCharObject);
+            step++;
+        }
+    }
+
+    public void SwitchCharacterTeam(BaseCharacter unit)
+    {
+        if (playerUnits.Contains(unit))
+        {
+            playerUnits.Remove(unit);
+            enemyUnits.Add(unit);
+        }
+        else
+        {
+            enemyUnits.Remove(unit);
+            playerUnits.Add(unit);
+        }
+        CreateCharObjectDisplay(playerObjPanel, playerUnits, playerBattleObjects);
+        CreateCharObjectDisplay(enemyObjPanel, enemyUnits, enemyBattleObjects);
     }
 
     private void Update()
@@ -70,10 +106,7 @@ public class BattleManager : MonoBehaviour
         {
             SelectTargetControl();
         }
-    }
-    private void FixedUpdate()
-    {
-        if (_state == GameState.EnemyAttack)
+        else if (_state == GameState.EnemyAttack)
         {
             BattleControl();
         }
@@ -81,6 +114,7 @@ public class BattleManager : MonoBehaviour
 
     public void SetNewAttacker()
     {
+        playerBattleObjects[battleIndex].TickConditions();
         battleIndex++;
         if (battleIndex >= playerUnits.Count)
         {
@@ -102,7 +136,15 @@ public class BattleManager : MonoBehaviour
         else
         {
             _state = GameState.AttackMenu;
-            portrait.sprite = playerUnits[battleIndex].charPortrait;
+            if (playerUnits[battleIndex].unit is PlayerUnit)
+            {
+                PlayerUnit character = (PlayerUnit)playerUnits[battleIndex].unit;
+                portrait.sprite = character.charPortrait;
+            }
+            else
+            {
+                portrait.sprite = playerUnits[battleIndex].unit.battleSprite;
+            }
         }
     }
 
@@ -154,7 +196,10 @@ public class BattleManager : MonoBehaviour
 
     public void SelectSkillButton()
     {
-        OpenSubMenu(playerUnits[battleIndex].skills);
+        if (playerUnits[battleIndex].skills.Count != 0)
+        {
+            OpenSubMenu(playerUnits[battleIndex].skills);
+        }
     }
 
     public void SelectItemsButton()
@@ -165,12 +210,15 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<BattleCharObject> targets;
     private int currentSelectTarget;
     private bool selectSpecificTarget;
+    private List<BattleCharObject> targetArray;
     private Ability currentAbility;
     private void PlayerSelectTargets(Ability ability)
     {
         targets.Clear();
         _state = GameState.SelectingTargets;
         currentAbility = ability;
+        currentSelectTarget = 0;
+        selectSpecificTarget = false;
         ShowAttackLabel(ability.name);
         switch (ability.GetAction().targetingType)
         {
@@ -180,6 +228,7 @@ public class BattleManager : MonoBehaviour
                     i.SetDeselected();
                 }
                 selectSpecificTarget = true;
+                targetArray = enemyBattleObjects;
                 enemyBattleObjects[currentSelectTarget].SetYellow();
                 targets.Add(enemyBattleObjects[currentSelectTarget]);
                 break;
@@ -189,7 +238,35 @@ public class BattleManager : MonoBehaviour
                     i.SetYellow();
                     targets.Add(i);
                 }
-                selectSpecificTarget = false;
+                targetArray = enemyBattleObjects;
+                break;
+            case TargetingType.SingleAlly:
+                foreach (BattleCharObject i in playerBattleObjects)
+                {
+                    i.SetDeselected();
+                }
+                selectSpecificTarget = true;
+                targetArray = playerBattleObjects;
+                playerBattleObjects[currentSelectTarget].SetYellow();
+                targets.Add(playerBattleObjects[currentSelectTarget]);
+                break;
+            case TargetingType.AllAllies:
+                foreach (BattleCharObject i in playerBattleObjects)
+                {
+                    i.SetYellow();
+                    targets.Add(i);
+                }
+                targetArray = playerBattleObjects;
+                break;
+            case TargetingType.Self:
+                foreach (BattleCharObject i in playerBattleObjects)
+                {
+                    i.SetDeselected();
+                }
+                currentSelectTarget = battleIndex;
+                targetArray = playerBattleObjects;
+                playerBattleObjects[currentSelectTarget].SetYellow();
+                targets.Add(playerBattleObjects[currentSelectTarget]);
                 break;
             default:
                 Debug.LogError("Error Getting Action Target");
@@ -203,30 +280,29 @@ public class BattleManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                enemyBattleObjects[currentSelectTarget].SetDeselected();
-                targets.Remove(enemyBattleObjects[currentSelectTarget]);
+                targetArray[currentSelectTarget].SetDeselected();
+                targets.Remove(targetArray[currentSelectTarget]);
                 currentSelectTarget++;
-                if (currentSelectTarget >= enemyBattleObjects.Length)
+                if (currentSelectTarget >= targetArray.Count)
                     currentSelectTarget = 0;
-                targets.Add(enemyBattleObjects[currentSelectTarget]);
-                enemyBattleObjects[currentSelectTarget].SetYellow();
-
+                targets.Add(targetArray[currentSelectTarget]);
+                targetArray[currentSelectTarget].SetYellow();
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                enemyBattleObjects[currentSelectTarget].SetDeselected();
-                targets.Remove(enemyBattleObjects[currentSelectTarget]);
+                targetArray[currentSelectTarget].SetDeselected();
+                targets.Remove(targetArray[currentSelectTarget]);
                 currentSelectTarget--;
                 if (currentSelectTarget < 0)
-                    currentSelectTarget = enemyBattleObjects.Length - 1;
-                targets.Add(enemyBattleObjects[currentSelectTarget]);
-                enemyBattleObjects[currentSelectTarget].SetYellow();
+                    currentSelectTarget = targetArray.Count - 1;
+                targets.Add(targetArray[currentSelectTarget]);
+                targetArray[currentSelectTarget].SetYellow();
             }
         }
         
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            foreach (BattleCharObject i in enemyBattleObjects)
+            foreach (BattleCharObject i in targetArray)
             {
                 i.SetWhite();
             }
@@ -250,7 +326,7 @@ public class BattleManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            foreach(BattleCharObject i in enemyBattleObjects)
+            foreach(BattleCharObject i in targetArray)
             {
                 i.SetWhite();
             }
@@ -275,22 +351,22 @@ public class BattleManager : MonoBehaviour
         attackField.SetActive(true);
         sliderValue = 0;
         critChanceObject.localPosition = new Vector2(Random.Range(35, 80), 0);
-        critChanceObject.sizeDelta = new Vector2(action.critChance + playerUnits[battleIndex].baseStats.critChance, 20);
+        critChanceObject.sizeDelta = new Vector2(action.critChance + playerUnits[battleIndex].currentStats.critChance, 20);
 
         hitChanceObject.localPosition = new Vector2(critChanceObject.localPosition.x - (critChanceObject.sizeDelta.x * 0.5f), 0);
-        hitChanceObject.sizeDelta = new Vector2(action.accuracy + playerUnits[battleIndex].baseStats.accuracy, 20);
+        hitChanceObject.sizeDelta = new Vector2(action.accuracy + playerUnits[battleIndex].currentStats.accuracy, 20);
         _state = GameState.PlayerAttack;
     }
     private void PhysicalAttackControl()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) || sliderValue == 100)
         {
-            if (sliderPos.position.x >= critChanceObject.position.x - critChanceObject.sizeDelta.x && sliderPos.position.x <= critChanceObject.position.x)
+            if (sliderPos.position.x >= critChanceObject.position.x - critChanceObject.sizeDelta.x - 5 && sliderPos.position.x <= critChanceObject.position.x + 5)
             {
                 int damage = Random.Range(currentAbility.GetAction().damage * 2 - 10, currentAbility.GetAction().damage * 2 + 10);
                 AttackHit(damage, currentAbility.GetAction());
             }
-            else if (sliderPos.position.x >= hitChanceObject.position.x - hitChanceObject.sizeDelta.x && sliderPos.position.x <= hitChanceObject.position.x)
+            else if (sliderPos.position.x >= hitChanceObject.position.x - hitChanceObject.sizeDelta.x - 5 && sliderPos.position.x <= hitChanceObject.position.x + 5)
             {
                 int damage = Random.Range(currentAbility.GetAction().damage - 10, currentAbility.GetAction().damage + 10);
                 AttackHit(damage, currentAbility.GetAction());
@@ -298,7 +374,7 @@ public class BattleManager : MonoBehaviour
             attackField.SetActive(false);
             SetNewAttacker();
         }
-        sliderValue += sliderSpeed * Time.fixedDeltaTime;
+        sliderValue += sliderSpeed * Time.deltaTime;
         attackSlider.value = sliderValue;
     }
 
@@ -306,9 +382,16 @@ public class BattleManager : MonoBehaviour
     {
         foreach (BattleCharObject i in targets)
         {
-            if (damage < 0)
-                damage = 0;
-            i.TakeDamage(damage, action);
+            if (action.healAction)
+            {
+                i.TakeDamage(damage, action, Color.green);
+            }
+            else
+            {
+                if (damage < 0)
+                    damage = 0;
+                i.TakeDamage(damage, action, Color.white);
+            }
         }
     }
 
@@ -332,7 +415,7 @@ public class BattleManager : MonoBehaviour
             subMenuItems.Clear();
             Destroy(oldSkill.gameObject);
         }
-           
+
         foreach (Ability abilityItem in abilityList)
         {
             SubMenuButton newItem = Instantiate(subMenuItemPrefab, subMenuArea.transform.position, Quaternion.identity, subMenuArea.transform).GetComponent<SubMenuButton>();
@@ -346,40 +429,44 @@ public class BattleManager : MonoBehaviour
     }
     private void SubMenuControl()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (subMenuItems.Count != 0)
         {
-            subMenuItems[currentSubButton].DeselectButton();
-            currentSubButton++;
-            if (currentSubButton >= subMenuItems.Count)
-                currentSubButton = 0;
-            subMenuItems[currentSubButton].SelectButton();
-
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            subMenuItems[currentSubButton].DeselectButton();
-            currentSubButton--;
-            if (currentSubButton < 0)
-                currentSubButton = subMenuItems.Count - 1;
-            subMenuItems[currentSubButton].SelectButton();
-        }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Ability selectedAbility = subMenuItems[currentSubButton].GetSkill();
-            CloseSubMenu();
-            if (selectedAbility is Spell)
+            if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                Spell spell = selectedAbility as Spell;
-                if (GameManager.instance.stamina >= spell.staminaCost)
+                subMenuItems[currentSubButton].DeselectButton();
+                currentSubButton++;
+                if (currentSubButton >= subMenuItems.Count)
+                    currentSubButton = 0;
+                subMenuItems[currentSubButton].SelectButton();
+
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                subMenuItems[currentSubButton].DeselectButton();
+                currentSubButton--;
+                if (currentSubButton < 0)
+                    currentSubButton = subMenuItems.Count - 1;
+                subMenuItems[currentSubButton].SelectButton();
+            }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                Ability selectedAbility = subMenuItems[currentSubButton].GetSkill();
+                CloseSubMenu();
+                if (selectedAbility is Spell)
                 {
-                    PlayerSelectTargets(spell);
+                    Spell spell = selectedAbility as Spell;
+                    if (GameManager.instance.stamina >= spell.staminaCost)
+                    {
+                        PlayerSelectTargets(spell);
+                    }
+                }
+                else if (selectedAbility is ThrowableItem)
+                {
+                    PlayerSelectTargets(selectedAbility as ThrowableItem);
                 }
             }
-            else if (selectedAbility is ThrowableItem)
-            {
-                PlayerSelectTargets(selectedAbility as ThrowableItem);
-            }
         }
+        
         if (Input.GetKeyDown(KeyCode.X))
         {
             CloseSubMenu();
@@ -409,6 +496,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            enemyBattleObjects[enemyIndex].TickConditions();
             if (!enemyUnits[enemyIndex].downed)
             {
                 int damage = Random.Range(enemyUnits[enemyIndex].weapon.attack.damage - 10, enemyUnits[enemyIndex].weapon.attack.damage + 10);
@@ -427,8 +515,9 @@ public class BattleManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         targets.Clear();
-        targets.Add(playerBattleObjects[Random.Range(0, playerBattleObjects.Length)]);
+        targets.Add(playerBattleObjects[Random.Range(0, playerBattleObjects.Count)]);
         AttackHit(damage, action);
+        yield return new WaitForSeconds(0.25f);
         attackLabelField.SetActive(false);
         enemyIndex++;
         BeginEnemyAttack();
@@ -480,6 +569,7 @@ public enum TargetingType
     SingleEnemy,
     AllEnemies,
     SingleAlly,
-    AllAllies
+    AllAllies,
+    Self
 }
 

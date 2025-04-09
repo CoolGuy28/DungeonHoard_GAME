@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
-    public List<PlayerCharacter> party;
+    public List<BaseCharacter> party;
     public List<ItemSlot> items;
     public int maxStamina;
     public int stamina;
@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
-
     void Awake()
     {
         if (_instance == null)
@@ -32,7 +31,7 @@ public class GameManager : MonoBehaviour
                 Destroy(gameObject);
         }
 
-        foreach (PlayerCharacter character in party)
+        foreach (BaseCharacter character in party)
             character.InitialiseChar();
     }
 
@@ -76,23 +75,32 @@ public class GameManager : MonoBehaviour
 [System.Serializable]
 public class BaseCharacter
 {
-    public string charName;
+    public BaseUnit unit;
     public bool downed;
-    public Stats baseStats;
-    public Weapon weapon;
+    public Stats currentStats;
     public int currentHealth;
+    public Weapon weapon;
+    public List<Ability> skills;
     public List<ConditionStats> conditions = new List<ConditionStats>();
-    public Sprite battleSprite;
+    
     public void InitialiseChar()
     {
-        currentHealth = baseStats.maxHealth;
+        currentStats = unit.baseStats;
+        weapon = unit.weapon;
+        skills = unit.skills;
+        currentHealth = currentStats.maxHealth;
     }
-    public void TakeDamage(int damage)
+    public void AdjustHealth(int value)
     {
-        currentHealth -= damage;
+        currentHealth -= value;
         if (currentHealth <= 0)
         {
             downed = true;
+            currentHealth = 0;
+        }
+        if (currentHealth > currentStats.maxHealth)
+        {
+            currentHealth = currentStats.maxHealth;
         }
     }
 
@@ -101,9 +109,27 @@ public class BaseCharacter
         foreach (ConditionStats c in conditions)
         {
             if (c.condition == addCondition.condition)
+            {
+                if (addCondition.timeFrame == -1 || c.timeFrame < addCondition.timeFrame)
+                    c.timeFrame = addCondition.timeFrame;
+                if (addCondition.level > c.level)
+                    c.level = addCondition.level;
                 return;
+            }
         }
         conditions.Add(addCondition);
+    }
+
+    public void RemoveCondition(Condition removeCondition)
+    {
+        foreach (ConditionStats c in conditions)
+        {
+            if (c.condition == removeCondition)
+            {
+                conditions.Remove(c);
+                return;
+            }
+        }
     }
 }
 
@@ -112,6 +138,7 @@ public class Action
 {
     public TargetingType targetingType;
     public int damage;
+    public bool healAction;
     public GameObject particleEffect;
     public ConditionStats[] applyCondition;
     public int conditionChance;
@@ -140,13 +167,6 @@ public class Ability : ScriptableObject
 }
 
 [System.Serializable]
-public class PlayerCharacter : BaseCharacter
-{
-    public Sprite charPortrait;
-    public List<Ability> skills;
-}
-
-[System.Serializable]
 public struct Stats
 {
     public int attack;
@@ -164,8 +184,16 @@ public class ItemSlot
 
 
 [System.Serializable]
-public struct ConditionStats
+public class ConditionStats
 {
     public Condition condition;
     public int timeFrame;
+    public int level;
+
+    public ConditionStats(Condition condition, int timeFrame, int level)
+    {
+        this.condition = condition;
+        this.timeFrame = timeFrame;
+        this.level = level;
+    }
 }

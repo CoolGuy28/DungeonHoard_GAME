@@ -16,11 +16,8 @@ MonoBehaviour:
   staminaCost: 10
   spellAttack:
     targetingType: 2
-    magicAction: 0
     damage: -20
-    accuracy: 0
-    critChance: 0
-    applyCondition:
-      condition: 0
-      timeFrame: 0
+    healAction: 1
+    particleEffect: {fileID: 0}
+    applyCondition: []
     conditionChance: 0

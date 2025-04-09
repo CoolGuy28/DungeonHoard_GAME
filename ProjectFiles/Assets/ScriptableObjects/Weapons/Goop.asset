@@ -16,10 +16,12 @@ MonoBehaviour:
   attack:
     targetingType: 0
     damage: 20
+    healAction: 0
     particleEffect: {fileID: 2399189984805459437, guid: c285186d5564da6479816fab77197b15, type: 3}
     applyCondition:
-    - condition: {fileID: 11400000, guid: bc2e8bf28594c7c45b1521849bd401f8, type: 2}
-      timeFrame: 0
+    - condition: {fileID: 11400000, guid: b1fce2f7427f34148a297068eea0997d, type: 2}
+      timeFrame: 3
+      level: 0
     conditionChance: 60
     accuracy: 0
     critChance: 0

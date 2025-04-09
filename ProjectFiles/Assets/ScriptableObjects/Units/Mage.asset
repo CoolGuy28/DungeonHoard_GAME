@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c630c9596b7e7145b3faaa39f97f727, type: 3}
+  m_Name: Mage
+  m_EditorClassIdentifier: 
+  baseStats:
+    attack: 8
+    maxHealth: 100
+    accuracy: 25
+    critChance: 10
+  weapon: {fileID: 11400000, guid: ace91fe8348e88441a13a807f035e88b, type: 2}
+  skills:
+  - {fileID: 11400000, guid: 518b3968894023947901df36ae1620b4, type: 2}
+  - {fileID: 11400000, guid: e2f61887b4e0d4c41b04c644fe5f50b0, type: 2}
+  - {fileID: 11400000, guid: 71dbe8aa76d21054b902fd9dc14939ee, type: 2}
+  battleSprite: {fileID: 21300000, guid: 130cdd4d1a9d80244a0ebf8f433f7124, type: 3}
+  charPortrait: {fileID: 21300000, guid: 0860564c0937a4a42bde38d49847ed0d, type: 3}

@@ -9,19 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4b72233dbb7efa498d7006061519f39, type: 3}
-  m_Name: Knife
+  m_Script: {fileID: 11500000, guid: 9b2e93b78d90c1744815b9382c95b795, type: 3}
+  m_Name: Suicidal Thoughts
   m_EditorClassIdentifier: 
   description: 
-  attack:
-    targetingType: 0
-    damage: 10
+  staminaCost: 0
+  spellAttack:
+    targetingType: 4
+    damage: 999
     healAction: 0
     particleEffect: {fileID: 2399189984805459437, guid: c285186d5564da6479816fab77197b15, type: 3}
-    applyCondition:
-    - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
-      timeFrame: 3
-      level: 0
-    conditionChance: 80
-    accuracy: 40
-    critChance: 20
+    applyCondition: []
+    conditionChance: 0
