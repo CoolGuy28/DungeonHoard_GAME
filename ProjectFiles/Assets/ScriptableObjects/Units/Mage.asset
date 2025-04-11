@@ -15,12 +15,17 @@ MonoBehaviour:
   baseStats:
     attack: 8
     maxHealth: 100
+    defence: 1
+    healingEffect: 1
     accuracy: 25
     critChance: 10
-  weapon: {fileID: 11400000, guid: ace91fe8348e88441a13a807f035e88b, type: 2}
+  weapon: {fileID: 11400000, guid: 4e54b38e510a86643ad9370dcb05a447, type: 2}
   skills:
-  - {fileID: 11400000, guid: 518b3968894023947901df36ae1620b4, type: 2}
-  - {fileID: 11400000, guid: e2f61887b4e0d4c41b04c644fe5f50b0, type: 2}
-  - {fileID: 11400000, guid: 71dbe8aa76d21054b902fd9dc14939ee, type: 2}
-  battleSprite: {fileID: 21300000, guid: 130cdd4d1a9d80244a0ebf8f433f7124, type: 3}
+  - {fileID: 11400000, guid: 3bac7468edebf684596c0c80b0168047, type: 2}
+  - {fileID: 11400000, guid: 08d6ed6907284664099ea42ed4d1634a, type: 2}
+  - {fileID: 11400000, guid: e2671744404a9c1429ef1fa9493202bb, type: 2}
+  - {fileID: 11400000, guid: f4c4c4a760a60d548b9fb15f335061da, type: 2}
+  battleSprite: {fileID: 21300000, guid: f661c995c8dd91c41b3c4be0cc7197a8, type: 3}
+  attackSprite: {fileID: 21300000, guid: 26375803a00c0e84aa67c3de02144ccf, type: 3}
+  damageSprite: {fileID: 21300000, guid: e9bbee0b672779e46a4a4a8b15b624d6, type: 3}
   charPortrait: {fileID: 21300000, guid: 0860564c0937a4a42bde38d49847ed0d, type: 3}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class BattleManager : MonoBehaviour
@@ -14,21 +15,15 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private TMP_Text attackLabel;
     [SerializeField] private MenuButton[] menuButtons;
     [SerializeField] private Image portrait;
-    [SerializeField] private List<BaseCharacter> playerUnits;
-    [SerializeField] private List<BaseCharacter> enemyUnits;
+    [SerializeField] private List<CharacterData> playerUnits;
+    [SerializeField] private List<CharacterData> enemyUnits;
     private int battleIndex;
     [SerializeField] private BattleCharObject battleCharPrefab;
     [SerializeField] private GameObject playerObjPanel;
     [SerializeField] private GameObject enemyObjPanel;
     [SerializeField] private List<BattleCharObject> playerBattleObjects;
     [SerializeField] private List<BattleCharObject> enemyBattleObjects;
-
-    [Header("EnemyAttackSettings")]
-    [SerializeField] private GameObject enemyAttackField;
-    [SerializeField] private GameObject player;
-    [SerializeField] private float moveSpeed;
-    //[SerializeField] private float borderOffset = 0.4f;
-    [SerializeField] private GameObject[] enemyAttacks;
+    [SerializeField] private List<BattleCharObject> attackOrder;
 
     private void Start()
     {
@@ -37,21 +32,27 @@ public class BattleManager : MonoBehaviour
         AdjustStamina(0);
         attackField.SetActive(false);
         subMenuField.SetActive(false);
-        enemyAttackField.SetActive(false);
+        magicAttackField.SetActive(false);
         attackLabelField.SetActive(false);
         foreach (var button in menuButtons)
             button.DeselectButton();
         menuButtons[currentMenuButton].SelectButton();
         
-        foreach (BaseCharacter unit in enemyUnits)
+        foreach (CharacterData unit in enemyUnits)
             unit.InitialiseChar();
 
-        CreateCharObjectDisplay(playerObjPanel, playerUnits, playerBattleObjects);
-        CreateCharObjectDisplay(enemyObjPanel, enemyUnits, enemyBattleObjects);
+        CreateAttackScene();
         SetActiveAttacker();
     }
 
-    private void CreateCharObjectDisplay(GameObject panel, List<BaseCharacter> unitList, List<BattleCharObject> objList)
+    private void CreateAttackScene()
+    {
+        attackOrder.Clear();
+        CreateCharObjectDisplay(playerObjPanel, playerUnits, playerBattleObjects);
+        CreateCharObjectDisplay(enemyObjPanel, enemyUnits, enemyBattleObjects);
+    }
+
+    private void CreateCharObjectDisplay(GameObject panel, List<CharacterData> unitList, List<BattleCharObject> objList)
     {
         foreach (BattleCharObject c in objList)
         {
@@ -61,19 +62,21 @@ public class BattleManager : MonoBehaviour
         float panelPos = panel.transform.position.y + (float)6.3 / 2;
         float panelStep = (float)6.3/unitList.Count;
         float step = 0.5f;
-        foreach (BaseCharacter unit in unitList)
+        foreach (CharacterData unit in unitList)
         {
             Vector2 panelPosition = new Vector2(panel.transform.position.x, panelPos + -(panelStep*step));
             BattleCharObject newCharObject = Instantiate(battleCharPrefab, panelPosition, panel.transform.rotation, panel.transform);
             newCharObject.transform.Translate(transform.right * -step/2);
             newCharObject.SetCharacterObject(unit, (int)step);
             objList.Add(newCharObject);
+            attackOrder.Add(newCharObject);
             step++;
         }
     }
 
-    public void SwitchCharacterTeam(BaseCharacter unit)
+    public void SwitchCharacterTeam(CharacterData unit)
     {
+        StopAllCoroutines();
         if (playerUnits.Contains(unit))
         {
             playerUnits.Remove(unit);
@@ -84,12 +87,20 @@ public class BattleManager : MonoBehaviour
             enemyUnits.Remove(unit);
             playerUnits.Add(unit);
         }
-        CreateCharObjectDisplay(playerObjPanel, playerUnits, playerBattleObjects);
-        CreateCharObjectDisplay(enemyObjPanel, enemyUnits, enemyBattleObjects);
+        CreateAttackScene();
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            _state = GameState.MagicAttack;
+            magicAttackField.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
         if (_state == GameState.AttackMenu)
         {
             MenuControl();
@@ -106,20 +117,20 @@ public class BattleManager : MonoBehaviour
         {
             SelectTargetControl();
         }
-        else if (_state == GameState.EnemyAttack)
+        else if (_state == GameState.MagicAttack)
         {
-            BattleControl();
+            MagicControl();
         }
     }
 
-    public void SetNewAttacker()
+    private void SetNewAttacker()
     {
-        playerBattleObjects[battleIndex].TickConditions();
+        attackOrder[battleIndex].TickConditions();
         battleIndex++;
-        if (battleIndex >= playerUnits.Count)
+        if (battleIndex >= attackOrder.Count)
         {
             battleIndex = 0;
-            BeginEnemyAttack();
+            SetActiveAttacker();
         }
         else
         {
@@ -129,21 +140,28 @@ public class BattleManager : MonoBehaviour
 
     private void SetActiveAttacker()
     {
-        if (playerUnits[battleIndex].downed)
+        if (attackOrder[battleIndex].GetCharacter().downed)
         {
             SetNewAttacker();
         }
         else
         {
-            _state = GameState.AttackMenu;
-            if (playerUnits[battleIndex].unit is PlayerUnit)
+            if (playerUnits.Contains(attackOrder[battleIndex].GetCharacter()))
             {
-                PlayerUnit character = (PlayerUnit)playerUnits[battleIndex].unit;
-                portrait.sprite = character.charPortrait;
+                _state = GameState.AttackMenu;
+                if (playerUnits[battleIndex].unit is Unit_Player)
+                {
+                    Unit_Player character = (Unit_Player)playerUnits[battleIndex].unit;
+                    portrait.sprite = character.charPortrait;
+                }
+                else
+                {
+                    portrait.sprite = playerUnits[battleIndex].unit.battleSprite;
+                }
             }
             else
             {
-                portrait.sprite = playerUnits[battleIndex].unit.battleSprite;
+                BeginEnemyAttack();
             }
         }
     }
@@ -198,8 +216,13 @@ public class BattleManager : MonoBehaviour
     {
         if (playerUnits[battleIndex].skills.Count != 0)
         {
-            OpenSubMenu(playerUnits[battleIndex].skills);
+            OpenSubMenu(playerUnits[battleIndex].GetSkills());
         }
+    }
+
+    public void SelectGuardButton(Skill skill)
+    {
+        PlayerSelectTargets(skill);
     }
 
     public void SelectItemsButton()
@@ -306,20 +329,28 @@ public class BattleManager : MonoBehaviour
             {
                 i.SetWhite();
             }
-            if (currentAbility is Spell)
+            switch (currentAbility)
             {
-                PlayerMagicAction();
-                Spell spell = currentAbility as Spell;
-                AdjustStamina(-spell.staminaCost);
-            }
-            else if(currentAbility is ThrowableItem)
-            {
-                PlayerPhysicalAttack(currentAbility.GetAction() as PhysicalAction);
-                GameManager.instance.UseItem(currentAbility as ThrowableItem);
-            }
-            else if (currentAbility is Weapon)
-            {
-                PlayerPhysicalAttack(currentAbility.GetAction() as PhysicalAction);
+                case Item_Weapon:
+                    PlayerPhysicalAttack(currentAbility.GetAction());
+                    break;
+                case Item_Usable:
+                    Item_Usable item = currentAbility as Item_Usable;
+                    if (item.attackItem)
+                    {
+                        PlayerPhysicalAttack(currentAbility.GetAction());
+                    }
+                    else
+                    {
+                        PlayerMagicAction();
+                    }
+                    GameManager.instance.UseItem(currentAbility as Item_Usable);
+                    break;
+                case Skill:
+                    PlayerMagicAction();
+                    Skill spell = currentAbility as Skill;
+                    AdjustStamina(-spell.staminaCost);
+                    break;
             }
 
             attackLabelField.SetActive(false);
@@ -346,7 +377,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private float sliderSpeed;
     
 
-    private void PlayerPhysicalAttack(PhysicalAction action)
+    private void PlayerPhysicalAttack(Action action)
     {
         attackField.SetActive(true);
         sliderValue = 0;
@@ -380,17 +411,22 @@ public class BattleManager : MonoBehaviour
 
     private void AttackHit(int damage, Action action)
     {
+        StartCoroutine(attackOrder[battleIndex].SetSprite(0, 0.75f));
         foreach (BattleCharObject i in targets)
         {
             if (action.healAction)
             {
-                i.TakeDamage(damage, action, Color.green);
+                i.HealCharacter(damage, action);
             }
             else
             {
-                if (damage < 0)
+                if (damage <= 0)
                     damage = 0;
-                i.TakeDamage(damage, action, Color.white);
+                else
+                {
+                    StartCoroutine(i.SetSprite(1, 0.75f));
+                }
+                i.TakeDamage((int)(damage * i.GetCharacter().currentStats.defence), action, Color.white);
             }
         }
     }
@@ -452,17 +488,17 @@ public class BattleManager : MonoBehaviour
             {
                 Ability selectedAbility = subMenuItems[currentSubButton].GetSkill();
                 CloseSubMenu();
-                if (selectedAbility is Spell)
+                if (selectedAbility is Skill)
                 {
-                    Spell spell = selectedAbility as Spell;
-                    if (GameManager.instance.stamina >= spell.staminaCost)
+                    Skill skill = selectedAbility as Skill;
+                    if (GameManager.instance.stamina >= skill.staminaCost)
                     {
-                        PlayerSelectTargets(spell);
+                        PlayerSelectTargets(skill);
                     }
                 }
-                else if (selectedAbility is ThrowableItem)
+                else if (selectedAbility is Item_Usable)
                 {
-                    PlayerSelectTargets(selectedAbility as ThrowableItem);
+                    PlayerSelectTargets(selectedAbility as Item_Usable);
                 }
             }
         }
@@ -480,7 +516,6 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    private int enemyIndex;
     private void BeginEnemyAttack()
     {
         //enemyAttackField.SetActive(true);
@@ -488,27 +523,9 @@ public class BattleManager : MonoBehaviour
         //StartCoroutine(AttackTimer(5f));
         _state = GameState.EnemyAttack;
 
-
-        if (enemyIndex >= enemyUnits.Count)
-        {
-            enemyIndex = 0;
-            SetActiveAttacker();
-        }
-        else
-        {
-            enemyBattleObjects[enemyIndex].TickConditions();
-            if (!enemyUnits[enemyIndex].downed)
-            {
-                int damage = Random.Range(enemyUnits[enemyIndex].weapon.attack.damage - 10, enemyUnits[enemyIndex].weapon.attack.damage + 10);
-                ShowAttackLabel(enemyUnits[enemyIndex].weapon.name);
-                StartCoroutine(EnemyPhysicalAttack(damage, enemyUnits[enemyIndex].weapon.attack));
-            }
-            else
-            {
-                enemyIndex++;
-                BeginEnemyAttack();
-            }
-        }
+        int damage = Random.Range(attackOrder[battleIndex].GetCharacter().weapon.action.damage - 10, attackOrder[battleIndex].GetCharacter().weapon.action.damage + 10);
+        ShowAttackLabel(attackOrder[battleIndex].GetCharacter().weapon.name);
+        StartCoroutine(EnemyPhysicalAttack(damage, attackOrder[battleIndex].GetCharacter().weapon.action));
     }
 
     private IEnumerator EnemyPhysicalAttack(int damage, Action action)
@@ -519,39 +536,51 @@ public class BattleManager : MonoBehaviour
         AttackHit(damage, action);
         yield return new WaitForSeconds(0.25f);
         attackLabelField.SetActive(false);
-        enemyIndex++;
-        BeginEnemyAttack();
+        SetNewAttacker();
     }
-    private void BattleControl()
+
+    [Header("EnemyAttackSettings")]
+    [SerializeField] private GameObject magicAttackField;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject caster;
+    [SerializeField] private GameObject catingPoint;
+    [SerializeField] private float moveSpeed;
+    private void MagicControl()
     {
         /*Vector2 movement = new Vector2(0f, 0f);
-        if (Input.GetKey(KeyCode.LeftArrow) && player.transform.position.x >= (enemyAttackField.transform.position.x - enemyAttackField.transform.lossyScale.x * 0.5) + borderOffset)
+        if (Input.GetKey(KeyCode.LeftArrow) && player.transform.position.x >= (magicAttackField.transform.position.x - magicAttackField.transform.lossyScale.x * 0.5))
             movement += new Vector2(-1, 0);
 
-        if (Input.GetKey(KeyCode.RightArrow) && player.transform.position.x <= (enemyAttackField.transform.position.x + enemyAttackField.transform.lossyScale.x * 0.5) - borderOffset)
+        if (Input.GetKey(KeyCode.RightArrow) && player.transform.position.x <= (magicAttackField.transform.position.x + magicAttackField.transform.lossyScale.x * 0.5))
             movement += new Vector2(1, 0);
 
-        if (Input.GetKey(KeyCode.UpArrow) && player.transform.position.y <= (enemyAttackField.transform.position.y + enemyAttackField.transform.lossyScale.y * 0.5) - borderOffset)
+        if (Input.GetKey(KeyCode.UpArrow) && player.transform.position.y <= (magicAttackField.transform.position.y + magicAttackField.transform.lossyScale.y * 0.5))
             movement += new Vector2(0, 1);
 
-        if (Input.GetKey(KeyCode.DownArrow) && player.transform.position.y >= (enemyAttackField.transform.position.y - enemyAttackField.transform.lossyScale.y * 0.5) + borderOffset)
+        if (Input.GetKey(KeyCode.DownArrow) && player.transform.position.y >= (magicAttackField.transform.position.y - magicAttackField.transform.lossyScale.y * 0.5))
             movement += new Vector2(0, -1);
 
         movement.Normalize();
         player.transform.Translate(movement * Time.deltaTime * moveSpeed);*/
-    }
 
-    private IEnumerator AttackTimer(float time)
-    {
-        yield return new WaitForSeconds(time);
-        foreach (GameObject attack in enemyAttacks)
-            attack.SetActive(false);
-        foreach (Transform bullet in ObjectPool.instance.transform)
-            bullet.gameObject.SetActive(false);
-        enemyAttackField.SetActive(false);
-        SetActiveAttacker();
-    }
+        float movement = 0f;
+        if (Input.GetKey(KeyCode.LeftArrow))
+            movement = -1;
 
+        if (Input.GetKey(KeyCode.RightArrow))
+            movement = 1;
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            GameObject bullet = ObjectPool.instance.GetPooledObject();
+            bullet.SetActive(true);
+            bullet.transform.position = catingPoint.transform.position;
+            bullet.transform.rotation = catingPoint.transform.rotation;
+            bullet.GetComponent<Projectile>().active = true;
+        }
+
+        caster.transform.rotation *= Quaternion.Euler(0, 0, movement * moveSpeed);
+    }
 
 }
 
@@ -561,7 +590,8 @@ public enum GameState
     SubMenu,
     SelectingTargets,
     PlayerAttack,
-    EnemyAttack
+    EnemyAttack,
+    MagicAttack
 }
 
 public enum TargetingType

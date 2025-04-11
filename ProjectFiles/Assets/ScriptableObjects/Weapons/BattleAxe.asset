@@ -9,15 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4b72233dbb7efa498d7006061519f39, type: 3}
-  m_Name: BattleAxe
+  m_Script: {fileID: 11500000, guid: d88ef49be1d1b0146b5b50d9b543e18e, type: 3}
+  m_Name: Battleaxe
   m_EditorClassIdentifier: 
   description: 
-  attack:
+  action:
     targetingType: 0
+    healAction: 0
     damage: 30
     particleEffect: {fileID: 2399189984805459437, guid: c285186d5564da6479816fab77197b15, type: 3}
-    applyCondition: []
-    conditionChance: 0
-    accuracy: 30
-    critChance: 10
+    applyConditions:
+    - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+      timeFrame: 9
+      level: 0
+    conditionChance: 8
+    removeConditions: []
+    accuracy: 25
+    critChance: 8
+  attackItem: 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ConditionDOT", menuName = "Condition/DamageOverTime")]
-public class Condition_DOT : Condition
+public class Condition_DOT : Condition_StatChange
 {
     public int[] damagePerTurn;
     public Color damageColor = Color.white;
@@ -16,6 +16,7 @@ public class Condition_DOT : Condition
     public override void OnConditionEnd(BattleCharObject battleCharObject, int level)
     {
         battleCharObject.TakeDamage(damagePerTurn[level], damageColor);
+        battleCharObject.GetCharacter().AdjustStats(statAdjust, -1);
         battleCharObject.GetCharacter().RemoveCondition(this);
     }
 }

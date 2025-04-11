@@ -15,9 +15,15 @@ MonoBehaviour:
   baseStats:
     attack: 20
     maxHealth: 100
+    defence: 1
+    healingEffect: 1
     accuracy: 25
     critChance: 10
   weapon: {fileID: 11400000, guid: 2c480476105573147ac55e33b827a7dc, type: 2}
-  skills: []
-  battleSprite: {fileID: 21300000, guid: 3f2a1c74d917d93438c93fecfb086a56, type: 3}
+  skills:
+  - {fileID: 11400000, guid: f4397a44941e0f342a046da6bb6109df, type: 2}
+  - {fileID: 11400000, guid: 26c50d5e411b8b042a88d81c560cf3a1, type: 2}
+  battleSprite: {fileID: 21300000, guid: ee827a89d23d1394187d00a306223529, type: 3}
+  attackSprite: {fileID: 21300000, guid: 3c7544485d07858449341a5ad3130147, type: 3}
+  damageSprite: {fileID: 21300000, guid: e0a553eb105835a4f89740c320bfb92d, type: 3}
   charPortrait: {fileID: 21300000, guid: e09598f6cd42e3c43a3b834d5f1f1155, type: 3}

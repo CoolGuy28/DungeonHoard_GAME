@@ -14,5 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite:
   - {fileID: 21300000, guid: fd4dbe6500fe7fb45bc079d33d85152a, type: 3}
+  statAdjust:
+    attack: 0
+    maxHealth: 0
+    defence: 0
+    healingEffect: 0
+    accuracy: -10
+    critChance: 0
   damagePerTurn: 05000000
   damageColor: {r: 0.67436194, g: 0.2950338, b: 0.735849, a: 1}

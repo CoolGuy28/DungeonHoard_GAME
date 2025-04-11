@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -56991693
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 8
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -116,7 +116,7 @@ MonoBehaviour:
   settings:
     activeDelay: 0
     ignoreRotation: 0
-    projectileSpeed: 8
+    projectileSpeed: -8
     changeSpeedOverTime: 0
     reachedTargetSpeed: 0
     flipBetweenSpeeds: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
     rotSpeed: 0
     startRot: 0
     shooterRot: 0
-  active: 0
+  active: 1
 --- !u!50 &8239935934463162506
 Rigidbody2D:
   serializedVersion: 4

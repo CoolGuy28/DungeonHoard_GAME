@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
-    public List<BaseCharacter> party;
+    public List<CharacterData> party;
     public List<ItemSlot> items;
     public int maxStamina;
     public int stamina;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
                 Destroy(gameObject);
         }
 
-        foreach (BaseCharacter character in party)
+        foreach (CharacterData character in party)
             character.InitialiseChar();
     }
 
@@ -72,128 +72,3 @@ public class GameManager : MonoBehaviour
     }
 }
 
-[System.Serializable]
-public class BaseCharacter
-{
-    public BaseUnit unit;
-    public bool downed;
-    public Stats currentStats;
-    public int currentHealth;
-    public Weapon weapon;
-    public List<Ability> skills;
-    public List<ConditionStats> conditions = new List<ConditionStats>();
-    
-    public void InitialiseChar()
-    {
-        currentStats = unit.baseStats;
-        weapon = unit.weapon;
-        skills = unit.skills;
-        currentHealth = currentStats.maxHealth;
-    }
-    public void AdjustHealth(int value)
-    {
-        currentHealth -= value;
-        if (currentHealth <= 0)
-        {
-            downed = true;
-            currentHealth = 0;
-        }
-        if (currentHealth > currentStats.maxHealth)
-        {
-            currentHealth = currentStats.maxHealth;
-        }
-    }
-
-    public void AddCondition(ConditionStats addCondition)
-    {
-        foreach (ConditionStats c in conditions)
-        {
-            if (c.condition == addCondition.condition)
-            {
-                if (addCondition.timeFrame == -1 || c.timeFrame < addCondition.timeFrame)
-                    c.timeFrame = addCondition.timeFrame;
-                if (addCondition.level > c.level)
-                    c.level = addCondition.level;
-                return;
-            }
-        }
-        conditions.Add(addCondition);
-    }
-
-    public void RemoveCondition(Condition removeCondition)
-    {
-        foreach (ConditionStats c in conditions)
-        {
-            if (c.condition == removeCondition)
-            {
-                conditions.Remove(c);
-                return;
-            }
-        }
-    }
-}
-
-[System.Serializable]
-public class Action
-{
-    public TargetingType targetingType;
-    public int damage;
-    public bool healAction;
-    public GameObject particleEffect;
-    public ConditionStats[] applyCondition;
-    public int conditionChance;
-}
-
-[System.Serializable]
-public class PhysicalAction : Action
-{
-    public float accuracy;
-    public float critChance;
-}
-
-[System.Serializable]
-public class MagicAction : Action
-{
-}
-
-public class Ability : ScriptableObject
-{
-    [TextArea(5, 20)] public string description;
-    
-    public virtual Action GetAction()
-    {
-        return null;
-    }
-}
-
-[System.Serializable]
-public struct Stats
-{
-    public int attack;
-    public int maxHealth;
-    public float accuracy;
-    public float critChance;
-}
-
-[System.Serializable]
-public class ItemSlot
-{
-    public Item item;
-    public int quantity;
-}
-
-
-[System.Serializable]
-public class ConditionStats
-{
-    public Condition condition;
-    public int timeFrame;
-    public int level;
-
-    public ConditionStats(Condition condition, int timeFrame, int level)
-    {
-        this.condition = condition;
-        this.timeFrame = timeFrame;
-        this.level = level;
-    }
-}

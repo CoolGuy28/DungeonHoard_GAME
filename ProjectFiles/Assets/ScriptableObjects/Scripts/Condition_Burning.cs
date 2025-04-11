@@ -10,7 +10,7 @@ public class Condition_Burning : Condition_DOT
         battleCharObject.TakeDamage(damagePerTurn[level], damageColor);
         if (level < 2)
         {
-            battleCharObject.GetCharacter().AddCondition(new ConditionStats(this, 3, level + 1));
+            battleCharObject.GetCharacter().AddCondition(new ConditionStats(this, 3, level + 1), battleCharObject);
         }
         else
         {

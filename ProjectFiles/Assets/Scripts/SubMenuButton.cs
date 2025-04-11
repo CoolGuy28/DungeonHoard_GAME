@@ -31,10 +31,10 @@ public class SubMenuButton : MonoBehaviour
     {
         this.ability = ability;
         nameText.text = ability.name;
-        if (ability is Spell)
+        if (ability is Skill)
         {
-            Spell spell = ability as Spell;
-            costText.text = spell.staminaCost.ToString();
+            Skill skill = ability as Skill;
+            costText.text = skill.staminaCost.ToString();
         }
         else if (ability is Item)
         {
