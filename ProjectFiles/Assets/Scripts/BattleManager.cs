@@ -16,18 +16,20 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private MenuButton[] menuButtons;
     [SerializeField] private Image portrait;
     [SerializeField] private List<CharacterData> playerUnits;
+    [SerializeField] private List<CharacterData> randomEnemies;
     [SerializeField] private List<CharacterData> enemyUnits;
-    private int battleIndex;
     [SerializeField] private BattleCharObject battleCharPrefab;
     [SerializeField] private GameObject playerObjPanel;
     [SerializeField] private GameObject enemyObjPanel;
     [SerializeField] private List<BattleCharObject> playerBattleObjects;
     [SerializeField] private List<BattleCharObject> enemyBattleObjects;
-    [SerializeField] private List<BattleCharObject> attackOrder;
 
     private void Start()
     {
         playerUnits = GameManager.instance.party;
+        enemyUnits.Clear();
+        for (int i = 0; i < 3; i++)
+            enemyUnits.Add(randomEnemies[Random.Range(0,randomEnemies.Count)]);
         staminaSlider.maxValue = GameManager.instance.maxStamina;
         AdjustStamina(0);
         attackField.SetActive(false);
@@ -41,13 +43,14 @@ public class BattleManager : MonoBehaviour
         foreach (CharacterData unit in enemyUnits)
             unit.InitialiseChar();
 
+        playerStartPos = player.transform.position;
+        currentActiveTeam = playerBattleObjects;
         CreateAttackScene();
         SetActiveAttacker();
     }
 
     private void CreateAttackScene()
     {
-        attackOrder.Clear();
         CreateCharObjectDisplay(playerObjPanel, playerUnits, playerBattleObjects);
         CreateCharObjectDisplay(enemyObjPanel, enemyUnits, enemyBattleObjects);
     }
@@ -69,7 +72,6 @@ public class BattleManager : MonoBehaviour
             newCharObject.transform.Translate(transform.right * -step/2);
             newCharObject.SetCharacterObject(unit, (int)step);
             objList.Add(newCharObject);
-            attackOrder.Add(newCharObject);
             step++;
         }
     }
@@ -95,6 +97,7 @@ public class BattleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             _state = GameState.MagicAttack;
+            casting = true;
             magicAttackField.SetActive(true);
         }
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -119,18 +122,31 @@ public class BattleManager : MonoBehaviour
         }
         else if (_state == GameState.MagicAttack)
         {
-            MagicControl();
+            MagicAttackControl();
         }
     }
 
+    private bool enemyTurn;
+    private List<BattleCharObject> currentActiveTeam;
+    private int battleIndex;
     private void SetNewAttacker()
     {
-        attackOrder[battleIndex].TickConditions();
+        currentActiveTeam[battleIndex].TickConditions();
         battleIndex++;
-        if (battleIndex >= attackOrder.Count)
+        if (battleIndex >= currentActiveTeam.Count)
         {
             battleIndex = 0;
-            SetActiveAttacker();
+            enemyTurn = !enemyTurn;
+            if (enemyTurn)
+            {
+                currentActiveTeam = enemyBattleObjects;
+                BeginMagicPhase(true);
+            }
+            else
+            {
+                currentActiveTeam = playerBattleObjects;
+                BeginMagicPhase(false);
+            }   
         }
         else
         {
@@ -140,13 +156,13 @@ public class BattleManager : MonoBehaviour
 
     private void SetActiveAttacker()
     {
-        if (attackOrder[battleIndex].GetCharacter().downed)
+        if (currentActiveTeam[battleIndex].GetCharacter().downed)
         {
             SetNewAttacker();
         }
         else
         {
-            if (playerUnits.Contains(attackOrder[battleIndex].GetCharacter()))
+            if (!enemyTurn)
             {
                 _state = GameState.AttackMenu;
                 if (playerUnits[battleIndex].unit is Unit_Player)
@@ -336,20 +352,42 @@ public class BattleManager : MonoBehaviour
                     break;
                 case Item_Usable:
                     Item_Usable item = currentAbility as Item_Usable;
-                    if (item.attackItem)
+                    if (item.action.targetingType == TargetingType.AllEnemies || item.action.targetingType == TargetingType.SingleEnemy)
                     {
                         PlayerPhysicalAttack(currentAbility.GetAction());
                     }
                     else
                     {
-                        PlayerMagicAction();
+                        ApplyAction(currentAbility.GetAction().damageStats);
                     }
                     GameManager.instance.UseItem(currentAbility as Item_Usable);
                     break;
-                case Skill:
-                    PlayerMagicAction();
-                    Skill spell = currentAbility as Skill;
+                case Skill_Magic:
+                    Skill_Magic spell = currentAbility as Skill_Magic;
+                    if (spell.action.targetingType == TargetingType.AllEnemies || spell.action.targetingType == TargetingType.SingleEnemy)
+                    {
+                        magicPatterns = spell.magicPattern;
+                        castingSpeed = spell.castingSpeed;
+                        mageTargets = targets;
+                        SetNewAttacker();
+                    }
+                    else
+                    {
+                        ApplyAction(currentAbility.GetAction().damageStats);
+                    }
                     AdjustStamina(-spell.staminaCost);
+                    break;
+                case Skill:
+                    Skill skill = currentAbility as Skill;
+                    if (skill.action.targetingType == TargetingType.AllEnemies || skill.action.targetingType == TargetingType.SingleEnemy)
+                    {
+                        PlayerPhysicalAttack(currentAbility.GetAction());
+                    }
+                    else
+                    {
+                        ApplyAction(currentAbility.GetAction().damageStats);
+                    }
+                    AdjustStamina(-skill.staminaCost);
                     break;
             }
 
@@ -382,7 +420,7 @@ public class BattleManager : MonoBehaviour
         attackField.SetActive(true);
         sliderValue = 0;
         critChanceObject.localPosition = new Vector2(Random.Range(35, 80), 0);
-        critChanceObject.sizeDelta = new Vector2(action.critChance + playerUnits[battleIndex].currentStats.critChance, 20);
+        critChanceObject.sizeDelta = new Vector2(action.critChance + (playerUnits[battleIndex].currentStats.accuracy * playerUnits[battleIndex].currentStats.critPercent), 20);
 
         hitChanceObject.localPosition = new Vector2(critChanceObject.localPosition.x - (critChanceObject.sizeDelta.x * 0.5f), 0);
         hitChanceObject.sizeDelta = new Vector2(action.accuracy + playerUnits[battleIndex].currentStats.accuracy, 20);
@@ -394,13 +432,13 @@ public class BattleManager : MonoBehaviour
         {
             if (sliderPos.position.x >= critChanceObject.position.x - critChanceObject.sizeDelta.x - 5 && sliderPos.position.x <= critChanceObject.position.x + 5)
             {
-                int damage = Random.Range(currentAbility.GetAction().damage * 2 - 10, currentAbility.GetAction().damage * 2 + 10);
-                AttackHit(damage, currentAbility.GetAction());
+                DamageStats critStats = new DamageStats(currentAbility.GetAction().damageStats);
+                critStats.damage = (int)(critStats.damage * playerUnits[battleIndex].currentStats.critMultiplyer);
+                AttackHit(critStats);
             }
             else if (sliderPos.position.x >= hitChanceObject.position.x - hitChanceObject.sizeDelta.x - 5 && sliderPos.position.x <= hitChanceObject.position.x + 5)
             {
-                int damage = Random.Range(currentAbility.GetAction().damage - 10, currentAbility.GetAction().damage + 10);
-                AttackHit(damage, currentAbility.GetAction());
+                AttackHit(currentAbility.GetAction().damageStats);
             }
             attackField.SetActive(false);
             SetNewAttacker();
@@ -409,32 +447,130 @@ public class BattleManager : MonoBehaviour
         attackSlider.value = sliderValue;
     }
 
-    private void AttackHit(int damage, Action action)
+    private void AttackHit(DamageStats damageStats)
     {
-        StartCoroutine(attackOrder[battleIndex].SetSprite(0, 0.75f));
+        StartCoroutine(currentActiveTeam[battleIndex].SetSprite(0, 0.75f));
         foreach (BattleCharObject i in targets)
         {
-            if (action.healAction)
+            StartCoroutine(i.SetSprite(1, 0.75f));
+            i.TakeDamage(damageStats);
+        }
+    }
+
+    private void ApplyAction(DamageStats damageStats)
+    {
+        foreach (BattleCharObject i in targets)
+        {
+            i.TakeDamage(damageStats);
+        }
+        SetNewAttacker();
+    }
+
+    [Header("MagicAttackSettings")]
+    [SerializeField] private GameObject magicAttackField;
+    [SerializeField] private GameObject player;
+    private Vector2 playerStartPos;
+    [SerializeField] private GameObject caster;
+    [SerializeField] private BaseShooter castingObj;
+    [SerializeField] private float playerMoveSpeed;
+    [SerializeField] private float casterMoveSpeed;
+    private bool casting;
+    private PatternSettings magicPatterns;
+    public List<BattleCharObject> mageTargets;
+    private float castingSpeed;
+    private float timeBtwCast;
+    private bool canCast = true;
+    private void BeginMagicPhase(bool playerCasting)
+    {
+        player.transform.position = playerStartPos;
+        if (magicPatterns != null)
+        {
+            _state = GameState.MagicAttack;
+            magicAttackField.SetActive(true);
+            castingObj.pattern = magicPatterns;
+            casting = playerCasting;
+            timeBtwCast = 0;
+            canCast = true;
+            StartCoroutine(MagicAttackTimer(6f));
+        }
+        else
+        {
+            SetActiveAttacker();
+        }
+    }
+    private void MagicAttackControl()
+    {
+        if (timeBtwCast <= 0)
+        {
+            canCast = true;
+        }
+        else
+        {
+            timeBtwCast -= 1 * Time.deltaTime;
+        }
+
+        if (casting)
+        {
+            float movement = 0f;
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow))
+                movement = -1;
+
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow))
+                movement = 1;
+
+            if (canCast && Input.GetKeyDown(KeyCode.Z))
             {
-                i.HealCharacter(damage, action);
+                castingObj.ActivatePatternSpawner();
+                canCast = false;
+                timeBtwCast = castingSpeed;
             }
-            else
+
+            caster.transform.rotation *= Quaternion.Euler(0, 0, movement * casterMoveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            Vector2 movement = new Vector2(0f, 0f);
+            if (Input.GetKey(KeyCode.LeftArrow) && player.transform.position.x >= (magicAttackField.transform.position.x - magicAttackField.transform.lossyScale.x * 0.5))
+                movement += new Vector2(-1, 0);
+
+            if (Input.GetKey(KeyCode.RightArrow) && player.transform.position.x <= (magicAttackField.transform.position.x + magicAttackField.transform.lossyScale.x * 0.5))
+                movement += new Vector2(1, 0);
+
+            if (Input.GetKey(KeyCode.UpArrow) && player.transform.position.y <= (magicAttackField.transform.position.y + magicAttackField.transform.lossyScale.y * 0.5))
+                movement += new Vector2(0, 1);
+
+            if (Input.GetKey(KeyCode.DownArrow) && player.transform.position.y >= (magicAttackField.transform.position.y - magicAttackField.transform.lossyScale.y * 0.5))
+                movement += new Vector2(0, -1);
+
+            movement.Normalize();
+            player.transform.Translate(movement * Time.deltaTime * playerMoveSpeed);
+
+            //EnemyCaster
+            caster.transform.rotation *= Quaternion.Euler(0, 0, 0.5f * casterMoveSpeed * Time.deltaTime);
+            if (canCast)
             {
-                if (damage <= 0)
-                    damage = 0;
-                else
-                {
-                    StartCoroutine(i.SetSprite(1, 0.75f));
-                }
-                i.TakeDamage((int)(damage * i.GetCharacter().currentStats.defence), action, Color.white);
+                castingObj.ActivatePatternSpawner();
+                canCast = false;
+                timeBtwCast = castingSpeed;
             }
         }
     }
 
-    private void PlayerMagicAction()
+    private IEnumerator MagicAttackTimer(float time)
     {
-        AttackHit(currentAbility.GetAction().damage, currentAbility.GetAction());
-        SetNewAttacker();
+        yield return new WaitForSeconds(time);
+        SetActiveAttacker();
+        magicPatterns = null;
+        magicAttackField.SetActive(false);
+    }
+
+    public void MagicAttackHit(DamageStats damageStats)
+    {
+        foreach (BattleCharObject i in mageTargets)
+        {
+            StartCoroutine(i.SetSprite(1, 0.75f));
+            i.TakeDamage(damageStats);
+        }
     }
 
     [Header("AbilitySettings")]
@@ -518,69 +654,88 @@ public class BattleManager : MonoBehaviour
 
     private void BeginEnemyAttack()
     {
-        //enemyAttackField.SetActive(true);
-        //enemyAttacks[Random.Range(0,enemyAttacks.Length)].SetActive(true);
-        //StartCoroutine(AttackTimer(5f));
         _state = GameState.EnemyAttack;
-
-        int damage = Random.Range(attackOrder[battleIndex].GetCharacter().weapon.action.damage - 10, attackOrder[battleIndex].GetCharacter().weapon.action.damage + 10);
-        ShowAttackLabel(attackOrder[battleIndex].GetCharacter().weapon.name);
-        StartCoroutine(EnemyPhysicalAttack(damage, attackOrder[battleIndex].GetCharacter().weapon.action));
+        int useSkill = Random.Range(0, 5);
+        if (useSkill > 2)
+        {
+            List<Ability> enemySkills = currentActiveTeam[battleIndex].GetCharacter().GetSkills();
+            currentAbility = enemySkills[Random.Range(0, enemySkills.Count)];
+        }
+        else
+        {
+            currentAbility = currentActiveTeam[battleIndex].GetCharacter().weapon;
+        }
+        ShowAttackLabel(currentAbility.name);
+        StartCoroutine(EnemyAttack());
     }
 
-    private IEnumerator EnemyPhysicalAttack(int damage, Action action)
+    private List<BattleCharObject> EnemyChooseTargets(TargetingType targeting)
+    {
+        List<BattleCharObject> enemyTargets = new List<BattleCharObject>();
+        switch (targeting)
+        {
+            case TargetingType.SingleEnemy:
+                enemyTargets.Add(playerBattleObjects[Random.Range(0, playerBattleObjects.Count)]);
+                break;
+            case TargetingType.AllEnemies:
+                enemyTargets = playerBattleObjects;
+                break;
+            case TargetingType.SingleAlly:
+                enemyTargets.Add(enemyBattleObjects[Random.Range(0, enemyBattleObjects.Count)]);
+                break;
+            case TargetingType.AllAllies:
+                enemyTargets = enemyBattleObjects;
+                break;
+            case TargetingType.Self:
+                enemyTargets.Add(currentActiveTeam[battleIndex]);
+                break;
+        }
+        return enemyTargets;
+    }
+
+    private IEnumerator EnemyAttack()
     {
         yield return new WaitForSeconds(1f);
         targets.Clear();
-        targets.Add(playerBattleObjects[Random.Range(0, playerBattleObjects.Count)]);
-        AttackHit(damage, action);
-        yield return new WaitForSeconds(0.25f);
-        attackLabelField.SetActive(false);
-        SetNewAttacker();
-    }
-
-    [Header("EnemyAttackSettings")]
-    [SerializeField] private GameObject magicAttackField;
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject caster;
-    [SerializeField] private GameObject catingPoint;
-    [SerializeField] private float moveSpeed;
-    private void MagicControl()
-    {
-        /*Vector2 movement = new Vector2(0f, 0f);
-        if (Input.GetKey(KeyCode.LeftArrow) && player.transform.position.x >= (magicAttackField.transform.position.x - magicAttackField.transform.lossyScale.x * 0.5))
-            movement += new Vector2(-1, 0);
-
-        if (Input.GetKey(KeyCode.RightArrow) && player.transform.position.x <= (magicAttackField.transform.position.x + magicAttackField.transform.lossyScale.x * 0.5))
-            movement += new Vector2(1, 0);
-
-        if (Input.GetKey(KeyCode.UpArrow) && player.transform.position.y <= (magicAttackField.transform.position.y + magicAttackField.transform.lossyScale.y * 0.5))
-            movement += new Vector2(0, 1);
-
-        if (Input.GetKey(KeyCode.DownArrow) && player.transform.position.y >= (magicAttackField.transform.position.y - magicAttackField.transform.lossyScale.y * 0.5))
-            movement += new Vector2(0, -1);
-
-        movement.Normalize();
-        player.transform.Translate(movement * Time.deltaTime * moveSpeed);*/
-
-        float movement = 0f;
-        if (Input.GetKey(KeyCode.LeftArrow))
-            movement = -1;
-
-        if (Input.GetKey(KeyCode.RightArrow))
-            movement = 1;
-
-        if (Input.GetKeyDown(KeyCode.Z))
+        targets.AddRange(EnemyChooseTargets(currentAbility.GetAction().targetingType));
+        switch (currentAbility)
         {
-            GameObject bullet = ObjectPool.instance.GetPooledObject();
-            bullet.SetActive(true);
-            bullet.transform.position = catingPoint.transform.position;
-            bullet.transform.rotation = catingPoint.transform.rotation;
-            bullet.GetComponent<Projectile>().active = true;
+            case Item_Weapon:
+                AttackHit(currentAbility.GetAction().damageStats);
+                SetNewAttacker();
+                break;
+            case Skill_Magic:
+                Skill_Magic spell = currentAbility as Skill_Magic;
+                if (spell.action.targetingType == TargetingType.AllEnemies || spell.action.targetingType == TargetingType.SingleEnemy)
+                {
+                    magicPatterns = spell.magicPattern;
+                    castingSpeed = spell.castingSpeed;
+                    mageTargets = targets;
+                    SetNewAttacker();
+                }
+                else
+                {
+                    ApplyAction(currentAbility.GetAction().damageStats);
+                }
+                break;
+            case Skill:
+                Skill skill = currentAbility as Skill;
+                if (skill.action.targetingType == TargetingType.AllEnemies || skill.action.targetingType == TargetingType.SingleEnemy)
+                {
+                    AttackHit(currentAbility.GetAction().damageStats);
+                    SetNewAttacker();
+                }
+                else
+                {
+                    ApplyAction(currentAbility.GetAction().damageStats);
+                }
+                break;
         }
-
-        caster.transform.rotation *= Quaternion.Euler(0, 0, movement * moveSpeed);
+        yield return new WaitForSeconds(0.4f);
+        attackLabelField.SetActive(false);
     }
+
+
 
 }
 

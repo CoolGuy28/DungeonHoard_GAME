@@ -16,5 +16,36 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d7056290e8b02dc439425b5048102368, type: 3}
   - {fileID: 21300000, guid: ea6e525d9c39b3a4abd88f47a893a774, type: 3}
   - {fileID: 21300000, guid: 7078fb47f2e44ed42983431b9fd1066a, type: 3}
-  damagePerTurn: 03000000070000000f000000
-  damageColor: {r: 0.9433962, g: 0.49300563, b: 0.12014952, a: 1}
+  statAdjust:
+    attack: 0
+    maxHealth: 0
+    defence: 0
+    healingEffect: 0
+    fireRes: 0
+    poisonRes: 0
+    coldRes: 0
+    accuracy: 0
+    critPercent: 0
+    critMultiplyer: 0
+  damagePerTurn:
+  - damage: 3
+    damageType: 3
+    randomVarience: 0
+    particleEffect: {fileID: 0}
+    applyConditions: []
+    conditionChance: 0
+    removeConditions: []
+  - damage: 6
+    damageType: 3
+    randomVarience: 0
+    particleEffect: {fileID: 0}
+    applyConditions: []
+    conditionChance: 0
+    removeConditions: []
+  - damage: 9
+    damageType: 3
+    randomVarience: 0
+    particleEffect: {fileID: 0}
+    applyConditions: []
+    conditionChance: 0
+    removeConditions: []

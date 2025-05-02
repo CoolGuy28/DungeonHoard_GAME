@@ -636,7 +636,7 @@ GameObject:
   - component: {fileID: 333516737}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1080,6 +1080,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 456781629}
+  - component: {fileID: 456781630}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1095,7 +1096,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456781628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.515, z: 0}
+  m_LocalPosition: {x: -0.00000047304374, y: -0.5149996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1104,6 +1105,53 @@ Transform:
   m_Father: {fileID: 1171210167}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &456781630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456781628}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ece0f7a186f0ad479d2e3b64924ee7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleManager: {fileID: 1452403453}
+  pattern:
+    rotationOffset: 0
+    bulletRot: 0
+    spawnDistance: -0.42
+    shotArray:
+    - createBullet: 1
+      projectileSettings:
+        projectileSpeed: 4
+      color: {r: 0, g: 0, b: 0, a: 0}
+      damageStats:
+        damage: 0
+        damageType: 0
+        randomVarience: 0
+        particleEffect: {fileID: 0}
+        applyConditions: []
+        conditionChance: 0
+        removeConditions: []
+      bulletSize: 0.12
+    randomizeShotArray: 0
+    increaseShotIndexPerBullet: 0
+    increaseShotIndexPerEcho: 0
+    burstPattern: 1
+    burstCount: 13
+    burstRange: 1.36
+    burstDelay: 0
+    randomBurst: 0
+    radialShootStraight: 0
+    symmetry: 0
+    echoCount: 0
+    echoDelay: 0
+    createGroup: 0
+    groupedProjectileSettings:
+      projectileSpeed: 8
+  echoIndex: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,101 +1235,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &538747509
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 538747511}
-  - component: {fileID: 538747510}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &538747510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538747509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2752ef623952cb34c9d98e9ccdc70d9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  party:
-  - unit: {fileID: 11400000, guid: 591c3b491cd9c884b8573726dac4d64b, type: 2}
-    downed: 0
-    currentStats:
-      attack: 0
-      maxHealth: 0
-      defence: 0
-      healingEffect: 0
-      accuracy: 0
-      critChance: 0
-    currentHealth: 0
-    weapon: {fileID: 0}
-    skills: []
-    conditions: []
-  - unit: {fileID: 11400000, guid: e0094aee843de56429a9cbab385743cf, type: 2}
-    downed: 0
-    currentStats:
-      attack: 0
-      maxHealth: 0
-      defence: 0
-      healingEffect: 0
-      accuracy: 0
-      critChance: 0
-    currentHealth: 0
-    weapon: {fileID: 0}
-    skills: []
-    conditions: []
-  - unit: {fileID: 11400000, guid: 29e8e7d6c34d4094a8131fbf9e123c66, type: 2}
-    downed: 0
-    currentStats:
-      attack: 0
-      maxHealth: 0
-      defence: 0
-      healingEffect: 0
-      accuracy: 0
-      critChance: 0
-    currentHealth: 0
-    weapon: {fileID: 0}
-    skills: []
-    conditions: []
-  items:
-  - item: {fileID: 11400000, guid: e0f56111d62e8a54eafaa1592d026d62, type: 2}
-    quantity: 8
-  - item: {fileID: 11400000, guid: 0c3a9f335967a8948813b346e9a08d22, type: 2}
-    quantity: 4
-  - item: {fileID: 11400000, guid: 989e1088b3e6ed144b47fdc0b4020ed3, type: 2}
-    quantity: 13
-  - item: {fileID: 11400000, guid: 46981450c13d8414ea6210a2bdb61150, type: 2}
-    quantity: 2
-  maxStamina: 100
-  stamina: 100
---- !u!4 &538747511
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538747509}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 362.06696, y: 258.05023, z: -3.241295}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &563977352
 GameObject:
@@ -1506,12 +1459,13 @@ GameObject:
   - component: {fileID: 710217691}
   - component: {fileID: 710217692}
   - component: {fileID: 710217693}
+  - component: {fileID: 710217694}
   m_Layer: 0
   m_Name: MagicAttackBox (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &710217691
 Transform:
@@ -1596,6 +1550,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.50000006
+--- !u!50 &710217694
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710217690}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &787086372
 GameObject:
   m_ObjectHideFlags: 0
@@ -3103,7 +3078,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 42b10ded64d2d2e44a2096aeda42a152, type: 3}
-  m_Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
+  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3342,8 +3317,12 @@ MonoBehaviour:
       maxHealth: 0
       defence: 0
       healingEffect: 0
+      fireRes: 1
+      poisonRes: 1
+      coldRes: 1
       accuracy: 0
-      critChance: 0
+      critPercent: 0.1
+      critMultiplyer: 1.6
     currentHealth: 0
     weapon: {fileID: 0}
     skills: []
@@ -3355,8 +3334,12 @@ MonoBehaviour:
       maxHealth: 0
       defence: 0
       healingEffect: 0
+      fireRes: 1
+      poisonRes: 1
+      coldRes: 1
       accuracy: 0
-      critChance: 0
+      critPercent: 0.1
+      critMultiplyer: 1.6
     currentHealth: 0
     weapon: {fileID: 0}
     skills: []
@@ -3368,8 +3351,115 @@ MonoBehaviour:
       maxHealth: 0
       defence: 0
       healingEffect: 0
+      fireRes: 1
+      poisonRes: 1
+      coldRes: 1
       accuracy: 0
-      critChance: 0
+      critPercent: 0.1
+      critMultiplyer: 1.6
+    currentHealth: 0
+    weapon: {fileID: 0}
+    skills: []
+    conditions: []
+  randomEnemies:
+  - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
+    downed: 0
+    currentStats:
+      attack: 0
+      maxHealth: 0
+      defence: 0
+      healingEffect: 0
+      fireRes: 0
+      poisonRes: 0
+      coldRes: 0
+      accuracy: 0
+      critPercent: 0
+      critMultiplyer: 0
+    currentHealth: 0
+    weapon: {fileID: 0}
+    skills: []
+    conditions: []
+  - unit: {fileID: 11400000, guid: dafca0f36703ee24fb70819ee77a7e61, type: 2}
+    downed: 0
+    currentStats:
+      attack: 0
+      maxHealth: 0
+      defence: 0
+      healingEffect: 0
+      fireRes: 0
+      poisonRes: 0
+      coldRes: 0
+      accuracy: 0
+      critPercent: 0
+      critMultiplyer: 0
+    currentHealth: 0
+    weapon: {fileID: 0}
+    skills: []
+    conditions: []
+  - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+    downed: 0
+    currentStats:
+      attack: 0
+      maxHealth: 0
+      defence: 0
+      healingEffect: 0
+      fireRes: 0
+      poisonRes: 0
+      coldRes: 0
+      accuracy: 0
+      critPercent: 0
+      critMultiplyer: 0
+    currentHealth: 0
+    weapon: {fileID: 0}
+    skills: []
+    conditions: []
+  - unit: {fileID: 11400000, guid: effc594ba623cbc47ad1ee3306d84437, type: 2}
+    downed: 0
+    currentStats:
+      attack: 0
+      maxHealth: 0
+      defence: 0
+      healingEffect: 0
+      fireRes: 0
+      poisonRes: 0
+      coldRes: 0
+      accuracy: 0
+      critPercent: 0
+      critMultiplyer: 0
+    currentHealth: 0
+    weapon: {fileID: 0}
+    skills: []
+    conditions: []
+  - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
+    downed: 0
+    currentStats:
+      attack: 0
+      maxHealth: 0
+      defence: 0
+      healingEffect: 0
+      fireRes: 0
+      poisonRes: 0
+      coldRes: 0
+      accuracy: 0
+      critPercent: 0
+      critMultiplyer: 0
+    currentHealth: 0
+    weapon: {fileID: 0}
+    skills: []
+    conditions: []
+  - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
+    downed: 0
+    currentStats:
+      attack: 0
+      maxHealth: 0
+      defence: 0
+      healingEffect: 0
+      fireRes: 0
+      poisonRes: 0
+      coldRes: 0
+      accuracy: 0
+      critPercent: 0
+      critMultiplyer: 0
     currentHealth: 0
     weapon: {fileID: 0}
     skills: []
@@ -3382,10 +3472,14 @@ MonoBehaviour:
       maxHealth: 0
       defence: 0
       healingEffect: 0
+      fireRes: 0
+      poisonRes: 0
+      coldRes: 0
       accuracy: 0
-      critChance: 0
+      critPercent: 0
+      critMultiplyer: 0
     currentHealth: 0
-    weapon: {fileID: 11400000, guid: 6c646cd5d1c01ff4bbb7e03ddb131c2b, type: 2}
+    weapon: {fileID: 0}
     skills: []
     conditions: []
   - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
@@ -3395,10 +3489,31 @@ MonoBehaviour:
       maxHealth: 0
       defence: 0
       healingEffect: 0
+      fireRes: 0
+      poisonRes: 0
+      coldRes: 0
       accuracy: 0
-      critChance: 0
+      critPercent: 0
+      critMultiplyer: 0
     currentHealth: 0
-    weapon: {fileID: 11400000, guid: 6c646cd5d1c01ff4bbb7e03ddb131c2b, type: 2}
+    weapon: {fileID: 0}
+    skills: []
+    conditions: []
+  - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
+    downed: 0
+    currentStats:
+      attack: 0
+      maxHealth: 0
+      defence: 0
+      healingEffect: 0
+      fireRes: 0
+      poisonRes: 0
+      coldRes: 0
+      accuracy: 0
+      critPercent: 0
+      critMultiplyer: 0
+    currentHealth: 0
+    weapon: {fileID: 0}
     skills: []
     conditions: []
   battleCharPrefab: {fileID: 3165915951637734912, guid: 74a07225de269e842b6cf9f6dd2574e8, type: 3}
@@ -3406,7 +3521,6 @@ MonoBehaviour:
   enemyObjPanel: {fileID: 836837297}
   playerBattleObjects: []
   enemyBattleObjects: []
-  attackOrder: []
   targets:
   - {fileID: 0}
   attackField: {fileID: 143094270}
@@ -3415,14 +3529,16 @@ MonoBehaviour:
   hitChanceObject: {fileID: 1212713697}
   sliderPos: {fileID: 261381118}
   sliderSpeed: 1
-  subMenuField: {fileID: 1315782778}
-  subMenuArea: {fileID: 838771942}
-  subMenuItemPrefab: {fileID: 1755846206981664854, guid: 164e71171e3092a4f9973e0f60d9ddbd, type: 3}
   magicAttackField: {fileID: 1067172832}
   player: {fileID: 333516735}
   caster: {fileID: 1171210166}
-  catingPoint: {fileID: 456781628}
-  moveSpeed: 0.5
+  castingObj: {fileID: 456781630}
+  playerMoveSpeed: 4
+  casterMoveSpeed: 300
+  mageTargets: []
+  subMenuField: {fileID: 1315782778}
+  subMenuArea: {fileID: 838771942}
+  subMenuItemPrefab: {fileID: 1755846206981664854, guid: 164e71171e3092a4f9973e0f60d9ddbd, type: 3}
 --- !u!1 &1517294476
 GameObject:
   m_ObjectHideFlags: 0
@@ -3780,3 +3896,62 @@ RectTransform:
   m_AnchoredPosition: {x: 0.95089, y: 0}
   m_SizeDelta: {x: -1.9018, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &7116283469398813567
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116283469937543434, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}

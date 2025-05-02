@@ -16,14 +16,16 @@ MonoBehaviour:
   staminaCost: 15
   action:
     targetingType: 0
-    healAction: 0
-    damage: 30
-    particleEffect: {fileID: 2399189984805459437, guid: c285186d5564da6479816fab77197b15, type: 3}
-    applyConditions:
-    - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
-      timeFrame: 6
-      level: 0
-    conditionChance: 90
-    removeConditions: []
-    accuracy: 0
-    critChance: 0
+    damageStats:
+      damage: 10
+      damageType: 0
+      randomVarience: 0
+      particleEffect: {fileID: 2399189984805459437, guid: c285186d5564da6479816fab77197b15, type: 3}
+      applyConditions:
+      - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+        timeFrame: 7
+        level: 0
+      conditionChance: 80
+      removeConditions: []
+    accuracy: 30
+    critChance: 10

@@ -15,15 +15,17 @@ MonoBehaviour:
   description: 
   action:
     targetingType: 0
-    healAction: 0
-    damage: 29
-    particleEffect: {fileID: 2399189984805459437, guid: c285186d5564da6479816fab77197b15, type: 3}
-    applyConditions:
-    - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
-      timeFrame: 2
-      level: 0
-    conditionChance: 70
-    removeConditions: []
+    damageStats:
+      damage: 6
+      damageType: 0
+      randomVarience: 2
+      particleEffect: {fileID: 2399189984805459437, guid: c285186d5564da6479816fab77197b15, type: 3}
+      applyConditions:
+      - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+        timeFrame: 3
+        level: 0
+      conditionChance: 60
+      removeConditions: []
     accuracy: 15
     critChance: 5
   attackItem: 1

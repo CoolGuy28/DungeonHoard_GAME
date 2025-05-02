@@ -16,12 +16,48 @@ MonoBehaviour:
   staminaCost: 5
   action:
     targetingType: 2
-    healAction: 1
-    damage: 10
-    particleEffect: {fileID: 0}
-    applyConditions: []
-    conditionChance: 0
-    removeConditions: []
+    damageStats:
+      damage: 30
+      damageType: 2
+      randomVarience: 5
+      particleEffect: {fileID: 0}
+      applyConditions: []
+      conditionChance: 0
+      removeConditions: []
     accuracy: 0
     critChance: 0
   corruption: 0
+  magicPattern:
+    rotationOffset: 0
+    bulletRot: 0
+    spawnDistance: 0
+    shotArray:
+    - createBullet: 1
+      projectileSettings:
+        projectileSpeed: 8
+      color: {r: 0, g: 0, b: 0, a: 0}
+      damageStats:
+        damage: 0
+        damageType: 0
+        randomVarience: 0
+        particleEffect: {fileID: 0}
+        applyConditions: []
+        conditionChance: 0
+        removeConditions: []
+      bulletSize: 0.5
+    randomizeShotArray: 0
+    increaseShotIndexPerBullet: 0
+    increaseShotIndexPerEcho: 0
+    burstPattern: 0
+    burstCount: 1
+    burstRange: 0
+    burstDelay: 0
+    randomBurst: 0
+    radialShootStraight: 0
+    symmetry: 0
+    echoCount: 0
+    echoDelay: 0
+    createGroup: 0
+    groupedProjectileSettings:
+      projectileSpeed: 8
+  castingSpeed: 0

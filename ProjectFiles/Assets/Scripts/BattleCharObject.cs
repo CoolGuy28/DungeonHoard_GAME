@@ -15,12 +15,16 @@ public class BattleCharObject : MonoBehaviour
     public void SetCharacterObject(CharacterData character, int spritePriority)
     {
         spriteObj = transform.GetChild(1).GetComponent<SpriteRenderer>();
-        spriteObj.sprite = character.unit.battleSprite;
         spriteObj.sortingOrder = spritePriority;
+        spriteObj.gameObject.transform.localScale = character.unit.spriteSize;
         this.character = character;
         if (character.downed)
         {
-            transform.rotation = Quaternion.Euler(transform.position.x, transform.position.y, -90);
+            spriteObj.sprite = character.unit.downedSprite;
+        }
+        else
+        {
+            spriteObj.sprite = character.unit.battleSprite;
         }
         InitialiseUI();
     }
@@ -34,75 +38,77 @@ public class BattleCharObject : MonoBehaviour
             UpdateConditionUI();
         }
     }
-
-    public void TakeDamage(int damage, Color damageColor)
+    public void TakeDamage(DamageStats damageStats)
     {
-        character.AdjustHealth(damage);
-        UpdateUI();
+        int damageAmount = Random.Range(damageStats.damage - damageStats.randomVarience, damageStats.damage + damageStats.randomVarience);
+        if (damageAmount < 0)
+            damageAmount = 0;
         GameObject damageText = Instantiate(damageTextPrefab, new Vector3(Random.Range(transform.position.x - 1, transform.position.x + 1), Random.Range(transform.position.y - 1, transform.position.y + 1), transform.position.z), Quaternion.identity);
-        damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damage.ToString();
-        damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = damageColor;
-        Destroy(damageText, 1.5f);
-        if (character.downed)
+        switch (damageStats.damageType)
         {
-            spriteObj.gameObject.transform.rotation = Quaternion.Euler(transform.position.x, transform.position.y, -90);
+            case DamageType.Physical:
+                damageAmount = (int)(damageAmount * character.currentStats.defence);
+                character.AdjustHealth(damageAmount);
+                break;
+            case DamageType.Magic:
+                character.AdjustHealth(damageAmount);
+                break;
+            case DamageType.Healing:
+                damageAmount = (int)(damageAmount * character.currentStats.healingEffect);
+                character.AdjustHealth(-damageAmount);
+                if (damageAmount <= 0)
+                    damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.green;
+                if (character.downed)
+                {
+                    spriteObj.sprite = character.unit.battleSprite;
+                }
+                break;
+            case DamageType.Fire:
+                damageAmount = (int)(damageAmount * character.currentStats.fireRes);
+                character.AdjustHealth(damageAmount);
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.red;
+                break;
+            case DamageType.Poison:
+                damageAmount = (int)(damageAmount * character.currentStats.poisonRes);
+                character.AdjustHealth(damageAmount);
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.magenta;
+                break;
+            case DamageType.Cold:
+                damageAmount = (int)(damageAmount * character.currentStats.coldRes);
+                character.AdjustHealth(damageAmount);
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.blue;
+                break;
+            default:
+                character.AdjustHealth(damageAmount);
+                break;
         }
-    }
-    public void TakeDamage(int damage, Action action, Color damageColor)
-    {
-        character.AdjustHealth(damage);
-        GameObject damageText = Instantiate(damageTextPrefab, new Vector3(Random.Range(transform.position.x - 1, transform.position.x + 1), Random.Range(transform.position.y - 1, transform.position.y + 1), transform.position.z), Quaternion.identity);
-        damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damage.ToString();
-        damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = damageColor;
+        damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageStats.damage.ToString();
         Destroy(damageText, 1.5f);
         if (character.downed)
         {
-            spriteObj.gameObject.transform.rotation = Quaternion.Euler(transform.position.x, transform.position.y, -90);
+            spriteObj.sprite = character.unit.downedSprite;
         }
         
-        if (action.particleEffect != null)
+        if (damageStats.particleEffect != null)
         {
-            Instantiate(action.particleEffect, transform.position, Quaternion.identity, transform);
+            Instantiate(damageStats.particleEffect, transform.position, Quaternion.identity, transform);
         }
-        if (action.applyConditions.Length != 0)
+        if (damageStats.applyConditions.Length != 0)
         {
-            foreach (ConditionStats condition in action.applyConditions)
+            foreach (ConditionStats condition in damageStats.applyConditions)
             {
                 int rand = Random.Range(0, 100);
-                if (rand <= action.conditionChance)
+                if (rand <= damageStats.conditionChance)
                 {
                     character.AddCondition(new ConditionStats(condition.condition, condition.timeFrame, condition.level), this);
                     UpdateConditionUI();
                 }
             }
         }
-        if (action.removeConditions.Length != 0)
+        if (damageStats.removeConditions.Length != 0)
         {
-            foreach (Condition removal in action.removeConditions)
-            {
-                character.RemoveCondition(removal);
-            }
-            UpdateConditionUI();
-        }
-        UpdateUI();
-    }
-
-    public void HealCharacter(int healAmount, Action action)
-    {
-        int heal = (int)(healAmount * character.currentStats.healingEffect);
-        character.AdjustHealth(-heal);
-        GameObject damageText = Instantiate(damageTextPrefab, new Vector3(Random.Range(transform.position.x - 1, transform.position.x + 1), Random.Range(transform.position.y - 1, transform.position.y + 1), transform.position.z), Quaternion.identity);
-        damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = heal.ToString();
-        damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.green;
-        Destroy(damageText, 1.5f);
-        if (character.downed)
-        {
-            spriteObj.gameObject.transform.rotation = Quaternion.Euler(transform.position.x, transform.position.y, 0);
-            character.downed = false;
-        }
-        if (action.removeConditions.Length != 0)
-        {
-            foreach (Condition removal in action.removeConditions)
+            foreach (Condition removal in damageStats.removeConditions)
             {
                 character.RemoveCondition(removal);
             }
@@ -182,15 +188,25 @@ public class BattleCharObject : MonoBehaviour
 
     public IEnumerator SetSprite(int i, float timeFrame)
     {
-        if (i == 0)
-            spriteObj.sprite = character.unit.attackSprite;
-        else if (i == 1)
-            spriteObj.sprite = character.unit.damageSprite;
-        else
-            spriteObj.sprite = character.unit.battleSprite;
+        if (!character.downed)
+        {
+            if (i == 0)
+                spriteObj.sprite = character.unit.attackSprite;
+            else if (i == 1)
+                spriteObj.sprite = character.unit.damageSprite;
+            else
+                spriteObj.sprite = character.unit.battleSprite;
 
-        yield return new WaitForSeconds(timeFrame);
+            yield return new WaitForSeconds(timeFrame);
 
-        spriteObj.sprite = character.unit.battleSprite;
+            if (character.downed)
+            {
+                spriteObj.sprite = character.unit.downedSprite;
+            }
+            else
+            {
+                spriteObj.sprite = character.unit.battleSprite;
+            }
+        }
     }
 }

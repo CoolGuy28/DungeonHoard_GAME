@@ -6,7 +6,6 @@ using UnityEngine;
 public class Item_Usable : Item
 {
     public Action action;
-    public bool attackItem;
 
     public override Action GetAction()
     {

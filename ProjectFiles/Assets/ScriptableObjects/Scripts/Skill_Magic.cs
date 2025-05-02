@@ -6,4 +6,6 @@ using UnityEngine;
 public class Skill_Magic : Skill
 {
     public int corruption;
+    public PatternSettings magicPattern;
+    public float castingSpeed;
 }

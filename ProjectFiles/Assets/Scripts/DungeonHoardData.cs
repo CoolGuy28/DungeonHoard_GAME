@@ -15,7 +15,7 @@ public class CharacterData
 
     public void InitialiseChar()
     {
-        currentStats = unit.baseStats;
+        currentStats = new Stats(unit.baseStats);
         weapon = unit.weapon;
         skills = unit.skills;
         currentHealth = currentStats.maxHealth;
@@ -28,6 +28,10 @@ public class CharacterData
             downed = true;
             currentHealth = 0;
         }
+        else
+        {
+            downed = false;
+        }
         if (currentHealth > currentStats.maxHealth)
         {
             currentHealth = currentStats.maxHealth;
@@ -36,12 +40,16 @@ public class CharacterData
 
     public void AdjustStats(Stats statAdjustment, int multiplyer)
     {
+        currentStats.attack += statAdjustment.attack * multiplyer;
         currentStats.maxHealth += statAdjustment.maxHealth * multiplyer;
         currentStats.defence += statAdjustment.defence * multiplyer;
         currentStats.healingEffect += statAdjustment.healingEffect * multiplyer;
-        currentStats.attack += statAdjustment.attack * multiplyer;
+        currentStats.fireRes += statAdjustment.fireRes * multiplyer;
+        currentStats.poisonRes += statAdjustment.poisonRes * multiplyer;
+        currentStats.coldRes += statAdjustment.coldRes * multiplyer;
         currentStats.accuracy += statAdjustment.accuracy * multiplyer;
-        currentStats.critChance += statAdjustment.critChance * multiplyer;
+        currentStats.critPercent += statAdjustment.critPercent * multiplyer;
+        currentStats.critMultiplyer += statAdjustment.critMultiplyer * multiplyer;
     }
 
     public void AddCondition(ConditionStats addCondition, BattleCharObject obj)
@@ -83,26 +91,39 @@ public class CharacterData
 }
 
 [System.Serializable]
-public struct Stats
+public class Stats
 {
-    public int attack;
-    public int maxHealth;
-    public float defence;
-    public float healingEffect;
-    public float accuracy;
-    public float critChance;
+    public float attack = 1;
+    public int maxHealth = 100;
+    public float defence = 1;
+    public float healingEffect = 1;
+    public float fireRes = 1;
+    public float poisonRes = 1;
+    public float coldRes = 1;
+    public float accuracy = 1;
+    public float critPercent = 0.1f;
+    public float critMultiplyer = 1.6f;
+
+    public Stats(Stats stats)
+    {
+        this.attack = stats.attack;
+        this.maxHealth = stats.maxHealth;
+        this.defence = stats.defence;
+        this.healingEffect = stats.healingEffect;
+        this.fireRes = stats.fireRes;
+        this.poisonRes = stats.poisonRes;
+        this.coldRes = stats.coldRes;
+        accuracy = stats.accuracy;
+        critPercent = stats.critPercent;
+        critMultiplyer = stats.critMultiplyer;
+    }
 }
 
 [System.Serializable]
 public class Action
 {
     public TargetingType targetingType;
-    public bool healAction;
-    public int damage;
-    public GameObject particleEffect;
-    public ConditionStats[] applyConditions;
-    public int conditionChance;
-    public Condition[] removeConditions;
+    public DamageStats damageStats;
     public float accuracy;
     public float critChance;
 }
@@ -138,4 +159,37 @@ public class ConditionStats
         this.timeFrame = timeFrame;
         this.level = level;
     }
+}
+
+[System.Serializable]
+public class DamageStats
+{
+    public int damage;
+    public DamageType damageType;
+    public int randomVarience;
+    public GameObject particleEffect;
+    public ConditionStats[] applyConditions;
+    public int conditionChance;
+    public Condition[] removeConditions;
+
+    public DamageStats(DamageStats stats)
+    {
+        damage = stats.damage;
+        damageType = stats.damageType;
+        randomVarience = stats.randomVarience;
+        particleEffect = stats.particleEffect;
+        applyConditions = stats.applyConditions;
+        removeConditions = stats.removeConditions;
+        conditionChance = stats.conditionChance;
+    }
+}
+
+public enum DamageType
+{
+    Physical,
+    Magic,
+    Healing,
+    Fire,
+    Poison,
+    Cold
 }

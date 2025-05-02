@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7116283469937543434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7116283469937543432}
+  - component: {fileID: 7116283469937543433}
+  m_Layer: 0
+  m_Name: Hard_GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7116283469937543432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116283469937543434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7116283469937543433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116283469937543434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2752ef623952cb34c9d98e9ccdc70d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  party:
+  - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+    downed: 0
+    currentStats:
+      attack: 0
+      maxHealth: 0
+      defence: 0
+      healingEffect: 0
+      fireRes: 1
+      poisonRes: 1
+      coldRes: 1
+      accuracy: 0
+      critPercent: 0.1
+      critMultiplyer: 1.6
+    currentHealth: 0
+    weapon: {fileID: 0}
+    skills: []
+    conditions: []
+  - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+    downed: 0
+    currentStats:
+      attack: 0
+      maxHealth: 0
+      defence: 0
+      healingEffect: 0
+      fireRes: 1
+      poisonRes: 1
+      coldRes: 1
+      accuracy: 0
+      critPercent: 0.1
+      critMultiplyer: 1.6
+    currentHealth: 0
+    weapon: {fileID: 0}
+    skills: []
+    conditions: []
+  - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+    downed: 0
+    currentStats:
+      attack: 0
+      maxHealth: 0
+      defence: 0
+      healingEffect: 0
+      fireRes: 1
+      poisonRes: 1
+      coldRes: 1
+      accuracy: 0
+      critPercent: 0.1
+      critMultiplyer: 1.6
+    currentHealth: 0
+    weapon: {fileID: 0}
+    skills: []
+    conditions: []
+  items:
+  - item: {fileID: 11400000, guid: e0f56111d62e8a54eafaa1592d026d62, type: 2}
+    quantity: 8
+  - item: {fileID: 11400000, guid: 0c3a9f335967a8948813b346e9a08d22, type: 2}
+    quantity: 4
+  - item: {fileID: 11400000, guid: 989e1088b3e6ed144b47fdc0b4020ed3, type: 2}
+    quantity: 13
+  - item: {fileID: 11400000, guid: 46981450c13d8414ea6210a2bdb61150, type: 2}
+    quantity: 2
+  maxStamina: 100
+  stamina: 100

@@ -11,4 +11,6 @@ public class Unit : ScriptableObject
     public Sprite battleSprite;
     public Sprite attackSprite;
     public Sprite damageSprite;
+    public Sprite downedSprite;
+    public Vector2 spriteSize = Vector2.one;
 }

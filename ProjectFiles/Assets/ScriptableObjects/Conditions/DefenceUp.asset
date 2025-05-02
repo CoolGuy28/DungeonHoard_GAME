@@ -19,5 +19,9 @@ MonoBehaviour:
     maxHealth: 0
     defence: -0.3
     healingEffect: 0
+    fireRes: 0
+    poisonRes: 0
+    coldRes: 0
     accuracy: 0
-    critChance: 0
+    critPercent: 0
+    critMultiplyer: 0

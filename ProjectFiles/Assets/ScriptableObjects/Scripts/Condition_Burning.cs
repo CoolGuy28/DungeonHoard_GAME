@@ -7,7 +7,7 @@ public class Condition_Burning : Condition_DOT
 {
     public override void OnConditionEnd(BattleCharObject battleCharObject, int level)
     {
-        battleCharObject.TakeDamage(damagePerTurn[level], damageColor);
+        battleCharObject.TakeDamage(damagePerTurn[level]);
         if (level < 2)
         {
             battleCharObject.GetCharacter().AddCondition(new ConditionStats(this, 3, level + 1), battleCharObject);

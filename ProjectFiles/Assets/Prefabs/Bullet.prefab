@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4752751465166562894
 SpriteRenderer:
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: -56991693
   m_SortingLayer: 2
   m_SortingOrder: 8
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c80020fa30c025a4ebb4e5f03475ad05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -114,21 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings:
-    activeDelay: 0
-    ignoreRotation: 0
-    projectileSpeed: -8
-    changeSpeedOverTime: 0
-    reachedTargetSpeed: 0
-    flipBetweenSpeeds: 0
-    targetSpeed: 0
-    changeSpeedRate: 0.1
-    sidewaysProjectileSpeed: 0
-    homing: 0
-    targetPos: {fileID: 0}
-    rotSpeed: 0
-    startRot: 0
-    shooterRot: 0
-  active: 1
+    projectileSpeed: 8
 --- !u!50 &8239935934463162506
 Rigidbody2D:
   serializedVersion: 4
