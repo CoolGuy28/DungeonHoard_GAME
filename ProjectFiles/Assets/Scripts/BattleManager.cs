@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class BattleManager : MonoBehaviour
@@ -16,7 +15,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private MenuButton[] menuButtons;
     [SerializeField] private Image portrait;
     [SerializeField] private List<CharacterData> playerUnits;
-    [SerializeField] private List<CharacterData> randomEnemies;
     [SerializeField] private List<CharacterData> enemyUnits;
     [SerializeField] private BattleCharObject battleCharPrefab;
     [SerializeField] private GameObject playerObjPanel;
@@ -27,9 +25,7 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         playerUnits = GameManager.instance.party;
-        enemyUnits.Clear();
-        for (int i = 0; i < 3; i++)
-            enemyUnits.Add(randomEnemies[Random.Range(0,randomEnemies.Count)]);
+        enemyUnits = GameManager.instance.enemies;
         staminaSlider.maxValue = GameManager.instance.maxStamina;
         AdjustStamina(0);
         attackField.SetActive(false);
@@ -102,7 +98,7 @@ public class BattleManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene(0);
+            GameManager.instance.LoadMenu();
         }
         if (_state == GameState.AttackMenu)
         {
@@ -131,6 +127,11 @@ public class BattleManager : MonoBehaviour
     private int battleIndex;
     private void SetNewAttacker()
     {
+        if (CheckDeadTeam(playerBattleObjects) == false)
+            LostBattle();
+        else if (CheckDeadTeam(enemyBattleObjects) == false)
+            WonBattle();
+
         currentActiveTeam[battleIndex].TickConditions();
         battleIndex++;
         if (battleIndex >= currentActiveTeam.Count)
@@ -185,7 +186,7 @@ public class BattleManager : MonoBehaviour
     private void AdjustStamina(int i)
     {
         if (i != 0)
-            GameManager.instance.stamina += i;
+            GameManager.instance.AdjustStamina(i);
         staminaSlider.value = GameManager.instance.stamina;
         staminaText.text = GameManager.instance.stamina.ToString() + "/" + GameManager.instance.maxStamina.ToString();
     }
@@ -251,6 +252,7 @@ public class BattleManager : MonoBehaviour
     private bool selectSpecificTarget;
     private List<BattleCharObject> targetArray;
     private Ability currentAbility;
+    private bool selectDowned;
     private void PlayerSelectTargets(Ability ability)
     {
         targets.Clear();
@@ -267,6 +269,7 @@ public class BattleManager : MonoBehaviour
                     i.SetDeselected();
                 }
                 selectSpecificTarget = true;
+                selectDowned = false;
                 targetArray = enemyBattleObjects;
                 enemyBattleObjects[currentSelectTarget].SetYellow();
                 targets.Add(enemyBattleObjects[currentSelectTarget]);
@@ -285,6 +288,7 @@ public class BattleManager : MonoBehaviour
                     i.SetDeselected();
                 }
                 selectSpecificTarget = true;
+                selectDowned = true;
                 targetArray = playerBattleObjects;
                 playerBattleObjects[currentSelectTarget].SetYellow();
                 targets.Add(playerBattleObjects[currentSelectTarget]);
@@ -324,6 +328,11 @@ public class BattleManager : MonoBehaviour
                 currentSelectTarget++;
                 if (currentSelectTarget >= targetArray.Count)
                     currentSelectTarget = 0;
+                if (!selectDowned)
+                {
+                    while (targetArray[currentSelectTarget].GetCharacter().downed)
+                        currentSelectTarget++;
+                }
                 targets.Add(targetArray[currentSelectTarget]);
                 targetArray[currentSelectTarget].SetYellow();
             }
@@ -334,6 +343,11 @@ public class BattleManager : MonoBehaviour
                 currentSelectTarget--;
                 if (currentSelectTarget < 0)
                     currentSelectTarget = targetArray.Count - 1;
+                if (!selectDowned)
+                {
+                    while (targetArray[currentSelectTarget].GetCharacter().downed)
+                        currentSelectTarget++;
+                }
                 targets.Add(targetArray[currentSelectTarget]);
                 targetArray[currentSelectTarget].SetYellow();
             }
@@ -390,6 +404,8 @@ public class BattleManager : MonoBehaviour
                     AdjustStamina(-skill.staminaCost);
                     break;
             }
+            if (currentAbility.GetAction().staminaAdjust != 0)
+                AdjustStamina(currentAbility.GetAction().staminaAdjust);
 
             attackLabelField.SetActive(false);
         }
@@ -558,17 +574,19 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator MagicAttackTimer(float time)
     {
+        attackLabelField.SetActive(false);
         yield return new WaitForSeconds(time);
         SetActiveAttacker();
         magicPatterns = null;
         magicAttackField.SetActive(false);
+        ObjectPool._instance.SetBulletsInactive();
     }
 
     public void MagicAttackHit(DamageStats damageStats)
     {
         foreach (BattleCharObject i in mageTargets)
         {
-            StartCoroutine(i.SetSprite(1, 0.75f));
+            //StartCoroutine(i.SetSprite(1, 0.75f));
             i.TakeDamage(damageStats);
         }
     }
@@ -675,7 +693,16 @@ public class BattleManager : MonoBehaviour
         switch (targeting)
         {
             case TargetingType.SingleEnemy:
-                enemyTargets.Add(playerBattleObjects[Random.Range(0, playerBattleObjects.Count)]);
+                int targetIndex = Random.Range(0, playerBattleObjects.Count);
+                BattleCharObject selectedObj = playerBattleObjects[targetIndex];
+                while (selectedObj.GetCharacter().downed)
+                {
+                    targetIndex++;
+                    if (targetIndex >= playerBattleObjects.Count)
+                        targetIndex = 0;
+                    selectedObj = playerBattleObjects[targetIndex];
+                }
+                enemyTargets.Add(selectedObj);
                 break;
             case TargetingType.AllEnemies:
                 enemyTargets = playerBattleObjects;
@@ -702,6 +729,8 @@ public class BattleManager : MonoBehaviour
         {
             case Item_Weapon:
                 AttackHit(currentAbility.GetAction().damageStats);
+                yield return new WaitForSeconds(0.4f);
+                attackLabelField.SetActive(false);
                 SetNewAttacker();
                 break;
             case Skill_Magic:
@@ -715,6 +744,8 @@ public class BattleManager : MonoBehaviour
                 }
                 else
                 {
+                    yield return new WaitForSeconds(0.4f);
+                    attackLabelField.SetActive(false);
                     ApplyAction(currentAbility.GetAction().damageStats);
                 }
                 break;
@@ -723,20 +754,39 @@ public class BattleManager : MonoBehaviour
                 if (skill.action.targetingType == TargetingType.AllEnemies || skill.action.targetingType == TargetingType.SingleEnemy)
                 {
                     AttackHit(currentAbility.GetAction().damageStats);
+                    yield return new WaitForSeconds(0.4f);
+                    attackLabelField.SetActive(false);
                     SetNewAttacker();
                 }
                 else
                 {
+                    yield return new WaitForSeconds(0.4f);
+                    attackLabelField.SetActive(false);
                     ApplyAction(currentAbility.GetAction().damageStats);
                 }
                 break;
         }
-        yield return new WaitForSeconds(0.4f);
-        attackLabelField.SetActive(false);
     }
 
+    private bool CheckDeadTeam(List<BattleCharObject> team)
+    {
+        bool liveUnits = false;
+        if (team.Count <= 0)
+            return false;
+        foreach (BattleCharObject target in team)
+            if (target.GetCharacter().downed == false)
+                liveUnits = true;
+        return liveUnits;
+    }
+    private void WonBattle()
+    {
+        GameManager.instance.WonBattle();
+    }
 
-
+    private void LostBattle()
+    {
+        GameManager.instance.LoadMenu();
+    }
 }
 
 public enum GameState

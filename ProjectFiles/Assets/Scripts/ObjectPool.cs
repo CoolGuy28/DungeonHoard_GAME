@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    private static ObjectPool _instance;
+    public static ObjectPool _instance;
     private List<GameObject> objects = new List<GameObject>();
     [SerializeField] private int amountToPool = 150;
     [SerializeField] private GameObject objectPrefab;
@@ -50,5 +50,13 @@ public class ObjectPool : MonoBehaviour
         obj.SetActive(false);
         objects.Add(obj);
         return obj;
+    }
+
+    public void SetBulletsInactive()
+    {
+        foreach (GameObject o in objects)
+        {
+            o.SetActive(false);
+        }
     }
 }

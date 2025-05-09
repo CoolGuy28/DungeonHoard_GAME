@@ -9,19 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d88ef49be1d1b0146b5b50d9b543e18e, type: 3}
-  m_Name: BattleAxe
+  m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
+  m_Name: Cannibalism
   m_EditorClassIdentifier: 
   description: 
+  staminaCost: 10
   action:
-    targetingType: 0
+    targetingType: 2
     damageStats:
-      damage: 30
+      damage: 999
       damageType: 0
-      randomVarience: 10
+      randomVarience: 0
       particleEffect: {fileID: 2399189984805459437, guid: c285186d5564da6479816fab77197b15, type: 3}
       applyConditions: []
       conditionChance: 0
       removeConditions: []
-    accuracy: 25
-    critChance: 8
+    accuracy: 0
+    critChance: 0

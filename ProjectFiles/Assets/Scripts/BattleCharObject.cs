@@ -49,17 +49,21 @@ public class BattleCharObject : MonoBehaviour
             case DamageType.Physical:
                 damageAmount = (int)(damageAmount * character.currentStats.defence);
                 character.AdjustHealth(damageAmount);
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
                 break;
             case DamageType.Magic:
                 character.AdjustHealth(damageAmount);
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
                 break;
             case DamageType.Healing:
                 damageAmount = (int)(damageAmount * character.currentStats.healingEffect);
                 character.AdjustHealth(-damageAmount);
-                if (damageAmount <= 0)
+                if (damageAmount > 0)
+                    damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
+                else
                     damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
                 damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.green;
-                if (character.downed)
+                if (!character.downed)
                 {
                     spriteObj.sprite = character.unit.battleSprite;
                 }
@@ -68,22 +72,25 @@ public class BattleCharObject : MonoBehaviour
                 damageAmount = (int)(damageAmount * character.currentStats.fireRes);
                 character.AdjustHealth(damageAmount);
                 damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.red;
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
                 break;
             case DamageType.Poison:
                 damageAmount = (int)(damageAmount * character.currentStats.poisonRes);
                 character.AdjustHealth(damageAmount);
                 damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.magenta;
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
                 break;
             case DamageType.Cold:
                 damageAmount = (int)(damageAmount * character.currentStats.coldRes);
                 character.AdjustHealth(damageAmount);
                 damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.blue;
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
                 break;
             default:
                 character.AdjustHealth(damageAmount);
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
                 break;
         }
-        damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageStats.damage.ToString();
         Destroy(damageText, 1.5f);
         if (character.downed)
         {

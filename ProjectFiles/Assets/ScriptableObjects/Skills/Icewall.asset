@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c57f04b7d1af44bb6783d0db22ee68, type: 3}
-  m_Name: Fireball
+  m_Name: Icewall
   m_EditorClassIdentifier: 
   description: 
-  staminaCost: 40
+  staminaCost: 30
   action:
-    targetingType: 1
+    targetingType: 0
     damageStats:
-      damage: 8
-      damageType: 3
-      randomVarience: 6
-      particleEffect: {fileID: 7512594599114799122, guid: ea1d7aa7da812424eb9dafbbb5ea8674, type: 3}
+      damage: 0
+      damageType: 0
+      randomVarience: 0
+      particleEffect: {fileID: 0}
       applyConditions: []
       conditionChance: 0
       removeConditions: []
@@ -30,37 +30,37 @@ MonoBehaviour:
   magicPattern:
     rotationOffset: 0
     bulletRot: 0
-    spawnDistance: -0.42
+    spawnDistance: 0
     shotArray:
     - createBullet: 1
       projectileSettings:
-        projectileSpeed: 3.5
-      color: {r: 1, g: 0.55901146, b: 0.06132078, a: 1}
+        projectileSpeed: 1
+      color: {r: 0.8443396, g: 0.97230804, b: 1, a: 1}
       damageStats:
-        damage: 3
-        damageType: 3
+        damage: 6
+        damageType: 5
         randomVarience: 2
         particleEffect: {fileID: 0}
         applyConditions:
-        - condition: {fileID: 11400000, guid: 129bbea2cd3631840b23c57fbfc52432, type: 2}
+        - condition: {fileID: 11400000, guid: 852269738ec866744ad1fab60891d951, type: 2}
           timeFrame: 3
           level: 0
-        conditionChance: 20
+        conditionChance: 50
         removeConditions: []
-      bulletSize: 0.17
+      bulletSize: 0.165
     randomizeShotArray: 0
     increaseShotIndexPerBullet: 0
     increaseShotIndexPerEcho: 0
-    burstPattern: 0
-    burstCount: 10
-    burstRange: 360
+    burstPattern: 1
+    burstCount: 15
+    burstRange: 1.61
     burstDelay: 0
     randomBurst: 0
-    radialShootStraight: 1
+    radialShootStraight: 0
     symmetry: 0
     echoCount: 0
     echoDelay: 0
     createGroup: 0
     groupedProjectileSettings:
       projectileSpeed: 8
-  castingSpeed: 0.4
+  castingSpeed: 0.3

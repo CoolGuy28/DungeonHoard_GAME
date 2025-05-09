@@ -7,8 +7,8 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private MenuButton[] menuButtons;
     private int currentMenuButton;
-    [SerializeField] private GameObject gameManager;
-    [SerializeField] private GameObject gameManager_Hard;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameManager gameManager_Hard;
     private void Start()
     {
         foreach (var button in menuButtons)
@@ -49,17 +49,11 @@ public class MainMenuManager : MonoBehaviour
 
     public void ChangeScene()
     {
-        if(GameManager.instance != null)
-            Destroy(GameManager.instance);
-        Instantiate(gameManager);
-        SceneManager.LoadScene(1);
+        GameManager.instance.LoadGame(gameManager);
     }
 
     public void ChangeSceneHard()
     {
-        if (GameManager.instance != null)
-            Destroy(GameManager.instance);
-        Instantiate(gameManager_Hard);
-        SceneManager.LoadScene(1);
+        GameManager.instance.LoadGame(gameManager_Hard);
     }
 }

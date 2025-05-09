@@ -126,6 +126,7 @@ public class Action
     public DamageStats damageStats;
     public float accuracy;
     public float critChance;
+    public int staminaAdjust;
 }
 
 public class Ability : ScriptableObject

@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public List<CharacterData> party;
+    public List<CharacterData> enemies;
     public List<ItemSlot> items;
     public int maxStamina;
     public int stamina;
+    public Vector2 partyPosition;
+    [SerializeField] private Animator animator;
 
     public static GameManager instance
     {
@@ -69,6 +72,51 @@ public class GameManager : MonoBehaviour
             list.Add(i.item);
         }
         return list;
+    }
+
+    public void AdjustStamina(int adjustAmount)
+    {
+        stamina += adjustAmount;
+        if (stamina < 0)
+            stamina = 0;
+        if (stamina > maxStamina)
+            stamina = maxStamina;
+    }
+
+    public void LoadMenu()
+    {
+        StartCoroutine(LoadScene(0));
+    }
+
+    public void LoadGame(GameManager gameManager)
+    {
+        this.party = gameManager.party;
+        this.items = gameManager.items;
+        this.maxStamina = gameManager.maxStamina;
+        this.stamina = gameManager.stamina;
+        this.partyPosition = gameManager.partyPosition;
+        foreach (CharacterData unit in party)
+            unit.InitialiseChar();
+        StartCoroutine(LoadScene(1));
+    }
+
+    public void LoadBattle(OverworldEnemyObject enemies)
+    {
+        this.enemies = enemies.GetEnemies();
+        StartCoroutine(LoadScene(2));
+    }
+
+    public void WonBattle()
+    {
+        StartCoroutine(LoadScene(1));
+    }
+
+    private IEnumerator LoadScene(int scene)
+    {
+        animator.SetBool("Fade", true);
+        yield return new WaitForSeconds(0.8f);
+        SceneManager.LoadSceneAsync(scene);
+        animator.SetBool("Fade", false);
     }
 }
 
