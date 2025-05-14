@@ -56,6 +56,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddItem(Item item)
+    {
+        bool itemAdded = false;
+        foreach (ItemSlot i in items)
+        {
+            if (i.item == item)
+            {
+                itemAdded = true;
+                i.quantity++;
+                break;
+            }  
+        }
+        if (!itemAdded)
+        {
+            items.Add(new ItemSlot(item, 1));
+        }
+    }
+
     public void UseItem(Item item)
     {
         foreach (ItemSlot i in items)

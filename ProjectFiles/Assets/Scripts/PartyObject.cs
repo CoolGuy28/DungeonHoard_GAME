@@ -98,6 +98,14 @@ public class PartyObject : MonoBehaviour
         }
     }*/
 
+    public void BeginFishing()
+    {
+        allowMovement = false;
+    }
+    public void EndFishing()
+    {
+        allowMovement = true;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

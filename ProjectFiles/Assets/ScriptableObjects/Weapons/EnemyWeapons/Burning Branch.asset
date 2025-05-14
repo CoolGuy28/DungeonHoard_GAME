@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d88ef49be1d1b0146b5b50d9b543e18e, type: 3}
-  m_Name: Rodent Bite
+  m_Name: Burning Branch
   m_EditorClassIdentifier: 
   description: 
   action:
     targetingType: 0
     damageStats:
-      damage: 20
-      damageType: 0
-      randomVarience: 6
-      particleEffect: {fileID: 0}
+      damage: 18
+      damageType: 3
+      randomVarience: 7
+      particleEffect: {fileID: 7512594599114799122, guid: ea1d7aa7da812424eb9dafbbb5ea8674, type: 3}
       applyConditions:
-      - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
-        timeFrame: 5
+      - condition: {fileID: 11400000, guid: 129bbea2cd3631840b23c57fbfc52432, type: 2}
+        timeFrame: 3
         level: 0
-      conditionChance: 20
+      conditionChance: 40
       removeConditions: []
     accuracy: 80
     useCrit: 1

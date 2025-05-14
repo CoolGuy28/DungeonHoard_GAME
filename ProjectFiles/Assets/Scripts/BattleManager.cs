@@ -480,13 +480,12 @@ public class BattleManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z) || attackSlider.value == 1)
         {
-            if (sliderPos.position.x >= critChanceObject.position.x - critChanceObject.sizeDelta.x - 15 && sliderPos.position.x <= critChanceObject.position.x + 15)
+            if (sliderPos.position.x >= critChanceObject.position.x - critChanceObject.sizeDelta.x - 7 && sliderPos.position.x <= critChanceObject.position.x + 7)
             {
-                DamageStats critStats = new DamageStats(currentAbility.GetAction().damageStats);
-                critStats.damage = (int)(critStats.damage * playerUnits[battleIndex].currentStats.critMultiplyer);
-                AttackHit(critStats, true);
+                
+                AttackHit(currentAbility.GetAction().damageStats, true);
             }
-            else if (sliderPos.position.x >= hitChanceObject.position.x - hitChanceObject.sizeDelta.x - 15 && sliderPos.position.x <= hitChanceObject.position.x + 15)
+            else if (sliderPos.position.x >= hitChanceObject.position.x - hitChanceObject.sizeDelta.x - 7 && sliderPos.position.x <= hitChanceObject.position.x + 7)
             {
                 AttackHit(currentAbility.GetAction().damageStats, false);
             }
@@ -503,11 +502,17 @@ public class BattleManager : MonoBehaviour
 
     private void AttackHit(DamageStats damageStats, bool crit)
     {
+        DamageStats damage = new DamageStats(damageStats);
+        float critMul = 1f;
+        if (crit)
+            critMul = playerUnits[battleIndex].currentStats.critMultiplyer;
+        damage.damage = (int)(damage.damage * playerUnits[battleIndex].currentStats.attack * critMul);
+
         StartCoroutine(currentActiveTeam[battleIndex].SetSprite(0, 0.75f));
         foreach (BattleCharObject i in targets)
         {
             StartCoroutine(i.SetSprite(1, 0.75f));
-            i.TakeDamage(damageStats, crit);
+            i.TakeDamage(damage, crit);
         }
     }
 

@@ -492,7 +492,11 @@ MonoBehaviour:
       weapon: {fileID: 0}
       skills: []
       conditions: []
-    - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+    enemyPosition: {x: -5, y: -1.5}
+    dead: 0
+    displaySprite: 0
+  - enemyFight:
+    - unit: {fileID: 11400000, guid: 17891c84284eed242bc866bccca2b685, type: 2}
       downed: 0
       currentStats:
         attack: 0
@@ -510,9 +514,45 @@ MonoBehaviour:
       weapon: {fileID: 0}
       skills: []
       conditions: []
-    enemyPosition: {x: -5, y: -1.5}
+    - unit: {fileID: 11400000, guid: ea4ca00ecc07a78489bd1449b9003fc1, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    - unit: {fileID: 11400000, guid: 17891c84284eed242bc866bccca2b685, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    enemyPosition: {x: 5, y: -5}
     dead: 0
-    displaySprite: 0
+    displaySprite: 1
   - enemyFight:
     - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
       downed: 0

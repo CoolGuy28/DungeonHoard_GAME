@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Theif
   m_EditorClassIdentifier: 
   baseStats:
-    attack: 20
+    attack: 1
     maxHealth: 100
     defence: 1
     healingEffect: 1

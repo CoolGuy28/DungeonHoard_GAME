@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Guard
   m_EditorClassIdentifier: 
   baseStats:
-    attack: 20
+    attack: 1
     maxHealth: 100
     defence: 0.8
     healingEffect: 1

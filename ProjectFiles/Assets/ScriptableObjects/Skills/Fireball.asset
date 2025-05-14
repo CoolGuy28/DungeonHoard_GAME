@@ -41,17 +41,17 @@ MonoBehaviour:
         projectileSpeed: 2.5
       color: {r: 1, g: 0.55901146, b: 0.06132078, a: 1}
       damageStats:
-        damage: 3
+        damage: 7
         damageType: 3
-        randomVarience: 2
+        randomVarience: 4
         particleEffect: {fileID: 0}
         applyConditions:
         - condition: {fileID: 11400000, guid: 129bbea2cd3631840b23c57fbfc52432, type: 2}
           timeFrame: 3
           level: 0
-        conditionChance: 20
+        conditionChance: 40
         removeConditions: []
-      bulletSize: 0.17
+      bulletSize: 0.35
     randomizeShotArray: 0
     increaseShotIndexPerBullet: 0
     increaseShotIndexPerEcho: 0
@@ -67,4 +67,4 @@ MonoBehaviour:
     createGroup: 0
     groupedProjectileSettings:
       projectileSpeed: 8
-  castingSpeed: 0.4
+  castingSpeed: 0.8

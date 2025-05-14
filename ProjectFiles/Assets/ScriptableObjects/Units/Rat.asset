@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rat
   m_EditorClassIdentifier: 
   baseStats:
-    attack: 20
+    attack: 1
     maxHealth: 130
     defence: 1
     healingEffect: 1

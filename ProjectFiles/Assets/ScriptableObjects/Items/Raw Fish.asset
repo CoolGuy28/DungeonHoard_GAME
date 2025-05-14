@@ -9,23 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d88ef49be1d1b0146b5b50d9b543e18e, type: 3}
-  m_Name: Tail Whip
+  m_Script: {fileID: 11500000, guid: 35330e7859ede1043ab42a090b6790da, type: 3}
+  m_Name: Raw Fish
   m_EditorClassIdentifier: 
   description: 
   action:
-    targetingType: 0
+    targetingType: 4
     damageStats:
-      damage: 28
-      damageType: 0
-      randomVarience: 6
+      damage: 15
+      damageType: 2
+      randomVarience: 5
       particleEffect: {fileID: 0}
-      applyConditions:
-      - condition: {fileID: 0}
-        timeFrame: 0
-        level: 0
+      applyConditions: []
       conditionChance: 0
       removeConditions: []
-    accuracy: 80
-    useCrit: 1
-    staminaAdjust: 0
+    accuracy: 0
+    useCrit: 0
+    staminaAdjust: 20
