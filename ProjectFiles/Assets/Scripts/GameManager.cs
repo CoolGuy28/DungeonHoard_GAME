@@ -7,12 +7,14 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public List<CharacterData> party;
-    public List<CharacterData> enemies;
     public List<ItemSlot> items;
     public int maxStamina;
     public int stamina;
     public Vector2 partyPosition;
     [SerializeField] private Animator animator;
+    private int currentEnemyIndex;
+    [SerializeField] private EnemyOverworldData[] overworldEnemies;
+    [SerializeField] private OverworldEnemyObject enemyObjectPrefab;
 
     public static GameManager instance
     {
@@ -36,6 +38,22 @@ public class GameManager : MonoBehaviour
 
         foreach (CharacterData character in party)
             character.InitialiseChar();
+    }
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            SpawnEnemyObjects();
+        }
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            SpawnEnemyObjects();
+        }
     }
 
     public void UseItem(Item item)
@@ -83,6 +101,19 @@ public class GameManager : MonoBehaviour
             stamina = maxStamina;
     }
 
+    private void SpawnEnemyObjects()
+    {
+        for (int i = 0; i < overworldEnemies.Length; i++)
+        {
+            Instantiate(enemyObjectPrefab, overworldEnemies[i].enemyPosition, Quaternion.identity).SetEnemyData(overworldEnemies[i], i);
+        }
+    }
+
+    public List<CharacterData> GetActiveEnemyList()
+    {
+        return overworldEnemies[currentEnemyIndex].enemyFight;
+    }
+
     public void LoadMenu()
     {
         StartCoroutine(LoadScene(0));
@@ -100,14 +131,15 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadScene(1));
     }
 
-    public void LoadBattle(OverworldEnemyObject enemies)
+    public void LoadBattle(int currentEnemyIndex)
     {
-        this.enemies = enemies.GetEnemies();
+        this.currentEnemyIndex = currentEnemyIndex;
         StartCoroutine(LoadScene(2));
     }
 
     public void WonBattle()
     {
+        overworldEnemies[currentEnemyIndex].dead = true;
         StartCoroutine(LoadScene(1));
     }
 
@@ -115,7 +147,7 @@ public class GameManager : MonoBehaviour
     {
         animator.SetBool("Fade", true);
         yield return new WaitForSeconds(0.8f);
-        SceneManager.LoadSceneAsync(scene);
+        SceneManager.LoadScene(scene);
         animator.SetBool("Fade", false);
     }
 }

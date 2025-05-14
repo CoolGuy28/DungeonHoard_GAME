@@ -48,6 +48,7 @@ public class CharacterData
         currentStats.poisonRes += statAdjustment.poisonRes * multiplyer;
         currentStats.coldRes += statAdjustment.coldRes * multiplyer;
         currentStats.accuracy += statAdjustment.accuracy * multiplyer;
+        currentStats.speed += statAdjustment.speed * multiplyer;
         currentStats.critPercent += statAdjustment.critPercent * multiplyer;
         currentStats.critMultiplyer += statAdjustment.critMultiplyer * multiplyer;
     }
@@ -101,6 +102,7 @@ public class Stats
     public float poisonRes = 1;
     public float coldRes = 1;
     public float accuracy = 1;
+    public float speed = 1;
     public float critPercent = 0.1f;
     public float critMultiplyer = 1.6f;
 
@@ -113,9 +115,10 @@ public class Stats
         this.fireRes = stats.fireRes;
         this.poisonRes = stats.poisonRes;
         this.coldRes = stats.coldRes;
-        accuracy = stats.accuracy;
-        critPercent = stats.critPercent;
-        critMultiplyer = stats.critMultiplyer;
+        this.accuracy = stats.accuracy;
+        this.speed = stats.speed;
+        this.critPercent = stats.critPercent;
+        this.critMultiplyer = stats.critMultiplyer;
     }
 }
 
@@ -125,7 +128,7 @@ public class Action
     public TargetingType targetingType;
     public DamageStats damageStats;
     public float accuracy;
-    public float critChance;
+    public bool useCrit;
     public int staminaAdjust;
 }
 
@@ -193,4 +196,13 @@ public enum DamageType
     Fire,
     Poison,
     Cold
+}
+
+[System.Serializable]
+public class EnemyOverworldData
+{
+    public List<CharacterData> enemyFight;
+    public Vector2 enemyPosition;
+    public bool dead;
+    public int displaySprite;
 }

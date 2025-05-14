@@ -17,15 +17,19 @@ MonoBehaviour:
   action:
     targetingType: 1
     damageStats:
-      damage: 8
+      damage: 30
       damageType: 3
-      randomVarience: 6
+      randomVarience: 8
       particleEffect: {fileID: 7512594599114799122, guid: ea1d7aa7da812424eb9dafbbb5ea8674, type: 3}
-      applyConditions: []
-      conditionChance: 0
+      applyConditions:
+      - condition: {fileID: 11400000, guid: 129bbea2cd3631840b23c57fbfc52432, type: 2}
+        timeFrame: 3
+        level: 0
+      conditionChance: 95
       removeConditions: []
     accuracy: 0
-    critChance: 0
+    useCrit: 0
+    staminaAdjust: 0
   corruption: 0
   magicPattern:
     rotationOffset: 0
@@ -34,7 +38,7 @@ MonoBehaviour:
     shotArray:
     - createBullet: 1
       projectileSettings:
-        projectileSpeed: 3.5
+        projectileSpeed: 2.5
       color: {r: 1, g: 0.55901146, b: 0.06132078, a: 1}
       damageStats:
         damage: 3

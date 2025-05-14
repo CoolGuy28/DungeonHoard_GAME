@@ -27,5 +27,6 @@ MonoBehaviour:
         level: 0
       conditionChance: 80
       removeConditions: []
-    accuracy: 30
-    critChance: 10
+    accuracy: 70
+    useCrit: 1
+    staminaAdjust: 0

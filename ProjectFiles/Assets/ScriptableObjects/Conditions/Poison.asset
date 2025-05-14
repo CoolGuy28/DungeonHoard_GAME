@@ -22,11 +22,12 @@ MonoBehaviour:
     fireRes: 0
     poisonRes: 0
     coldRes: 0
-    accuracy: -10
+    accuracy: -0.4
+    speed: 0
     critPercent: 0
     critMultiplyer: 0
   damagePerTurn:
-  - damage: 5
+  - damage: 7
     damageType: 4
     randomVarience: 4
     particleEffect: {fileID: 0}

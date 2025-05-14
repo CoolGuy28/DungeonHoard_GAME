@@ -17,9 +17,9 @@ MonoBehaviour:
   action:
     targetingType: 0
     damageStats:
-      damage: 10
+      damage: 40
       damageType: 4
-      randomVarience: 5
+      randomVarience: 10
       particleEffect: {fileID: 5835862890695531006, guid: 6cc5a039dd2ae584c99c9d58ff585d36, type: 3}
       applyConditions:
       - condition: {fileID: 11400000, guid: b1fce2f7427f34148a297068eea0997d, type: 2}
@@ -27,5 +27,6 @@ MonoBehaviour:
         level: 0
       conditionChance: 95
       removeConditions: []
-    accuracy: 40
-    critChance: 10
+    accuracy: 60
+    useCrit: 1
+    staminaAdjust: 0

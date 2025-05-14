@@ -20,8 +20,9 @@ MonoBehaviour:
     fireRes: 1
     poisonRes: 1
     coldRes: 1
-    accuracy: 10
-    critPercent: 0.3
+    accuracy: 1
+    speed: 1
+    critPercent: 0.2
     critMultiplyer: 1.6
   weapon: {fileID: 11400000, guid: 38638b4cc62c1a346916cd65c1180434, type: 2}
   skills:
@@ -31,4 +32,5 @@ MonoBehaviour:
   attackSprite: {fileID: 21300000, guid: 1a62b7659a7f66441aef0155a923643f, type: 3}
   damageSprite: {fileID: 21300000, guid: 8629761a1bd80e9409ca45707b4b1063, type: 3}
   downedSprite: {fileID: 21300000, guid: 7c0ee7fe13765fc419dc83b07e6d5314, type: 3}
+  overWorldSprite: {fileID: 0}
   spriteSize: {x: 1.5, y: 1.5}

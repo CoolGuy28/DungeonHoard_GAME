@@ -20,11 +20,9 @@ MonoBehaviour:
       damageType: 0
       randomVarience: 4
       particleEffect: {fileID: 0}
-      applyConditions:
-      - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
-        timeFrame: 4
-        level: 0
-      conditionChance: 20
+      applyConditions: []
+      conditionChance: 0
       removeConditions: []
-    accuracy: 50
-    critChance: 20
+    accuracy: 100
+    useCrit: 1
+    staminaAdjust: 0

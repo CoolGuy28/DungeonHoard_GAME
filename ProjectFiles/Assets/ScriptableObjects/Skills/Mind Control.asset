@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mind Control
   m_EditorClassIdentifier: 
   description: 
-  staminaCost: 15
+  staminaCost: 60
   action:
     targetingType: 0
     damageStats:
@@ -28,4 +28,5 @@ MonoBehaviour:
       conditionChance: 100
       removeConditions: []
     accuracy: 20
-    critChance: 0
+    useCrit: 0
+    staminaAdjust: 0

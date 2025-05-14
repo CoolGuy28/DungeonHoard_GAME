@@ -157,7 +157,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &1024182952
 MonoBehaviour:
@@ -230,7 +230,7 @@ Transform:
   m_Children:
   - {fileID: 1024182950}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7116283469937543433
 MonoBehaviour:
@@ -256,6 +256,7 @@ MonoBehaviour:
       poisonRes: 1
       coldRes: 1
       accuracy: 0
+      speed: 0
       critPercent: 0.1
       critMultiplyer: 1.6
     currentHealth: 0
@@ -273,6 +274,7 @@ MonoBehaviour:
       poisonRes: 1
       coldRes: 1
       accuracy: 0
+      speed: 0
       critPercent: 0.1
       critMultiplyer: 1.6
     currentHealth: 0
@@ -290,25 +292,283 @@ MonoBehaviour:
       poisonRes: 1
       coldRes: 1
       accuracy: 0
+      speed: 0
       critPercent: 0.1
       critMultiplyer: 1.6
     currentHealth: 0
     weapon: {fileID: 0}
     skills: []
     conditions: []
-  enemies: []
   items:
   - item: {fileID: 11400000, guid: e0f56111d62e8a54eafaa1592d026d62, type: 2}
     quantity: 8
   - item: {fileID: 11400000, guid: 0c3a9f335967a8948813b346e9a08d22, type: 2}
-    quantity: 4
+    quantity: 6
   - item: {fileID: 11400000, guid: 989e1088b3e6ed144b47fdc0b4020ed3, type: 2}
     quantity: 13
-  - item: {fileID: 11400000, guid: 46981450c13d8414ea6210a2bdb61150, type: 2}
-    quantity: 2
-  - item: {fileID: 11400000, guid: 8679b4afce6351540935645f46cb5a33, type: 2}
+  - item: {fileID: 11400000, guid: 82d1fd8a613c1cd49bd61dfed5d66b35, type: 2}
+    quantity: 3
+  - item: {fileID: 11400000, guid: 9e64b9ca8b661024a9073c8a609a7f8e, type: 2}
     quantity: 6
+  - item: {fileID: 11400000, guid: 8679b4afce6351540935645f46cb5a33, type: 2}
+    quantity: 7
   maxStamina: 100
   stamina: 100
   partyPosition: {x: 0, y: 0}
   animator: {fileID: 293146968}
+  overworldEnemies:
+  - enemyFight:
+    - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    enemyPosition: {x: 0, y: 3}
+    dead: 0
+    displaySprite: 0
+  - enemyFight:
+    - unit: {fileID: 11400000, guid: 070b9c87c56b77949881f9cf9806b2b5, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    - unit: {fileID: 11400000, guid: 070b9c87c56b77949881f9cf9806b2b5, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    enemyPosition: {x: 4, y: 1.5}
+    dead: 0
+    displaySprite: 0
+  - enemyFight:
+    - unit: {fileID: 11400000, guid: dafca0f36703ee24fb70819ee77a7e61, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    enemyPosition: {x: -4, y: 1.5}
+    dead: 0
+    displaySprite: 0
+  - enemyFight:
+    - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    enemyPosition: {x: -5, y: -1.5}
+    dead: 0
+    displaySprite: 0
+  - enemyFight:
+    - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    - unit: {fileID: 11400000, guid: effc594ba623cbc47ad1ee3306d84437, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    enemyPosition: {x: 5, y: -1.5}
+    dead: 0
+    displaySprite: 1
+  enemyObjectPrefab: {fileID: 828534510362944303, guid: 9dc12974f9de1bd4d8c3959883aacbea, type: 3}

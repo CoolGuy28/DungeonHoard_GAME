@@ -13,7 +13,7 @@ public class Unit : ScriptableObject
     public Sprite attackSprite;
     public Sprite damageSprite;
     public Sprite downedSprite;
-    public Sprite overWorldSprite;
+    public Sprite[] overWorldSprites;
     public Vector2 spriteSize = Vector2.one;
 
     /*public bool IsImmune(Condition con)

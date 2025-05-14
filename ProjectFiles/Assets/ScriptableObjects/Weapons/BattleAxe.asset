@@ -23,5 +23,6 @@ MonoBehaviour:
       applyConditions: []
       conditionChance: 0
       removeConditions: []
-    accuracy: 25
-    critChance: 8
+    accuracy: 50
+    useCrit: 1
+    staminaAdjust: 0

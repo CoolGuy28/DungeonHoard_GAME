@@ -38,28 +38,30 @@ public class BattleCharObject : MonoBehaviour
             UpdateConditionUI();
         }
     }
-    public void TakeDamage(DamageStats damageStats)
+    public void TakeDamage(DamageStats damageStats, bool crit)
     {
         int damageAmount = Random.Range(damageStats.damage - damageStats.randomVarience, damageStats.damage + damageStats.randomVarience);
         if (damageAmount < 0)
             damageAmount = 0;
-        GameObject damageText = Instantiate(damageTextPrefab, new Vector3(Random.Range(transform.position.x - 1, transform.position.x + 1), Random.Range(transform.position.y - 1, transform.position.y + 1), transform.position.z), Quaternion.identity);
+        GameObject damageText = CreateText();
+        if (crit)
+            damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = "CRIT\n";
         switch (damageStats.damageType)
         {
             case DamageType.Physical:
                 damageAmount = (int)(damageAmount * character.currentStats.defence);
                 character.AdjustHealth(damageAmount);
-                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text += damageAmount.ToString();
                 break;
             case DamageType.Magic:
                 character.AdjustHealth(damageAmount);
-                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text += damageAmount.ToString();
                 break;
             case DamageType.Healing:
                 damageAmount = (int)(damageAmount * character.currentStats.healingEffect);
                 character.AdjustHealth(-damageAmount);
                 if (damageAmount > 0)
-                    damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
+                    damageText.transform.GetChild(0).GetComponent<TMP_Text>().text += damageAmount.ToString();
                 else
                     damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
                 damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.green;
@@ -72,26 +74,26 @@ public class BattleCharObject : MonoBehaviour
                 damageAmount = (int)(damageAmount * character.currentStats.fireRes);
                 character.AdjustHealth(damageAmount);
                 damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.red;
-                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text += damageAmount.ToString();
                 break;
             case DamageType.Poison:
                 damageAmount = (int)(damageAmount * character.currentStats.poisonRes);
                 character.AdjustHealth(damageAmount);
                 damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.magenta;
-                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text += damageAmount.ToString();
                 break;
             case DamageType.Cold:
                 damageAmount = (int)(damageAmount * character.currentStats.coldRes);
                 character.AdjustHealth(damageAmount);
                 damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.blue;
-                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text += damageAmount.ToString();
                 break;
             default:
                 character.AdjustHealth(damageAmount);
-                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text = damageAmount.ToString();
+                damageText.transform.GetChild(0).GetComponent<TMP_Text>().text += damageAmount.ToString();
                 break;
         }
-        Destroy(damageText, 1.5f);
+        
         if (character.downed)
         {
             spriteObj.sprite = character.unit.downedSprite;
@@ -122,6 +124,19 @@ public class BattleCharObject : MonoBehaviour
             UpdateConditionUI();
         }
         UpdateUI();
+    }
+
+    public void AttackMissed()
+    {
+        GameObject missText = CreateText();
+        missText.transform.GetChild(0).GetComponent<TMP_Text>().text = "Miss";
+    }
+
+    private GameObject CreateText()
+    {
+        GameObject text = Instantiate(damageTextPrefab, new Vector3(Random.Range(transform.position.x - 1, transform.position.x + 1), Random.Range(transform.position.y - 1, transform.position.y + 1), transform.position.z), Quaternion.identity);
+        Destroy(text, 1.5f);
+        return text;
     }
 
     public void TickConditions()

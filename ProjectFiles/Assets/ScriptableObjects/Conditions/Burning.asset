@@ -25,24 +25,25 @@ MonoBehaviour:
     poisonRes: 0
     coldRes: 0
     accuracy: 0
+    speed: 0
     critPercent: 0
     critMultiplyer: 0
   damagePerTurn:
-  - damage: 3
+  - damage: 5
     damageType: 3
     randomVarience: 0
     particleEffect: {fileID: 0}
     applyConditions: []
     conditionChance: 0
     removeConditions: []
-  - damage: 6
+  - damage: 12
     damageType: 3
     randomVarience: 0
     particleEffect: {fileID: 0}
     applyConditions: []
     conditionChance: 0
     removeConditions: []
-  - damage: 9
+  - damage: 25
     damageType: 3
     randomVarience: 0
     particleEffect: {fileID: 0}

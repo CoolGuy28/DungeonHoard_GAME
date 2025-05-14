@@ -17,15 +17,19 @@ MonoBehaviour:
   action:
     targetingType: 0
     damageStats:
-      damage: 0
-      damageType: 0
+      damage: 30
+      damageType: 5
       randomVarience: 0
-      particleEffect: {fileID: 0}
-      applyConditions: []
-      conditionChance: 0
+      particleEffect: {fileID: 7512594599114799122, guid: b7289bf73ba9b5046a935249e3cd0438, type: 3}
+      applyConditions:
+      - condition: {fileID: 11400000, guid: 852269738ec866744ad1fab60891d951, type: 2}
+        timeFrame: 4
+        level: 0
+      conditionChance: 50
       removeConditions: []
     accuracy: 0
-    critChance: 0
+    useCrit: 0
+    staminaAdjust: 0
   corruption: 0
   magicPattern:
     rotationOffset: 0
@@ -34,7 +38,7 @@ MonoBehaviour:
     shotArray:
     - createBullet: 1
       projectileSettings:
-        projectileSpeed: 1
+        projectileSpeed: 0.6
       color: {r: 0.8443396, g: 0.97230804, b: 1, a: 1}
       damageStats:
         damage: 6
@@ -42,7 +46,7 @@ MonoBehaviour:
         randomVarience: 2
         particleEffect: {fileID: 0}
         applyConditions:
-        - condition: {fileID: 11400000, guid: 852269738ec866744ad1fab60891d951, type: 2}
+        - condition: {fileID: 0}
           timeFrame: 3
           level: 0
         conditionChance: 50
@@ -63,4 +67,4 @@ MonoBehaviour:
     createGroup: 0
     groupedProjectileSettings:
       projectileSpeed: 8
-  castingSpeed: 0.3
+  castingSpeed: 0.7

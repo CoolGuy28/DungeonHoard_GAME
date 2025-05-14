@@ -23,10 +23,11 @@ MonoBehaviour:
     poisonRes: 0
     coldRes: 0
     accuracy: 0
+    speed: 0
     critPercent: 0
     critMultiplyer: 0
   damagePerTurn:
-  - damage: 1
+  - damage: 2
     damageType: 0
     randomVarience: 0
     particleEffect: {fileID: 0}
