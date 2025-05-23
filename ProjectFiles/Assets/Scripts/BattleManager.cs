@@ -459,33 +459,32 @@ public class BattleManager : MonoBehaviour
         float accuracyBarLength = action.accuracy * playerUnits[battleIndex].currentStats.accuracy;
 
 
-        if (action.useCrit)
-        {
-            critChanceObject.gameObject.SetActive(true);
-            critChanceObject.localPosition = new Vector2(Random.Range(35f, 80f), 0);
-            critChanceObject.sizeDelta = new Vector2((float)accuracyBarLength * playerUnits[battleIndex].currentStats.critPercent, 20);
+         if (action.useCrit)
+         {
+             critChanceObject.gameObject.SetActive(true);
+             critChanceObject.localPosition = new Vector2(Random.Range(35f, 80f), 0);
+             critChanceObject.sizeDelta = new Vector2((float)accuracyBarLength * playerUnits[battleIndex].currentStats.critPercent, 20);
 
-            hitChanceObject.localPosition = new Vector2(critChanceObject.localPosition.x - (critChanceObject.sizeDelta.x * 0.5f), 0);
-            hitChanceObject.sizeDelta = new Vector2((float)accuracyBarLength, 20);
-        }
-        else
-        {
-            critChanceObject.gameObject.SetActive(false);
-            hitChanceObject.localPosition = new Vector2(Random.Range(35, 80), 0);
-            hitChanceObject.sizeDelta = new Vector2((float)accuracyBarLength, 20);
-        }
+             hitChanceObject.localPosition = new Vector2(critChanceObject.localPosition.x - (critChanceObject.sizeDelta.x * 0.5f), 0);
+             hitChanceObject.sizeDelta = new Vector2((float)accuracyBarLength, 20);
+         }
+         else
+         {
+             critChanceObject.gameObject.SetActive(false);
+             hitChanceObject.localPosition = new Vector2(Random.Range(35, 80), 0);
+             hitChanceObject.sizeDelta = new Vector2((float)accuracyBarLength, 20);
+         }
         _state = GameState.PlayerAttack;
     }
     private void PhysicalAttackControl()
     {
         if (Input.GetKeyDown(KeyCode.Z) || attackSlider.value == 1)
         {
-            if (sliderPos.position.x >= critChanceObject.position.x - critChanceObject.sizeDelta.x - 7 && sliderPos.position.x <= critChanceObject.position.x + 7)
+            if (currentAbility.GetAction().useCrit && sliderPos.localPosition.x >= critChanceObject.localPosition.x - (critChanceObject.sizeDelta.x + 5) && sliderPos.localPosition.x <= (critChanceObject.localPosition.x + 5))
             {
-                
                 AttackHit(currentAbility.GetAction().damageStats, true);
             }
-            else if (sliderPos.position.x >= hitChanceObject.position.x - hitChanceObject.sizeDelta.x - 7 && sliderPos.position.x <= hitChanceObject.position.x + 7)
+            else if (sliderPos.localPosition.x >= hitChanceObject.localPosition.x - (hitChanceObject.sizeDelta.x + 5) && sliderPos.localPosition.x <= (hitChanceObject.localPosition.x + 5))
             {
                 AttackHit(currentAbility.GetAction().damageStats, false);
             }

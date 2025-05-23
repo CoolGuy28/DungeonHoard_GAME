@@ -46,7 +46,7 @@ MonoBehaviour:
         randomVarience: 2
         particleEffect: {fileID: 0}
         applyConditions:
-        - condition: {fileID: 0}
+        - condition: {fileID: 11400000, guid: 852269738ec866744ad1fab60891d951, type: 2}
           timeFrame: 3
           level: 0
         conditionChance: 50

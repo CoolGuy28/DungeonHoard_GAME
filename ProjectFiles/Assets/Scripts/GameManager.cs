@@ -144,6 +144,9 @@ public class GameManager : MonoBehaviour
         this.maxStamina = gameManager.maxStamina;
         this.stamina = gameManager.stamina;
         this.partyPosition = gameManager.partyPosition;
+
+        this.overworldEnemies = gameManager.overworldEnemies;
+
         foreach (CharacterData unit in party)
             unit.InitialiseChar();
         StartCoroutine(LoadScene(1));
