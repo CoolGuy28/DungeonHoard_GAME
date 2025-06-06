@@ -195,10 +195,10 @@ public class BattleManager : MonoBehaviour
         staminaText.text = GameManager.instance.stamina.ToString() + "/" + GameManager.instance.maxStamina.ToString();
     }
 
-    private void ShowAttackLabel(string inputText)
+    private void ShowAttackLabel(string inputText, string targetName)
     {
         attackLabelField.SetActive(true);
-        attackLabel.text = inputText;
+        attackLabel.text = inputText + ": " + targetName;
     }
 
     private void MenuControl()
@@ -264,7 +264,6 @@ public class BattleManager : MonoBehaviour
         currentAbility = ability;
         currentSelectTarget = 0;
         selectSpecificTarget = false;
-        ShowAttackLabel(ability.name);
         switch (ability.GetAction().targetingType)
         {
             case TargetingType.SingleEnemy:
@@ -275,16 +274,22 @@ public class BattleManager : MonoBehaviour
                 selectSpecificTarget = true;
                 selectDowned = false;
                 targetArray = enemyBattleObjects;
+                int breakThreshold = 0;
                 while (targetArray[currentSelectTarget].GetCharacter().downed)
                 {
                     currentSelectTarget++;
                     if (currentSelectTarget >= targetArray.Count)
                         currentSelectTarget = 0;
+                    breakThreshold++;
+                    if (breakThreshold > 10)
+                        break;
                 }
                 targetArray[currentSelectTarget].SetYellow();
                 targets.Add(enemyBattleObjects[currentSelectTarget]);
+                ShowAttackLabel(ability.name, targets[0].GetCharacter().unit.name);
                 break;
             case TargetingType.AllEnemies:
+                ShowAttackLabel(ability.name, "All");
                 foreach (BattleCharObject i in enemyBattleObjects)
                 {
                     i.SetYellow();
@@ -302,6 +307,7 @@ public class BattleManager : MonoBehaviour
                 targetArray = playerBattleObjects;
                 playerBattleObjects[currentSelectTarget].SetYellow();
                 targets.Add(playerBattleObjects[currentSelectTarget]);
+                ShowAttackLabel(ability.name, targets[0].GetCharacter().unit.name);
                 break;
             case TargetingType.AllAllies:
                 foreach (BattleCharObject i in playerBattleObjects)
@@ -310,6 +316,7 @@ public class BattleManager : MonoBehaviour
                     targets.Add(i);
                 }
                 targetArray = playerBattleObjects;
+                ShowAttackLabel(ability.name, "Allies");
                 break;
             case TargetingType.Self:
                 foreach (BattleCharObject i in playerBattleObjects)
@@ -320,6 +327,7 @@ public class BattleManager : MonoBehaviour
                 targetArray = playerBattleObjects;
                 playerBattleObjects[currentSelectTarget].SetYellow();
                 targets.Add(playerBattleObjects[currentSelectTarget]);
+                ShowAttackLabel(ability.name, "Self");
                 break;
             default:
                 Debug.LogError("Error Getting Action Target");
@@ -340,14 +348,19 @@ public class BattleManager : MonoBehaviour
                     currentSelectTarget = 0;
                 if (!selectDowned)
                 {
+                    int breakThreshold = 0;
                     while (targetArray[currentSelectTarget].GetCharacter().downed)
                     {
                         currentSelectTarget++;
                         if (currentSelectTarget >= targetArray.Count)
                             currentSelectTarget = 0;
+                        breakThreshold++;
+                        if (breakThreshold > 10)
+                            break;
                     }
                 }
                 targets.Add(targetArray[currentSelectTarget]);
+                ShowAttackLabel(currentAbility.name, targets[0].GetCharacter().unit.name);
                 targetArray[currentSelectTarget].SetYellow();
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -359,14 +372,19 @@ public class BattleManager : MonoBehaviour
                     currentSelectTarget = targetArray.Count - 1;
                 if (!selectDowned)
                 {
+                    int breakThreshold = 0;
                     while (targetArray[currentSelectTarget].GetCharacter().downed)
                     {
                         currentSelectTarget++;
                         if (currentSelectTarget >= targetArray.Count)
                             currentSelectTarget = 0;
+                        breakThreshold++;
+                        if (breakThreshold > 10)
+                            break;
                     }
                 }
                 targets.Add(targetArray[currentSelectTarget]);
+                ShowAttackLabel(currentAbility.name, targets[0].GetCharacter().unit.name);
                 targetArray[currentSelectTarget].SetYellow();
             }
         }
@@ -495,6 +513,7 @@ public class BattleManager : MonoBehaviour
             attackField.SetActive(false);
             SetNewAttacker();
         }
+
         sliderValue += sliderSpeed * Time.deltaTime;
         attackSlider.value = sliderValue;
     }
@@ -548,6 +567,7 @@ public class BattleManager : MonoBehaviour
     private float castingSpeed;
     private float timeBtwCast;
     private bool canCast = true;
+    private float enemyCastRotMult = 1f;
     private void BeginMagicPhase(bool playerCasting)
     {
         player.transform.position = playerStartPos;
@@ -557,7 +577,9 @@ public class BattleManager : MonoBehaviour
             magicAttackField.SetActive(true);
             castingObj.pattern = magicPatterns;
             casting = playerCasting;
-            timeBtwCast = 2;
+            if (!casting)
+                StartCoroutine(RandEnemyCasterMovement(Random.Range(0.01f, 0.65f)));
+            timeBtwCast = 15;
             canCast = true;
             StartCoroutine(MagicAttackTimer(6f));
         }
@@ -614,7 +636,7 @@ public class BattleManager : MonoBehaviour
             player.AddForce(movement * Time.deltaTime * playerMoveSpeed, ForceMode2D.Impulse);
 
             //EnemyCaster
-            caster.transform.rotation *= Quaternion.Euler(0, 0, 0.5f * casterMoveSpeed * Time.deltaTime);
+            caster.transform.rotation *= Quaternion.Euler(0, 0, 0.5f * casterMoveSpeed * enemyCastRotMult * Time.deltaTime);
             if (canCast)
             {
                 castingObj.ActivatePatternSpawner();
@@ -624,11 +646,23 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private IEnumerator RandEnemyCasterMovement(float timer)
+    {
+        int reverse = Random.Range(0, 2);
+        if (reverse == 0)
+            enemyCastRotMult = -1;
+        else
+            enemyCastRotMult = 1;
+        yield return new WaitForSeconds(timer);
+        StartCoroutine(RandEnemyCasterMovement(Random.Range(0.01f, 0.65f)));
+    }
+
     private IEnumerator MagicAttackTimer(float time)
     {
         attackLabelField.SetActive(false);
         yield return new WaitForSeconds(time);
         SetActiveAttacker();
+        StopAllCoroutines();
         magicPatterns = null;
         magicAttackField.SetActive(false);
         ObjectPool._instance.SetBulletsInactive();
@@ -647,6 +681,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private GameObject subMenuField;
     [SerializeField] private GameObject subMenuArea;
     [SerializeField] private GameObject subMenuItemPrefab;
+    [SerializeField] private GameObject descriptionBox;
+    [SerializeField] private TMP_Text titleText;
+    [SerializeField] private TMP_Text descriptionText;
     private List<SubMenuButton> subMenuItems = new List<SubMenuButton>();
     private int currentSubButton;
     public void OpenSubMenu(List<Ability> abilityList)
@@ -667,6 +704,9 @@ public class BattleManager : MonoBehaviour
         }
         currentSubButton = 0;
         subMenuItems[currentSubButton].SelectButton();
+        descriptionBox.transform.position = new Vector2(descriptionBox.transform.position.x, subMenuItems[currentSubButton].gameObject.transform.position.y);
+        titleText.text = "Selected:\n" + subMenuItems[currentSubButton].GetSkill().name;
+        descriptionText.text = subMenuItems[currentSubButton].GetSkill().description;
         _state = GameState.SubMenu;
     }
     private void SubMenuControl()
@@ -680,7 +720,9 @@ public class BattleManager : MonoBehaviour
                 if (currentSubButton >= subMenuItems.Count)
                     currentSubButton = 0;
                 subMenuItems[currentSubButton].SelectButton();
-
+                descriptionBox.transform.position = new Vector2(descriptionBox.transform.position.x, subMenuItems[currentSubButton].gameObject.transform.position.y);
+                titleText.text = "Selected:\n" + subMenuItems[currentSubButton].GetSkill().name;
+                descriptionText.text = subMenuItems[currentSubButton].GetSkill().description;
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -689,6 +731,9 @@ public class BattleManager : MonoBehaviour
                 if (currentSubButton < 0)
                     currentSubButton = subMenuItems.Count - 1;
                 subMenuItems[currentSubButton].SelectButton();
+                descriptionBox.transform.position = new Vector2(descriptionBox.transform.position.x, subMenuItems[currentSubButton].gameObject.transform.position.y);
+                titleText.text = "Selected:\n" + subMenuItems[currentSubButton].GetSkill().name;
+                descriptionText.text = subMenuItems[currentSubButton].GetSkill().description;
             }
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -746,26 +791,35 @@ public class BattleManager : MonoBehaviour
             case TargetingType.SingleEnemy:
                 int targetIndex = Random.Range(0, playerBattleObjects.Count);
                 BattleCharObject selectedObj = playerBattleObjects[targetIndex];
+                int breakThreshold = 0;
                 while (selectedObj.GetCharacter().downed)
                 {
                     targetIndex++;
                     if (targetIndex >= playerBattleObjects.Count)
                         targetIndex = 0;
                     selectedObj = playerBattleObjects[targetIndex];
+                    breakThreshold++;
+                    if (breakThreshold > 10)
+                        break;
                 }
                 enemyTargets.Add(selectedObj);
+                ShowAttackLabel(currentAbility.name, selectedObj.GetCharacter().unit.name);
                 break;
             case TargetingType.AllEnemies:
                 enemyTargets = playerBattleObjects;
+                ShowAttackLabel(currentAbility.name, "All");
                 break;
             case TargetingType.SingleAlly:
                 enemyTargets.Add(enemyBattleObjects[Random.Range(0, enemyBattleObjects.Count)]);
+                ShowAttackLabel(currentAbility.name, enemyTargets[0].GetCharacter().unit.name);
                 break;
             case TargetingType.AllAllies:
                 enemyTargets = enemyBattleObjects;
+                ShowAttackLabel(currentAbility.name, "Allies");
                 break;
             case TargetingType.Self:
                 enemyTargets.Add(currentActiveTeam[battleIndex]);
+                ShowAttackLabel(currentAbility.name, "Self");
                 break;
         }
         return enemyTargets;
@@ -773,10 +827,9 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator EnemyAttack()
     {
-        ShowAttackLabel(currentAbility.name);
-        yield return new WaitForSeconds(1f);
         targets.Clear();
         targets.AddRange(EnemyChooseTargets(currentAbility.GetAction().targetingType));
+        yield return new WaitForSeconds(1f);
 
         switch (currentAbility)
         {
@@ -790,7 +843,6 @@ public class BattleManager : MonoBehaviour
                 Skill_Magic spell = currentAbility as Skill_Magic;
                 if (spell.action.targetingType == TargetingType.AllEnemies || spell.action.targetingType == TargetingType.SingleEnemy)
                 {
-                    ShowAttackLabel(currentAbility.name);
                     magicPatterns = spell.magicPattern;
                     castingSpeed = spell.castingSpeed;
                     mageTargets = EnemyChooseTargets(currentAbility.GetAction().targetingType);
@@ -826,7 +878,7 @@ public class BattleManager : MonoBehaviour
 
     private void EnemyAttemptHit()
     {
-        ShowAttackLabel(currentAbility.name);
+        ShowAttackLabel(currentAbility.name, targets[0].GetCharacter().unit.name);
         int hitChance = Random.Range(0, 100);
         if (currentAbility.GetAction().useCrit && hitChance <= currentActiveTeam[battleIndex].GetCharacter().currentStats.accuracy * currentAbility.GetAction().accuracy * currentActiveTeam[battleIndex].GetCharacter().currentStats.critPercent)
         {

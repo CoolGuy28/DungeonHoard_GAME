@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35330e7859ede1043ab42a090b6790da, type: 3}
   m_Name: Poison Vial
   m_EditorClassIdentifier: 
-  description: 
+  description: Lauch at a target to poison them.
   action:
     targetingType: 0
     damageStats:

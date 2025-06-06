@@ -41,4 +41,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 309d345d2e6d7fc4aa166a358092668b, type: 3}
   - {fileID: 21300000, guid: 0520a1435ce90d4428bb93fb04794b40, type: 3}
   spriteSize: {x: 1.4, y: 1.4}
-  charPortrait: {fileID: 21300000, guid: 0860564c0937a4a42bde38d49847ed0d, type: 3}
+  charPortrait: {fileID: 21300000, guid: 277af5cc1d64c124aa915dc0856d33f7, type: 3}

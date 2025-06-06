@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c57f04b7d1af44bb6783d0db22ee68, type: 3}
   m_Name: Icewall
   m_EditorClassIdentifier: 
-  description: 
+  description: Create a force of freezing ice upon your enemies.
   staminaCost: 30
   action:
     targetingType: 0
     damageStats:
-      damage: 30
+      damage: 20
       damageType: 5
       randomVarience: 0
       particleEffect: {fileID: 7512594599114799122, guid: b7289bf73ba9b5046a935249e3cd0438, type: 3}

@@ -38,4 +38,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 309d345d2e6d7fc4aa166a358092668b, type: 3}
   - {fileID: 21300000, guid: 0520a1435ce90d4428bb93fb04794b40, type: 3}
   spriteSize: {x: 1.5, y: 1.5}
-  charPortrait: {fileID: 21300000, guid: 7e4c9670ceb6f62478bada25f1b47fc9, type: 3}
+  charPortrait: {fileID: 21300000, guid: 8413f6009772dd44e8f3025eeb9621e6, type: 3}

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
   m_Name: Mind Control
   m_EditorClassIdentifier: 
-  description: 
+  description: Cause an enemy to no longer understand who ally and foe is. They will
+    then join your fight.
   staminaCost: 60
   action:
     targetingType: 0

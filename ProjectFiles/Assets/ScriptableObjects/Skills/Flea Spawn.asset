@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c57f04b7d1af44bb6783d0db22ee68, type: 3}
   m_Name: Flea Spawn
   m_EditorClassIdentifier: 
-  description: 
+  description: Summon fleas that jump upon all enemies and cause them disease.
   staminaCost: 40
   action:
     targetingType: 1

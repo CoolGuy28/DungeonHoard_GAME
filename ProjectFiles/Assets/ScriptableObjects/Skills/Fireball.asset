@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c57f04b7d1af44bb6783d0db22ee68, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  description: 
+  description: Bring down unholy flames upon all enemies causing strong damage and
+    a burning effect.
   staminaCost: 40
   action:
     targetingType: 1

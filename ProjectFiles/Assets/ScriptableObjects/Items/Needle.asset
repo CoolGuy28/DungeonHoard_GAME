@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35330e7859ede1043ab42a090b6790da, type: 3}
   m_Name: Needle
   m_EditorClassIdentifier: 
-  description: 
+  description: Launch at a target to deal a random amount of damage and possibly
+    cause bleeding.
   action:
     targetingType: 0
     damageStats:

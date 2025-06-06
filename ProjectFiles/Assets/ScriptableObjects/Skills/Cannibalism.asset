@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
   m_Name: Cannibalism
   m_EditorClassIdentifier: 
-  description: 
-  staminaCost: 10
+  description: Consume one of your allies for a needed stamina boost.
+  staminaCost: 0
   action:
     targetingType: 2
     damageStats:
@@ -26,4 +26,4 @@ MonoBehaviour:
       removeConditions: []
     accuracy: 0
     useCrit: 0
-    staminaAdjust: 0
+    staminaAdjust: 40

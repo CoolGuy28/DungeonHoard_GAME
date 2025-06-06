@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35330e7859ede1043ab42a090b6790da, type: 3}
   m_Name: Human Flesh
   m_EditorClassIdentifier: 
-  description: 
+  description: Consume to gain energy.
   action:
     targetingType: 4
     damageStats:

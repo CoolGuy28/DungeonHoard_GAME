@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c57f04b7d1af44bb6783d0db22ee68, type: 3}
   m_Name: Flesh Regrowth
   m_EditorClassIdentifier: 
-  description: 
+  description: Mend the wounds of an ally.
   staminaCost: 5
   action:
     targetingType: 2
@@ -25,7 +25,8 @@ MonoBehaviour:
       conditionChance: 0
       removeConditions: []
     accuracy: 0
-    critChance: 0
+    useCrit: 0
+    staminaAdjust: 0
   corruption: 0
   magicPattern:
     rotationOffset: 0

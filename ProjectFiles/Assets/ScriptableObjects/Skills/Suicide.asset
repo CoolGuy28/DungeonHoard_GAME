@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
   m_Name: Suicide
   m_EditorClassIdentifier: 
-  description: 
+  description: End your existence on this worthless plane.
   staminaCost: 5
   action:
     targetingType: 4

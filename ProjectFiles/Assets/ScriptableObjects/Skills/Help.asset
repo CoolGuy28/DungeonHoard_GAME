@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
   m_Name: Help
   m_EditorClassIdentifier: 
-  description: 
+  description: Bring a downed ally back up.
   staminaCost: 0
   action:
     targetingType: 2
@@ -25,5 +25,5 @@ MonoBehaviour:
       conditionChance: 0
       removeConditions: []
     accuracy: 0
-    critChance: 0
+    useCrit: 0
     staminaAdjust: 0

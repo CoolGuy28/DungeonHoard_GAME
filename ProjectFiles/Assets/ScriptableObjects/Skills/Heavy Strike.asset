@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
   m_Name: Heavy Strike
   m_EditorClassIdentifier: 
-  description: 
+  description: Bring down a powerful strike against a foe dealing heavy damage.
   staminaCost: 30
   action:
     targetingType: 0

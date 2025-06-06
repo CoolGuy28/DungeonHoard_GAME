@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
   m_Name: Slash Arteries
   m_EditorClassIdentifier: 
-  description: 
+  description: Aim for the targets vital veins to cause heavy bleeding.
   staminaCost: 15
   action:
     targetingType: 0
