@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour
     public Vector2 partyPosition;
     [SerializeField] private Animator animator;
     private int currentEnemyIndex;
-    [SerializeField] private EnemyOverworldData[] overworldEnemies;
+    [SerializeField] private List<EnemyOverworldData> overworldEnemies;
     [SerializeField] private OverworldEnemyObject enemyObjectPrefab;
+    [SerializeField] private DialogueManager dialogueManager;
 
     public static GameManager instance
     {
@@ -38,14 +39,6 @@ public class GameManager : MonoBehaviour
 
         foreach (CharacterData character in party)
             character.InitialiseChar();
-    }
-
-    private void Start()
-    {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            SpawnEnemyObjects();
-        }
     }
 
     private void OnLevelWasLoaded(int level)
@@ -121,7 +114,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemyObjects()
     {
-        for (int i = 0; i < overworldEnemies.Length; i++)
+        for (int i = 0; i < overworldEnemies.Count; i++)
         {
             Instantiate(enemyObjectPrefab, overworldEnemies[i].enemyPosition, Quaternion.identity).SetEnemyData(overworldEnemies[i], i);
         }
@@ -132,6 +125,16 @@ public class GameManager : MonoBehaviour
         return overworldEnemies[currentEnemyIndex].enemyFight;
     }
 
+    public void BeginDialogue(DialogueSection section)
+    {
+        Time.timeScale = 0;
+        dialogueManager.LoadDialogue(section);
+    }
+    public void EndDialogue()
+    {
+        Time.timeScale = 1;
+    }
+
     public void LoadMenu()
     {
         StartCoroutine(LoadScene(0));
@@ -139,13 +142,25 @@ public class GameManager : MonoBehaviour
 
     public void LoadGame(GameManager gameManager)
     {
-        this.party = gameManager.party;
-        this.items = gameManager.items;
         this.maxStamina = gameManager.maxStamina;
         this.stamina = gameManager.stamina;
         this.partyPosition = gameManager.partyPosition;
 
-        this.overworldEnemies = gameManager.overworldEnemies;
+        party.Clear();
+        foreach (CharacterData x in gameManager.party)
+            this.party.Add(x);
+
+        items.Clear();
+        foreach (ItemSlot x in gameManager.items)
+            this.items.Add(x);
+
+        overworldEnemies.Clear();
+        foreach (EnemyOverworldData x in gameManager.overworldEnemies)
+        {
+            EnemyOverworldData newEnemyData = new EnemyOverworldData();
+            newEnemyData.SetOverworldData(x);
+            this.overworldEnemies.Add(newEnemyData);
+        }  
 
         foreach (CharacterData unit in party)
             unit.InitialiseChar();
@@ -154,8 +169,12 @@ public class GameManager : MonoBehaviour
 
     public void LoadBattle(int currentEnemyIndex)
     {
-        this.currentEnemyIndex = currentEnemyIndex;
-        StartCoroutine(LoadScene(2));
+        if (!overworldEnemies[currentEnemyIndex].dead)
+        {
+            this.currentEnemyIndex = currentEnemyIndex;
+            StartCoroutine(LoadScene(2));
+        }
+
     }
 
     public void WonBattle()

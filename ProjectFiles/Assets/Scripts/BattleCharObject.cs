@@ -213,7 +213,31 @@ public class BattleCharObject : MonoBehaviour
         if (!character.downed)
         {
             if (i == 0)
-                spriteObj.sprite = character.unit.attackSprite;
+                spriteObj.sprite = character.unit.basicAttack;
+            else if (i == 1)
+                spriteObj.sprite = character.unit.damageSprite;
+            else
+                spriteObj.sprite = character.unit.battleSprite;
+
+            yield return new WaitForSeconds(timeFrame);
+
+            if (character.downed)
+            {
+                spriteObj.sprite = character.unit.downedSprite;
+            }
+            else
+            {
+                spriteObj.sprite = character.unit.battleSprite;
+            }
+        }
+    }
+
+    public IEnumerator SetSprite(int i, float timeFrame, int attackIndex)
+    {
+        if (!character.downed)
+        {
+            if (i == 0)
+                spriteObj.sprite = character.unit.attackSprites[attackIndex];
             else if (i == 1)
                 spriteObj.sprite = character.unit.damageSprite;
             else

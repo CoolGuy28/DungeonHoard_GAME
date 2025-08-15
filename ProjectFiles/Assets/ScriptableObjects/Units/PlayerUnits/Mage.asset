@@ -29,12 +29,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08d6ed6907284664099ea42ed4d1634a, type: 2}
   - {fileID: 11400000, guid: 3bac7468edebf684596c0c80b0168047, type: 2}
   - {fileID: 11400000, guid: e2671744404a9c1429ef1fa9493202bb, type: 2}
-  - {fileID: 11400000, guid: 67002db3170971545b5ed1bb0878df4a, type: 2}
   - {fileID: 11400000, guid: 29e6c79b30caa214396ba4b2aa04a94e, type: 2}
-  battleSprite: {fileID: 21300000, guid: f661c995c8dd91c41b3c4be0cc7197a8, type: 3}
-  attackSprite: {fileID: 21300000, guid: 26375803a00c0e84aa67c3de02144ccf, type: 3}
-  damageSprite: {fileID: 21300000, guid: e9bbee0b672779e46a4a4a8b15b624d6, type: 3}
-  downedSprite: {fileID: 21300000, guid: e9bbee0b672779e46a4a4a8b15b624d6, type: 3}
+  battleSprite: {fileID: 21300000, guid: ca8623595ad32ac45a29c206709c49ff, type: 3}
+  basicAttack: {fileID: 21300000, guid: e6fd0f6358af61c4b8e3c5369c8409a3, type: 3}
+  attackSprites:
+  - {fileID: 21300000, guid: e6fd0f6358af61c4b8e3c5369c8409a3, type: 3}
+  - {fileID: 21300000, guid: fc6bc9330d31bdd4c9d52362d9d15d27, type: 3}
+  - {fileID: 21300000, guid: fc6bc9330d31bdd4c9d52362d9d15d27, type: 3}
+  - {fileID: 21300000, guid: fc6bc9330d31bdd4c9d52362d9d15d27, type: 3}
+  - {fileID: 21300000, guid: 0fb072951065cea41aa28cb53aa135ab, type: 3}
+  damageSprite: {fileID: 21300000, guid: ca8623595ad32ac45a29c206709c49ff, type: 3}
+  downedSprite: {fileID: 21300000, guid: bf037f34cbc0beb4799dbb8daeca4539, type: 3}
   overWorldSprites:
   - {fileID: 21300000, guid: b92356e0bd677e041a434bb71d3ce1e4, type: 3}
   - {fileID: 21300000, guid: 4991a628174c685469b7660326243bc6, type: 3}

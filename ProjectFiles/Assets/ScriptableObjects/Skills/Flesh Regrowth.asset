@@ -27,6 +27,7 @@ MonoBehaviour:
     accuracy: 0
     useCrit: 0
     staminaAdjust: 0
+    spriteIndex: 1
   corruption: 0
   magicPattern:
     rotationOffset: 0

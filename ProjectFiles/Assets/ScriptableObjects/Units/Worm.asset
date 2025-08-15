@@ -28,7 +28,12 @@ MonoBehaviour:
   skills:
   - {fileID: 11400000, guid: 6594b20f96108a94a883cf402886fe0c, type: 2}
   battleSprite: {fileID: 21300000, guid: f767f32723cb79348bca2726673c8d0f, type: 3}
-  attackSprite: {fileID: 21300000, guid: 98918e7cf5c48b64db7fd05deb6a663a, type: 3}
+  basicAttack: {fileID: 21300000, guid: 98918e7cf5c48b64db7fd05deb6a663a, type: 3}
+  attackSprites:
+  - {fileID: 21300000, guid: 98918e7cf5c48b64db7fd05deb6a663a, type: 3}
+  - {fileID: 21300000, guid: 98918e7cf5c48b64db7fd05deb6a663a, type: 3}
+  - {fileID: 21300000, guid: 98918e7cf5c48b64db7fd05deb6a663a, type: 3}
+  - {fileID: 21300000, guid: 98918e7cf5c48b64db7fd05deb6a663a, type: 3}
   damageSprite: {fileID: 21300000, guid: c75dc4d6d1738bc48b59540d4cfaa440, type: 3}
   downedSprite: {fileID: 21300000, guid: 177b90ec3a50ec941a8410ee745a2fb9, type: 3}
   overWorldSprites: []

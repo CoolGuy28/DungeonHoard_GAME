@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
-  m_Name: Heavy Strike
+  m_Name: Bleeding Cutdown
   m_EditorClassIdentifier: 
   description: Bring down a powerful strike against a foe dealing heavy damage.
-  staminaCost: 30
+  staminaCost: 10
   action:
     targetingType: 0
     damageStats:
@@ -27,3 +27,4 @@ MonoBehaviour:
     accuracy: 50
     useCrit: 1
     staminaAdjust: 0
+    spriteIndex: 2

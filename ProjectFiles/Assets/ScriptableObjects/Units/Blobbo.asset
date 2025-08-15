@@ -30,7 +30,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08d6ed6907284664099ea42ed4d1634a, type: 2}
   - {fileID: 11400000, guid: e2671744404a9c1429ef1fa9493202bb, type: 2}
   battleSprite: {fileID: 21300000, guid: 70543033c8bb1184c8ea25b06172e802, type: 3}
-  attackSprite: {fileID: 21300000, guid: 1967999c3df85534fa89ef2369ea12b2, type: 3}
+  basicAttack: {fileID: 21300000, guid: 1967999c3df85534fa89ef2369ea12b2, type: 3}
+  attackSprites:
+  - {fileID: 21300000, guid: 1967999c3df85534fa89ef2369ea12b2, type: 3}
+  - {fileID: 21300000, guid: 1967999c3df85534fa89ef2369ea12b2, type: 3}
+  - {fileID: 21300000, guid: 1967999c3df85534fa89ef2369ea12b2, type: 3}
+  - {fileID: 21300000, guid: 1967999c3df85534fa89ef2369ea12b2, type: 3}
   damageSprite: {fileID: 21300000, guid: 22b6c8cf838d939499bcb72c598b05be, type: 3}
   downedSprite: {fileID: 21300000, guid: 7b669b67e8f20b140833eb0363ed500f, type: 3}
   overWorldSprites: []

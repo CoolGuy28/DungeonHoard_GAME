@@ -527,7 +527,7 @@ public class BattleManager : MonoBehaviour
             damage.damage = (int)(damage.damage * currentActiveTeam[battleIndex].GetCharacter().currentStats.attack);
 
 
-        StartCoroutine(currentActiveTeam[battleIndex].SetSprite(0, 0.75f));
+        StartCoroutine(currentActiveTeam[battleIndex].SetSprite(0, 0.75f, currentAbility.GetAction().spriteIndex));
         foreach (BattleCharObject i in targets)
         {
             StartCoroutine(i.SetSprite(1, 0.75f));
@@ -537,7 +537,7 @@ public class BattleManager : MonoBehaviour
 
     private void AttackMiss()
     {
-        StartCoroutine(currentActiveTeam[battleIndex].SetSprite(0, 0.75f));
+        StartCoroutine(currentActiveTeam[battleIndex].SetSprite(0, 0.75f, currentAbility.GetAction().spriteIndex));
         foreach (BattleCharObject i in targets)
         {
             i.AttackMissed();

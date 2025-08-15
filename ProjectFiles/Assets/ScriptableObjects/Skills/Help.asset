@@ -27,3 +27,4 @@ MonoBehaviour:
     accuracy: 0
     useCrit: 0
     staminaAdjust: 0
+    spriteIndex: 4

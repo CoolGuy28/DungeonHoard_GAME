@@ -15,6 +15,8 @@ public class CharacterData
 
     public void InitialiseChar()
     {
+        downed = false;
+        conditions.Clear();
         currentStats = new Stats(unit.baseStats);
         weapon = unit.weapon;
         skills = unit.skills;
@@ -130,6 +132,7 @@ public class Action
     public float accuracy;
     public bool useCrit;
     public int staminaAdjust;
+    public int spriteIndex;
 }
 
 public class Ability : ScriptableObject
@@ -211,4 +214,12 @@ public class EnemyOverworldData
     public Vector2 enemyPosition;
     public bool dead;
     public int displaySprite;
+
+    public void SetOverworldData(EnemyOverworldData data)
+    {
+        enemyFight = data.enemyFight;
+        enemyPosition = data.enemyPosition;
+        dead = data.dead;
+        displaySprite = data.displaySprite;
+    }
 }

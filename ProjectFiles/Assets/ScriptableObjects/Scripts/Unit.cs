@@ -10,7 +10,8 @@ public class Unit : ScriptableObject
     public List<Skill> skills;
     //public Condition[] conditionImmunities;
     public Sprite battleSprite;
-    public Sprite attackSprite;
+    public Sprite basicAttack;
+    public Sprite[] attackSprites;
     public Sprite damageSprite;
     public Sprite downedSprite;
     public Sprite[] overWorldSprites;

@@ -22,8 +22,13 @@ public class OverworldEnemyObject : MonoBehaviour
 
     public void SetEnemyData(EnemyOverworldData data, int index)
     {
-        this.data = data;
+        this.data.SetOverworldData(data);
         this.index = index;
+        if (this.data.dead)
+        {
+            spriteObj.color = Color.red;
+            gameObject.GetComponent<Collider2D>().enabled = false;
+        }
     }
 
     public List<CharacterData> GetEnemies()
