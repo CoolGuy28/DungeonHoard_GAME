@@ -208,13 +208,22 @@ public enum DamageType
 }
 
 [System.Serializable]
+public class OverworldScene
+{
+    public List<EnemyOverworldData> enemies = new List<EnemyOverworldData>();
+    public void SaveNewEnemy(EnemyOverworldData enemy)
+    {
+        enemies.Add(enemy);
+    }
+}
+
+[System.Serializable]
 public class EnemyOverworldData
 {
     public List<CharacterData> enemyFight;
     public Vector2 enemyPosition;
     public bool dead;
     public int displaySprite;
-
     public void SetOverworldData(EnemyOverworldData data)
     {
         enemyFight = data.enemyFight;

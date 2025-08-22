@@ -22,7 +22,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (inDialogue)
         {
-            if (Input.anyKeyDown)
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 if (currentLine < currentDialogue.dialogue.Length)
                 {

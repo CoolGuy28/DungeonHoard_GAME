@@ -9,8 +9,6 @@ public class PartyObject : MonoBehaviour
     [SerializeField] private GameObject partyMemberPrefab;
     public Vector2[] storedDir = new Vector2[3];
     public OverworldMovement[] partyOverworldMovement = new OverworldMovement[3];
-    [SerializeField] private float keyPressCooldown = 0.05f;
-    private bool cantMove;
 
     private void Start()
     {
@@ -19,8 +17,6 @@ public class PartyObject : MonoBehaviour
 
     private void Update()
     {
-        if (cantMove)
-            return;
         if (allowMovement)
         {
             Vector2 movement = new Vector2(0f, 0f);
@@ -33,7 +29,6 @@ public class PartyObject : MonoBehaviour
                     StoreDir(movement);
                     MoveParty();
                 }
-                StartCoroutine(KeyCooldown());
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
@@ -43,7 +38,6 @@ public class PartyObject : MonoBehaviour
                     StoreDir(movement);
                     MoveParty();
                 }
-                StartCoroutine(KeyCooldown());
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -53,7 +47,6 @@ public class PartyObject : MonoBehaviour
                     StoreDir(movement);
                     MoveParty();
                 }
-                StartCoroutine(KeyCooldown());
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
@@ -63,12 +56,14 @@ public class PartyObject : MonoBehaviour
                     StoreDir(movement);
                     MoveParty();
                 }
-                StartCoroutine(KeyCooldown());
             }
             if (Input.GetKey(KeyCode.Z))
             {
-
-                partyOverworldMovement[0].Interact(movement);
+                partyOverworldMovement[0].Interact();
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameManager.instance.LoadMenu();
             }
         }
     }
@@ -107,13 +102,6 @@ public class PartyObject : MonoBehaviour
         }
     }
 
-    private IEnumerator KeyCooldown()
-    {
-        cantMove = true;
-        yield return new WaitForSeconds(keyPressCooldown);
-        cantMove = false;
-    }
-
     public void BeginFishing()
     {
         allowMovement = false;
@@ -130,6 +118,7 @@ public class PartyObject : MonoBehaviour
             allowMovement = false;
             GameManager.instance.partyPosition = transform.position;
             GameManager.instance.LoadBattle(collision.gameObject.GetComponent<OverworldEnemyObject>().index);
+            GameManager.instance.SaveGame();
         }
     }
 }

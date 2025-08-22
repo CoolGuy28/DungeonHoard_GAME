@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
+    [SerializeField] private bool initializeDataIfNull = false;
+    public GameData gameData;
     public List<CharacterData> party;
     public List<ItemSlot> items;
     public int maxStamina;
@@ -13,10 +16,10 @@ public class GameManager : MonoBehaviour
     public Vector2 partyPosition;
     [SerializeField] private Animator animator;
     private int currentEnemyIndex;
-    [SerializeField] private List<EnemyOverworldData> overworldEnemies;
-    [SerializeField] private OverworldEnemyObject enemyObjectPrefab;
     [SerializeField] private DialogueManager dialogueManager;
-
+    private List<IDataPersistence> dataPersistenceObjects;
+    [SerializeField] private List<CharacterData> newGameParty;
+    [SerializeField] private List<ItemSlot> newGameItems;
     public static GameManager instance
     {
         get
@@ -26,26 +29,40 @@ public class GameManager : MonoBehaviour
     }
     void Awake()
     {
-        if (_instance == null)
+        if (_instance != null)
         {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            if (_instance != this)
-                Destroy(gameObject);
-        }
-
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
         foreach (CharacterData character in party)
             character.InitialiseChar();
     }
 
-    private void OnLevelWasLoaded(int level)
+    private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().buildIndex != 2)
         {
-            SpawnEnemyObjects();
+            this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+            LoadGame();
+        }
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().buildIndex != 2)
+        {
+            this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+            LoadGame();
+        }
+    }
+    private void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
 
@@ -112,19 +129,6 @@ public class GameManager : MonoBehaviour
             stamina = maxStamina;
     }
 
-    private void SpawnEnemyObjects()
-    {
-        for (int i = 0; i < overworldEnemies.Count; i++)
-        {
-            Instantiate(enemyObjectPrefab, overworldEnemies[i].enemyPosition, Quaternion.identity).SetEnemyData(overworldEnemies[i], i);
-        }
-    }
-
-    public List<CharacterData> GetActiveEnemyList()
-    {
-        return overworldEnemies[currentEnemyIndex].enemyFight;
-    }
-
     public void BeginDialogue(DialogueSection section)
     {
         Time.timeScale = 0;
@@ -135,60 +139,156 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void LoadMenu()
+    public void NewGame()
     {
-        StartCoroutine(LoadScene(0));
-    }
-
-    public void LoadGame(GameManager gameManager)
-    {
-        this.maxStamina = gameManager.maxStamina;
-        this.stamina = gameManager.stamina;
-        this.partyPosition = gameManager.partyPosition;
-
-        party.Clear();
-        foreach (CharacterData x in gameManager.party)
-            this.party.Add(x);
-
-        items.Clear();
-        foreach (ItemSlot x in gameManager.items)
-            this.items.Add(x);
-
-        overworldEnemies.Clear();
-        foreach (EnemyOverworldData x in gameManager.overworldEnemies)
-        {
-            EnemyOverworldData newEnemyData = new EnemyOverworldData();
-            newEnemyData.SetOverworldData(x);
-            this.overworldEnemies.Add(newEnemyData);
-        }  
-
+        gameData = new GameData(newGameParty, newGameItems);
         foreach (CharacterData unit in party)
             unit.InitialiseChar();
-        StartCoroutine(LoadScene(1));
+    }
+
+    public void NewGame(List<CharacterData> party, List<ItemSlot> items)
+    {
+        Debug.Log("NewGame");
+        gameData = new GameData(party, items);
+        foreach (CharacterData unit in party)
+            unit.InitialiseChar();
+    }
+
+    public void LoadMenu()
+    {
+        StartCoroutine(ChangeScene(0));
+    }
+
+    public void LoadGame()
+    {
+        dataPersistenceObjects = FindAllDataPersistenceObjects();
+        if (gameData.party.Count == 0 && initializeDataIfNull)
+        {
+            NewGame();
+        }
+        Debug.Log("SceneLoading");
+        gameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        maxStamina = gameData.maxStamina;
+        stamina = maxStamina;
+        partyPosition = gameData.playerPos;
+
+        party = gameData.party;
+        items = gameData.items;
+
+        for (int i = 0; i < dataPersistenceObjects.Count; i++)
+        {
+            dataPersistenceObjects[i].LoadData(gameData, i);
+        }
+
+        GameObject.Find("PartyObject").transform.position = partyPosition;
+    }
+
+    public void SaveGame()
+    {
+        Debug.Log("SceneSaved");
+        gameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        gameData.maxStamina = maxStamina;
+        gameData.playerPos = partyPosition;
+        gameData.party = party;
+        gameData.items = items;
+
+        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        {
+            dataPersistenceObj.SaveData(gameData);
+        }
     }
 
     public void LoadBattle(int currentEnemyIndex)
     {
-        if (!overworldEnemies[currentEnemyIndex].dead)
+        if (!gameData.sceneData[gameData.sceneIndex].enemies[currentEnemyIndex].dead)
         {
             this.currentEnemyIndex = currentEnemyIndex;
-            StartCoroutine(LoadScene(2));
+            gameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            StartCoroutine(ChangeScene("BattleScene"));
         }
+    }
 
+    public List<CharacterData> GetActiveEnemyList()
+    {
+        return gameData.sceneData[gameData.sceneIndex].enemies[currentEnemyIndex].enemyFight;
     }
 
     public void WonBattle()
     {
-        overworldEnemies[currentEnemyIndex].dead = true;
-        StartCoroutine(LoadScene(1));
+        gameData.sceneData[gameData.sceneIndex].enemies[currentEnemyIndex].dead = true;
+        StartCoroutine(ChangeScene(gameData.sceneIndex));
     }
 
-    private IEnumerator LoadScene(int scene)
+    public void ChangeGameScene()
+    {
+        StartCoroutine(ChangeScene(1));
+    }
+
+    private IEnumerator ChangeScene(int scene)
     {
         animator.SetBool("Fade", true);
         yield return new WaitForSeconds(0.8f);
         SceneManager.LoadScene(scene);
         animator.SetBool("Fade", false);
     }
+
+    private IEnumerator ChangeScene(string name)
+    {
+        animator.SetBool("Fade", true);
+        yield return new WaitForSeconds(0.8f);
+        SceneManager.LoadScene(name);
+        animator.SetBool("Fade", false);
+    }
+
+    private List<IDataPersistence> FindAllDataPersistenceObjects() 
+    {
+        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
+
+        return new List<IDataPersistence>(dataPersistenceObjects);
+    }
 }
 
+[System.Serializable]
+public class GameData
+{
+    public List<CharacterData> party;
+    public List<ItemSlot> items;
+    public int maxStamina;
+    public Vector2 playerPos;
+    public int sceneIndex;
+    public OverworldScene[] sceneData;
+
+    public GameData()
+    {
+        maxStamina = 100;
+        sceneData = new OverworldScene[4];
+        for (int i = 0; i < sceneData.Length; i++)
+        {
+            sceneData[i] = new OverworldScene();
+        }
+    }
+
+    public GameData(List<CharacterData> party)
+    {
+        maxStamina = 100;
+        this.party = party;
+        sceneData = new OverworldScene[4];
+        for (int i = 0; i < sceneData.Length; i++)
+        {
+            sceneData[i] = new OverworldScene();
+        }
+    }
+
+    public GameData(List<CharacterData> party, List<ItemSlot> items)
+    {
+        maxStamina = 100;
+        this.party = party;
+        this.items = items;
+        playerPos = new Vector2(4.5f,3.5f);
+        sceneData = new OverworldScene[4];
+        for (int i = 0; i < sceneData.Length; i++)
+        {
+            sceneData[i] = new OverworldScene();
+        }
+    }
+}

@@ -501,6 +501,7 @@ GameObject:
   - component: {fileID: 7116283469937543432}
   - component: {fileID: 7116283469937543433}
   - component: {fileID: 1282416742974154239}
+  - component: {fileID: 1281372883}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -522,7 +523,7 @@ Transform:
   m_Children:
   - {fileID: 1024182950}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7116283469937543433
 MonoBehaviour:
@@ -536,6 +537,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2752ef623952cb34c9d98e9ccdc70d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initializeDataIfNull: 1
+  gameData:
+    party: []
+    items: []
+    maxStamina: 100
+    playerPos: {x: 0, y: 0}
+    sceneIndex: 0
+    sceneData: []
   party:
   - unit: {fileID: 11400000, guid: 591c3b491cd9c884b8573726dac4d64b, type: 2}
     downed: 0
@@ -616,125 +625,83 @@ MonoBehaviour:
   stamina: 100
   partyPosition: {x: 0, y: 0}
   animator: {fileID: 293146968}
-  overworldEnemies:
-  - enemyFight:
-    - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
-      downed: 0
-      currentStats:
-        attack: 0
-        maxHealth: 0
-        defence: 0
-        healingEffect: 0
-        fireRes: 0
-        poisonRes: 0
-        coldRes: 0
-        accuracy: 0
-        speed: 0
-        critPercent: 0
-        critMultiplyer: 0
-      currentHealth: 0
-      weapon: {fileID: 0}
-      skills: []
-      conditions: []
-    - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
-      downed: 0
-      currentStats:
-        attack: 0
-        maxHealth: 0
-        defence: 0
-        healingEffect: 0
-        fireRes: 0
-        poisonRes: 0
-        coldRes: 0
-        accuracy: 0
-        speed: 0
-        critPercent: 0
-        critMultiplyer: 0
-      currentHealth: 0
-      weapon: {fileID: 0}
-      skills: []
-      conditions: []
-    enemyPosition: {x: 1.5, y: -7.5}
-    dead: 0
-    displaySprite: 0
-  - enemyFight:
-    - unit: {fileID: 11400000, guid: 070b9c87c56b77949881f9cf9806b2b5, type: 2}
-      downed: 0
-      currentStats:
-        attack: 0
-        maxHealth: 0
-        defence: 0
-        healingEffect: 0
-        fireRes: 0
-        poisonRes: 0
-        coldRes: 0
-        accuracy: 0
-        speed: 0
-        critPercent: 0
-        critMultiplyer: 0
-      currentHealth: 0
-      weapon: {fileID: 0}
-      skills: []
-      conditions: []
-    - unit: {fileID: 11400000, guid: 070b9c87c56b77949881f9cf9806b2b5, type: 2}
-      downed: 0
-      currentStats:
-        attack: 0
-        maxHealth: 0
-        defence: 0
-        healingEffect: 0
-        fireRes: 0
-        poisonRes: 0
-        coldRes: 0
-        accuracy: 0
-        speed: 0
-        critPercent: 0
-        critMultiplyer: 0
-      currentHealth: 0
-      weapon: {fileID: 0}
-      skills: []
-      conditions: []
-    - unit: {fileID: 11400000, guid: 070b9c87c56b77949881f9cf9806b2b5, type: 2}
-      downed: 0
-      currentStats:
-        attack: 0
-        maxHealth: 0
-        defence: 0
-        healingEffect: 0
-        fireRes: 0
-        poisonRes: 0
-        coldRes: 0
-        accuracy: 0
-        speed: 0
-        critPercent: 0
-        critMultiplyer: 0
-      currentHealth: 0
-      weapon: {fileID: 0}
-      skills: []
-      conditions: []
-    - unit: {fileID: 11400000, guid: 070b9c87c56b77949881f9cf9806b2b5, type: 2}
-      downed: 0
-      currentStats:
-        attack: 0
-        maxHealth: 0
-        defence: 0
-        healingEffect: 0
-        fireRes: 0
-        poisonRes: 0
-        coldRes: 0
-        accuracy: 0
-        speed: 0
-        critPercent: 0
-        critMultiplyer: 0
-      currentHealth: 0
-      weapon: {fileID: 0}
-      skills: []
-      conditions: []
-    enemyPosition: {x: 14.5, y: -5.5}
-    dead: 0
-    displaySprite: 0
-  enemyObjectPrefab: {fileID: 828534510362944303, guid: 9dc12974f9de1bd4d8c3959883aacbea, type: 3}
   dialogueManager: {fileID: 1282416742974154239}
+  newGameParty:
+  - unit: {fileID: 11400000, guid: 591c3b491cd9c884b8573726dac4d64b, type: 2}
+    downed: 0
+    currentStats:
+      attack: 1
+      maxHealth: 100
+      defence: 1
+      healingEffect: 1
+      fireRes: 1
+      poisonRes: 1
+      coldRes: 1
+      accuracy: 1.2
+      speed: 1.2
+      critPercent: 0.3
+      critMultiplyer: 1.6
+    currentHealth: 100
+    weapon: {fileID: 11400000, guid: 2c480476105573147ac55e33b827a7dc, type: 2}
+    skills:
+    - {fileID: 11400000, guid: f4397a44941e0f342a046da6bb6109df, type: 2}
+    - {fileID: 11400000, guid: 26c50d5e411b8b042a88d81c560cf3a1, type: 2}
+    conditions: []
+  - unit: {fileID: 11400000, guid: e0094aee843de56429a9cbab385743cf, type: 2}
+    downed: 0
+    currentStats:
+      attack: 1
+      maxHealth: 100
+      defence: 0.8
+      healingEffect: 1
+      fireRes: 1
+      poisonRes: 1
+      coldRes: 1
+      accuracy: 1
+      speed: 1
+      critPercent: 0.24
+      critMultiplyer: 1.6
+    currentHealth: 100
+    weapon: {fileID: 11400000, guid: 0bad41faa17e5de4c90b4b0bfa463c9b, type: 2}
+    skills:
+    - {fileID: 11400000, guid: fefb1436276d37d4abfacab30f17fdb4, type: 2}
+    - {fileID: 11400000, guid: 26c50d5e411b8b042a88d81c560cf3a1, type: 2}
+    conditions: []
+  - unit: {fileID: 11400000, guid: 29e8e7d6c34d4094a8131fbf9e123c66, type: 2}
+    downed: 0
+    currentStats:
+      attack: 1
+      maxHealth: 100
+      defence: 1
+      healingEffect: 1
+      fireRes: 1
+      poisonRes: 1
+      coldRes: 1
+      accuracy: 1
+      speed: 1
+      critPercent: 0.24
+      critMultiplyer: 1.6
+    currentHealth: 100
+    weapon: {fileID: 11400000, guid: 4e54b38e510a86643ad9370dcb05a447, type: 2}
+    skills:
+    - {fileID: 11400000, guid: 08d6ed6907284664099ea42ed4d1634a, type: 2}
+    - {fileID: 11400000, guid: 3bac7468edebf684596c0c80b0168047, type: 2}
+    - {fileID: 11400000, guid: e2671744404a9c1429ef1fa9493202bb, type: 2}
+    - {fileID: 11400000, guid: 29e6c79b30caa214396ba4b2aa04a94e, type: 2}
+    conditions: []
+  newGameItems:
+  - item: {fileID: 11400000, guid: e0f56111d62e8a54eafaa1592d026d62, type: 2}
+    quantity: 8
+  - item: {fileID: 11400000, guid: 0c3a9f335967a8948813b346e9a08d22, type: 2}
+    quantity: 6
+  - item: {fileID: 11400000, guid: 989e1088b3e6ed144b47fdc0b4020ed3, type: 2}
+    quantity: 13
+  - item: {fileID: 11400000, guid: 82d1fd8a613c1cd49bd61dfed5d66b35, type: 2}
+    quantity: 3
+  - item: {fileID: 11400000, guid: 9e64b9ca8b661024a9073c8a609a7f8e, type: 2}
+    quantity: 6
+  - item: {fileID: 11400000, guid: 8679b4afce6351540935645f46cb5a33, type: 2}
+    quantity: 7
 --- !u!114 &1282416742974154239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,6 +720,18 @@ MonoBehaviour:
   inDialogue: 0
   currentDialogue:
     dialogue: []
+--- !u!114 &1281372883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116283469937543434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f2661751f793f48b1b1887a52e7efb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7404016186065650924
 GameObject:
   m_ObjectHideFlags: 0

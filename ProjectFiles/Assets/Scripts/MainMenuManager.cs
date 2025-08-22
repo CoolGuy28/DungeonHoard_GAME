@@ -7,8 +7,6 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private MenuButton[] menuButtons;
     private int currentMenuButton;
-    [SerializeField] private GameManager gameManager;
-    [SerializeField] private GameManager gameManager_Hard;
     private void Start()
     {
         foreach (var button in menuButtons)
@@ -49,11 +47,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void ChangeScene()
     {
-        GameManager.instance.LoadGame(gameManager);
+        GameManager.instance.ChangeGameScene();
     }
 
-    public void ChangeSceneHard()
+    public void NewGame()
     {
-        GameManager.instance.LoadGame(gameManager_Hard);
+        GameManager.instance.NewGame();
+        GameManager.instance.ChangeGameScene();
     }
 }

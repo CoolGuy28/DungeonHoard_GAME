@@ -117,7 +117,7 @@ Transform:
   m_Children:
   - {fileID: 828534509773855048}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &828534510362944303
 MonoBehaviour:
@@ -131,13 +131,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e95ddafee0ae345a96963301becf00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    enemyFight: []
+  enemyData:
+    enemyFight:
+    - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
+    - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
+      downed: 0
+      currentStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+      currentHealth: 0
+      weapon: {fileID: 0}
+      skills: []
+      conditions: []
     enemyPosition: {x: 0, y: 0}
     dead: 0
     displaySprite: 0
   spriteObj: {fileID: 828534509773855049}
-  index: 0
+  index: -1
 --- !u!61 &828534510362944302
 BoxCollider2D:
   m_ObjectHideFlags: 0

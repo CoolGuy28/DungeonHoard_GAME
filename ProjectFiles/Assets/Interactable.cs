@@ -5,8 +5,13 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     [SerializeField] private DialogueSection dialogue;
+    private bool used;
     public void BeginDialogue()
     {
-        GameManager.instance.BeginDialogue(dialogue);
+        if (!used)
+        {
+            GameManager.instance.BeginDialogue(dialogue);
+            used = true;
+        }
     }
 }
