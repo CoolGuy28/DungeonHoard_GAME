@@ -10,7 +10,7 @@ public class OverworldMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private float speed = 0.5f;
     private Unit unit;
-    private bool moving;
+    public bool moving;
 
     private void Start()
     {
@@ -27,12 +27,14 @@ public class OverworldMovement : MonoBehaviour
         if (Vector3.Distance(transform.position, targetPos) < 0.001f)
         {
             moving = false;
+            spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y) * -1;
         }
     }
     
     public bool MovePos(Vector2 target)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, target, 1.25f, mask);
+        facingPos = target;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, facingPos, 1.25f, mask);
         if (hit)
         {
             facingPos = target;
@@ -67,6 +69,8 @@ public class OverworldMovement : MonoBehaviour
             spriteRenderer.sprite = unit.overWorldSprites[1];
         else
             spriteRenderer.sprite = unit.overWorldSprites[0];
+
+        spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y) * -1;
     }
 
     public void Interact()
@@ -91,5 +95,10 @@ public class OverworldMovement : MonoBehaviour
     public void SetSpriteLayer(int index)
     {
         spriteRenderer.sortingOrder = index;
+    }
+
+    public Vector2 GetFacingDir()
+    {
+        return facingPos;
     }
 }

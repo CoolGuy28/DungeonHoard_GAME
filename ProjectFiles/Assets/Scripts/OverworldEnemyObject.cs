@@ -6,15 +6,18 @@ public class OverworldEnemyObject : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private EnemyOverworldData enemyData;
     [SerializeField] private SpriteRenderer spriteObj;
+    [SerializeField] private EnemyMovementAI movementAI;
     public int index = -1;
 
     private void Start()
     {
         if (enemyData.enemyFight != null)
-            spriteObj.sprite = enemyData.enemyFight[enemyData.displaySprite].unit.battleSprite;
+            spriteObj.sprite = enemyData.enemyFight[enemyData.displaySprite].unit.overWorldSprites[0];
         spriteObj.sortingOrder = index;
         if (enemyData.dead)
         {
+            if (movementAI != null)
+                movementAI.enabled = false;
             spriteObj.color = Color.red;
             gameObject.GetComponent<Collider2D>().enabled = false;
         }

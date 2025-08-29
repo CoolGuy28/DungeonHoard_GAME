@@ -47,12 +47,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void ChangeScene()
     {
-        GameManager.instance.ChangeGameScene();
+        GameManager.instance.ChangeGameScene(1);
     }
 
     public void NewGame()
     {
         GameManager.instance.NewGame();
-        GameManager.instance.ChangeGameScene();
+        GameManager.instance.ChangeGameScene(1);
     }
 }

@@ -219,9 +219,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ChangeScene(gameData.sceneIndex));
     }
 
-    public void ChangeGameScene()
+    public void ChangeGameScene(int sceneIndex)
     {
-        StartCoroutine(ChangeScene(1));
+        StartCoroutine(ChangeScene(sceneIndex));
     }
 
     private IEnumerator ChangeScene(int scene)

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SavingManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] string saveFileName = "data.json";
+
     void Start()
     {
         

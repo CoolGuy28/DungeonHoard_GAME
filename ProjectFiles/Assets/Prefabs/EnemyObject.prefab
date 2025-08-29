@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828534509773855051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.488, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -96,6 +96,8 @@ GameObject:
   - component: {fileID: 828534510362944303}
   - component: {fileID: 828534510362944302}
   - component: {fileID: 828534510362944305}
+  - component: {fileID: 1539445444}
+  - component: {fileID: 1539445445}
   m_Layer: 0
   m_Name: EnemyObject
   m_TagString: Enemy
@@ -117,7 +119,7 @@ Transform:
   m_Children:
   - {fileID: 828534509773855048}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &828534510362944303
 MonoBehaviour:
@@ -173,6 +175,7 @@ MonoBehaviour:
     dead: 0
     displaySprite: 0
   spriteObj: {fileID: 828534509773855049}
+  movementAI: {fileID: 1539445444}
   index: -1
 --- !u!61 &828534510362944302
 BoxCollider2D:
@@ -221,3 +224,46 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &1539445444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828534510362944304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e6b5e134557084c88213f281a58e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathingPoints:
+  - {x: 0.5, y: -6.5}
+  - {x: -2.5, y: -6.5}
+  - {x: -2.5, y: -9.5}
+  - {x: 0.5, y: -9.5}
+  overworldMovement: {fileID: 1539445445}
+  movementTarget: {x: 0, y: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
+  chasingPlayer: 0
+--- !u!114 &1539445445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828534510362944304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6558a56d2615a3c45b968e8659f6d802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPos: {x: 0, y: 0}
+  facingPos: {x: 0, y: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
+  spriteRenderer: {fileID: 828534509773855049}
+  speed: 2
+  moving: 0

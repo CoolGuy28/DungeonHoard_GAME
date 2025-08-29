@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - FishingSquare
+  - Interactable
+  - PlayerParty
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - UI
   - Wall
   - Player
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -40,6 +42,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 662898307
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
