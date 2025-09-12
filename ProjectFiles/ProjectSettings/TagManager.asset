@@ -57,3 +57,6 @@ TagManager:
   - name: DamageText
     uniqueID: 1359500039
     locked: 0
+  - name: Foreground
+    uniqueID: 3697538723
+    locked: 0

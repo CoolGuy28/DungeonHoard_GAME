@@ -14,7 +14,7 @@ public class Unit : ScriptableObject
     public Sprite[] attackSprites;
     public Sprite damageSprite;
     public Sprite downedSprite;
-    public Sprite[] overWorldSprites;
+    public RuntimeAnimatorController overworldAnimator;
     public Vector2 spriteSize = Vector2.one;
 
     /*public bool IsImmune(Condition con)

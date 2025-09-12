@@ -40,10 +40,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b3c891e792ffc7b4692d12799398ffaa, type: 3}
   damageSprite: {fileID: 21300000, guid: 76ebe437cf044cb4c858030b3f7028d4, type: 3}
   downedSprite: {fileID: 21300000, guid: 16671161689eaad4aa14fbfba4407820, type: 3}
-  overWorldSprites:
-  - {fileID: -1229198645, guid: d1ea2c36bd2a24440aa4c252dd8cd2b1, type: 3}
-  - {fileID: 749687937, guid: d1ea2c36bd2a24440aa4c252dd8cd2b1, type: 3}
-  - {fileID: 1138902980, guid: d1ea2c36bd2a24440aa4c252dd8cd2b1, type: 3}
-  - {fileID: -955188013, guid: d1ea2c36bd2a24440aa4c252dd8cd2b1, type: 3}
+  overworldAnimator: {fileID: 9100000, guid: 8a524391be0a8c448a7a5f3226d5cef0, type: 2}
   spriteSize: {x: 1.5, y: 1.5}
   charPortrait: {fileID: 21300000, guid: 8413f6009772dd44e8f3025eeb9621e6, type: 3}

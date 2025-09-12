@@ -9,6 +9,7 @@ public class PartyObject : MonoBehaviour
     [SerializeField] private GameObject partyMemberPrefab;
     public Vector2[] storedDir = new Vector2[3];
     public OverworldMovement[] partyOverworldMovement = new OverworldMovement[3];
+    private Collider2D standingOver;
 
     private void Start()
     {
@@ -59,7 +60,21 @@ public class PartyObject : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.Z))
             {
-                partyOverworldMovement[0].Interact();
+                if (standingOver != null)
+                {
+                    standingOver.GetComponent<Interactable>().TryDialogue(this);
+                }
+                else
+                {
+                    RaycastHit2D hit = partyOverworldMovement[0].Interact();
+                    if (hit)
+                    {
+                        if (hit.collider.CompareTag("Interactable"))
+                        {
+                            hit.collider.GetComponent<Interactable>().BeginDialogue(this);
+                        }
+                    }
+                }
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -120,5 +135,14 @@ public class PartyObject : MonoBehaviour
             GameManager.instance.LoadBattle(collision.gameObject.GetComponent<OverworldEnemyObject>().index);
             GameManager.instance.SaveGame();
         }
+        if (collision.gameObject.CompareTag("Interactable"))
+        {
+            standingOver = collision.gameObject.GetComponent<Collider2D>();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        standingOver = null;
     }
 }

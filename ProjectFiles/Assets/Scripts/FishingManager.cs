@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class FishingManager : MonoBehaviour
+public class FishingManager : Interactable
 {
     private bool currentlyFishing;
     [SerializeField] private GameObject fishingCanvas;
@@ -90,21 +90,19 @@ public class FishingManager : MonoBehaviour
         GameObject text = Instantiate(textPrefab, new Vector3(Random.Range(transform.position.x - 1, transform.position.x + 1), Random.Range(transform.position.y - 1, transform.position.y + 1), transform.position.z), Quaternion.identity);
         
         if (catchFish)
-            text.transform.GetChild(0).GetComponent<TMP_Text>().text = "Fish Caught";
+            GameManager.instance.BeginDialogue(dialogue[0]);
         else
-            text.transform.GetChild(0).GetComponent<TMP_Text>().text = "Fish Escaped";
+            GameManager.instance.BeginDialogue(dialogue[1]);
         Destroy(text, 3f);
 
         currentlyFishing = false;
+        StartCoroutine(InteractCooldown());
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void BeginDialogue(PartyObject player)
     {
-        if (collision.CompareTag("Player"))
-        {
-            fisher = collision.GetComponent<PartyObject>();
-            fisher.BeginFishing();
-            BeginFishing();
-        }
+        fisher = player;
+        fisher.BeginFishing();
+        BeginFishing();
     }
 }

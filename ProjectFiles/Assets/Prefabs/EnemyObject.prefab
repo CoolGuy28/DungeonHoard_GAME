@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 828534509773855048}
   - component: {fileID: 828534509773855049}
+  - component: {fileID: 7846863875476486586}
   m_Layer: 0
   m_Name: SpriteObj
   m_TagString: Untagged
@@ -52,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,6 +85,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7846863875476486586
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828534509773855051}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &828534510362944304
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,6 +119,7 @@ GameObject:
   - component: {fileID: 828534510362944305}
   - component: {fileID: 1539445444}
   - component: {fileID: 1539445445}
+  - component: {fileID: 2085409773013234068}
   m_Layer: 0
   m_Name: EnemyObject
   m_TagString: Enemy
@@ -177,6 +199,8 @@ MonoBehaviour:
   spriteObj: {fileID: 828534509773855049}
   movementAI: {fileID: 1539445444}
   index: -1
+  linkedEnemies:
+  - {fileID: 0}
 --- !u!61 &828534510362944302
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -245,8 +269,9 @@ MonoBehaviour:
   movementTarget: {x: 0, y: 0}
   mask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 192
   chasingPlayer: 0
+  waitTime: 0.15
 --- !u!114 &1539445445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +288,24 @@ MonoBehaviour:
   facingPos: {x: 0, y: 0}
   mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   spriteRenderer: {fileID: 828534509773855049}
-  speed: 2
+  animator: {fileID: 7846863875476486586}
+  speed: 3
   moving: 0
+--- !u!114 &2085409773013234068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828534510362944304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0009ceda859e52445ba94dd0fcc0fa91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - dialogue:
+    - name: 
+      text: The rat has nothing of value

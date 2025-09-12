@@ -141,15 +141,14 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        gameData = new GameData(newGameParty, newGameItems);
+        gameData = new GameData(newGameParty, newGameItems, Vector2.zero);
         foreach (CharacterData unit in party)
             unit.InitialiseChar();
     }
-
     public void NewGame(List<CharacterData> party, List<ItemSlot> items)
     {
         Debug.Log("NewGame");
-        gameData = new GameData(party, items);
+        gameData = new GameData(party, items, GameObject.Find("PartyObject").transform.position);
         foreach (CharacterData unit in party)
             unit.InitialiseChar();
     }
@@ -170,10 +169,17 @@ public class GameManager : MonoBehaviour
         gameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
         maxStamina = gameData.maxStamina;
         stamina = maxStamina;
-        partyPosition = gameData.playerPos;
+        
 
         party = gameData.party;
         items = gameData.items;
+
+        if (gameData.sceneData[gameData.sceneIndex].enemies.Count() == 0 && GameObject.Find("PartyObject"))
+        {
+            gameData.playerPos = GameObject.Find("PartyObject").transform.position;
+        }
+
+        partyPosition = gameData.playerPos;
 
         for (int i = 0; i < dataPersistenceObjects.Count; i++)
         {
@@ -279,12 +285,12 @@ public class GameData
         }
     }
 
-    public GameData(List<CharacterData> party, List<ItemSlot> items)
+    public GameData(List<CharacterData> party, List<ItemSlot> items, Vector2 startPos)
     {
         maxStamina = 100;
         this.party = party;
         this.items = items;
-        playerPos = new Vector2(4.5f,3.5f);
+        playerPos = startPos;
         sceneData = new OverworldScene[4];
         for (int i = 0; i < sceneData.Length; i++)
         {

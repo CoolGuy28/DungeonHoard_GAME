@@ -8,18 +8,16 @@ public class OverworldEnemyObject : MonoBehaviour, IDataPersistence
     [SerializeField] private SpriteRenderer spriteObj;
     [SerializeField] private EnemyMovementAI movementAI;
     public int index = -1;
+    [SerializeField] private OverworldEnemyObject[] linkedEnemies;
 
     private void Start()
     {
-        if (enemyData.enemyFight != null)
-            spriteObj.sprite = enemyData.enemyFight[enemyData.displaySprite].unit.overWorldSprites[0];
         spriteObj.sortingOrder = index;
         if (enemyData.dead)
         {
-            if (movementAI != null)
-                movementAI.enabled = false;
-            spriteObj.color = Color.red;
-            gameObject.GetComponent<Collider2D>().enabled = false;
+            SetEnemyDead();
+            foreach (OverworldEnemyObject en in linkedEnemies)
+                en.SetEnemyDead();
         }
     }
 
@@ -29,8 +27,9 @@ public class OverworldEnemyObject : MonoBehaviour, IDataPersistence
         transform.position = enemyData.enemyPosition;
         if (this.enemyData.dead)
         {
-            spriteObj.color = Color.red;
-            gameObject.GetComponent<Collider2D>().enabled = false;
+            SetEnemyDead();
+            foreach (OverworldEnemyObject en in linkedEnemies)
+                en.SetEnemyDead();
         }
     }
 
@@ -59,5 +58,14 @@ public class OverworldEnemyObject : MonoBehaviour, IDataPersistence
     public List<CharacterData> GetEnemies()
     {
         return enemyData.enemyFight;
+    }
+
+    public void SetEnemyDead()
+    {
+        enemyData.dead = true;
+        if (movementAI != null)
+            movementAI.enabled = false;
+        spriteObj.color = Color.red;
+        gameObject.tag = "Interactable";
     }
 }
