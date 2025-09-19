@@ -8,6 +8,7 @@ public class BattleCharObject : MonoBehaviour
 {
     private CharacterData character;
     private SpriteRenderer spriteObj;
+    private Animator animator;
     [SerializeField] private GameObject ui;
     [SerializeField] private GameObject damageTextPrefab;
     [SerializeField] private GameObject conditionUIPrefab;
@@ -15,6 +16,7 @@ public class BattleCharObject : MonoBehaviour
     public void SetCharacterObject(CharacterData character, int spritePriority)
     {
         spriteObj = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        animator = transform.GetChild(1).GetComponent<Animator>();
         spriteObj.sortingOrder = spritePriority;
         spriteObj.gameObject.transform.localScale = character.unit.spriteSize;
         this.character = character;
@@ -208,38 +210,20 @@ public class BattleCharObject : MonoBehaviour
         spriteObj.color = new Color(0.2f, 0.2f, 0.2f);
     }
 
-    public IEnumerator SetSprite(int i, float timeFrame)
-    {
-        if (!character.downed)
-        {
-            if (i == 0)
-                spriteObj.sprite = character.unit.basicAttack;
-            else if (i == 1)
-                spriteObj.sprite = character.unit.damageSprite;
-            else
-                spriteObj.sprite = character.unit.battleSprite;
-
-            yield return new WaitForSeconds(timeFrame);
-
-            if (character.downed)
-            {
-                spriteObj.sprite = character.unit.downedSprite;
-            }
-            else
-            {
-                spriteObj.sprite = character.unit.battleSprite;
-            }
-        }
-    }
-
     public IEnumerator SetSprite(int i, float timeFrame, int attackIndex)
     {
         if (!character.downed)
         {
             if (i == 0)
+            {
                 spriteObj.sprite = character.unit.attackSprites[attackIndex];
+                animator.Play("Attack");
+            }
             else if (i == 1)
+            {
                 spriteObj.sprite = character.unit.damageSprite;
+                animator.Play("Damaged");
+            }
             else
                 spriteObj.sprite = character.unit.battleSprite;
 

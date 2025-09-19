@@ -17,13 +17,17 @@ MonoBehaviour:
   action:
     targetingType: 2
     damageStats:
-      damage: 1
+      damage: 20
       damageType: 2
       randomVarience: 0
       particleEffect: {fileID: 0}
       applyConditions: []
       conditionChance: 0
-      removeConditions: []
+      removeConditions:
+      - {fileID: 11400000, guid: 129bbea2cd3631840b23c57fbfc52432, type: 2}
+      - {fileID: 11400000, guid: b1fce2f7427f34148a297068eea0997d, type: 2}
+      - {fileID: 11400000, guid: 852269738ec866744ad1fab60891d951, type: 2}
+      - {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
     accuracy: 0
     useCrit: 0
     staminaAdjust: 0

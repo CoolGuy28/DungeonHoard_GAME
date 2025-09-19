@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats:
     attack: 1
-    maxHealth: 80
+    maxHealth: 60
     defence: 1
     healingEffect: 1
     fireRes: 1.8
@@ -37,4 +37,5 @@ MonoBehaviour:
   damageSprite: {fileID: 21300000, guid: c75dc4d6d1738bc48b59540d4cfaa440, type: 3}
   downedSprite: {fileID: 21300000, guid: 177b90ec3a50ec941a8410ee745a2fb9, type: 3}
   overworldAnimator: {fileID: 9100000, guid: 216b5603d8862e64882ddf5041c13966, type: 2}
+  overworldDeathSprite: {fileID: 1902639933, guid: 2c8fa2b64a281d6459da5d5163a99fad, type: 3}
   spriteSize: {x: 1, y: 1}

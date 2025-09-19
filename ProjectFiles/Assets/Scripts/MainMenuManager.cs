@@ -47,7 +47,16 @@ public class MainMenuManager : MonoBehaviour
 
     public void ChangeScene()
     {
-        GameManager.instance.ChangeGameScene(1);
+        if (GameManager.instance.saved)
+        {
+            GameManager.instance.ChangeGameScene(GameManager.instance.gameData.sceneIndex);
+        }
+        else
+        {
+            GameManager.instance.ChangeGameScene(GameManager.instance.gameData.sceneIndex);
+            GameManager.instance.NewGame();
+        }
+        
     }
 
     public void NewGame()

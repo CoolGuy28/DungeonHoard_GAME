@@ -10,40 +10,51 @@ public class OverworldMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     [SerializeField] private float speed = 0.5f;
-    private Unit unit;
+    [SerializeField] private float sprintMultiplier = 1.4f;
+    private float currentSpeed;
     public bool moving;
 
     private void Start()
     {
         transform.position = new Vector2(Mathf.FloorToInt(transform.position.x) + 0.5f, Mathf.FloorToInt(transform.position.y) + 0.5f);
         targetPos = transform.position;
+        currentSpeed = speed;
     }
 
-    void Update()
+    private void Update()
+    {
+        spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y - 1f) * -1;
+    }
+
+    void FixedUpdate()
     {
         if (!moving)
             return;
-        else
-            spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y - 1f) * -1;
-        var step = speed * Time.deltaTime;
+
+        var step = currentSpeed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
 
         if (Vector3.Distance(transform.position, targetPos) < 0.001f)
         {
             moving = false;
+            //animator.Rebind();
             SetSprite();
+            animator.speed = 0;
             spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y) * -1;
         }
     }
     
-    public bool MovePos(Vector2 target)
+    public bool MovePos(Vector2 target, bool sprinting)
     {
+        SetSprint(sprinting);
         facingPos = target;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, facingPos, 1.25f, mask);
         if (hit)
         {
             facingPos = target;
+            //animator.Rebind();
             SetSprite();
+            animator.speed = 0;
             return true;
         }
         else
@@ -57,6 +68,7 @@ public class OverworldMovement : MonoBehaviour
                 targetPos += target;
                 facingPos = target;
                 SetSprite();
+                animator.speed = 1;
                 moving = true;
 
                 return false;
@@ -88,7 +100,6 @@ public class OverworldMovement : MonoBehaviour
 
     public void SetUnit(Unit unit)
     {
-        this.unit = unit;
         animator.runtimeAnimatorController = unit.overworldAnimator;
     }
 
@@ -97,8 +108,20 @@ public class OverworldMovement : MonoBehaviour
         spriteRenderer.sortingOrder = index;
     }
 
+    public void SetSprint(bool sprinting)
+    {
+        currentSpeed = speed;
+        if (sprinting)
+            currentSpeed *= sprintMultiplier;
+    }
+
     public Vector2 GetFacingDir()
     {
         return facingPos;
+    }
+
+    public bool GetMovingStatus()
+    {
+        return moving;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     public DialogueSection[] dialogue;
-    private float interactCooldown = 0.15f;
+    private float interactCooldown = 0.4f;
     private bool canInteract = true;
 
     public void TryDialogue(PartyObject player)

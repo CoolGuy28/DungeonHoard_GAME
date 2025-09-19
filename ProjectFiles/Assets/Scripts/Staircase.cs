@@ -6,12 +6,14 @@ public class Staircase : MonoBehaviour
 {
     [SerializeField] private int sceneChange;
     [SerializeField] private Vector2 position;
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    public int GetSceneChangeIndex()
     {
-        if (collision.CompareTag("Player"))
-        {
-            GameManager.instance.ChangeGameScene(sceneChange);
-            GameManager.instance.gameData.playerPos = position;
-        }
+        return sceneChange;
+    }
+
+    public Vector2 GetSceneChangePos()
+    {
+        return position;
     }
 }

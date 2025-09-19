@@ -9,17 +9,19 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     [SerializeField] private bool initializeDataIfNull = false;
     public GameData gameData;
-    public List<CharacterData> party;
-    public List<ItemSlot> items;
+    public List<CharacterData> party = new List<CharacterData>();
+    public List<ItemSlot> items = new List<ItemSlot>();
     public int maxStamina;
     public int stamina;
     public Vector2 partyPosition;
     [SerializeField] private Animator animator;
     private int currentEnemyIndex;
     [SerializeField] private DialogueManager dialogueManager;
+    [SerializeField] private GameObject menu;
     private List<IDataPersistence> dataPersistenceObjects;
     [SerializeField] private List<CharacterData> newGameParty;
     [SerializeField] private List<ItemSlot> newGameItems;
+    public bool saved;
     public static GameManager instance
     {
         get
@@ -81,6 +83,24 @@ public class GameManager : MonoBehaviour
         if (!itemAdded)
         {
             items.Add(new ItemSlot(item, 1));
+        }
+    }
+
+    public void AddItem(Item item, int quant)
+    {
+        bool itemAdded = false;
+        foreach (ItemSlot i in items)
+        {
+            if (i.item == item)
+            {
+                itemAdded = true;
+                i.quantity += quant;
+                break;
+            }
+        }
+        if (!itemAdded)
+        {
+            items.Add(new ItemSlot(item, quant));
         }
     }
 
@@ -155,16 +175,17 @@ public class GameManager : MonoBehaviour
 
     public void LoadMenu()
     {
+        CloseOverworldMenu();
         StartCoroutine(ChangeScene(0));
     }
 
     public void LoadGame()
     {
         dataPersistenceObjects = FindAllDataPersistenceObjects();
-        if (gameData.party.Count == 0 && initializeDataIfNull)
-        {
-            NewGame();
-        }
+        //if (gameData.party.Count == 0 && initializeDataIfNull)
+        //{
+        //    NewGame();
+        //}
         Debug.Log("SceneLoading");
         gameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
         maxStamina = gameData.maxStamina;
@@ -187,11 +208,13 @@ public class GameManager : MonoBehaviour
         }
 
         GameObject.Find("PartyObject").transform.position = partyPosition;
+        PauseGame(false);
     }
 
     public void SaveGame()
     {
         Debug.Log("SceneSaved");
+        saved = true;
         gameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
         gameData.maxStamina = maxStamina;
         gameData.playerPos = partyPosition;
@@ -204,6 +227,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OpenOverworldMenu()
+    {
+        PauseGame(true);
+        menu.SetActive(true);
+    }
+
+    public void CloseOverworldMenu()
+    {
+        PauseGame(false);
+        menu.SetActive(false);
+        GameObject.Find("PartyObject").GetComponent<PartyObject>().EndFishing();
+    }
+
+    private void PauseGame(bool pause)
+    {
+        if (pause)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
     public void LoadBattle(int currentEnemyIndex)
     {
         if (!gameData.sceneData[gameData.sceneIndex].enemies[currentEnemyIndex].dead)
@@ -288,8 +335,16 @@ public class GameData
     public GameData(List<CharacterData> party, List<ItemSlot> items, Vector2 startPos)
     {
         maxStamina = 100;
-        this.party = party;
-        this.items = items;
+        this.party = new List<CharacterData>();
+        this.items = new List<ItemSlot>();
+        foreach (CharacterData cha in party)
+        {
+            this.party.Add(new CharacterData(cha.unit,cha.weapon));
+        }
+        foreach (ItemSlot item in items)
+        {
+            this.items.Add(new ItemSlot(item.item, item.quantity));
+        }
         playerPos = startPos;
         sceneData = new OverworldScene[4];
         for (int i = 0; i < sceneData.Length; i++)

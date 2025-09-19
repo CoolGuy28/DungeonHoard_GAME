@@ -24,7 +24,7 @@ public class DialogueManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                if (currentLine < currentDialogue.dialogue.Length)
+                if (currentLine < currentDialogue.dialogue.Count)
                 {
                     LoadDialogueLine(currentDialogue.dialogue[currentLine]);
                 }
@@ -59,7 +59,14 @@ public class DialogueManager : MonoBehaviour
 [System.Serializable]
 public class DialogueSection
 {
-    public DialogueLine[] dialogue;
+    public List<DialogueLine> dialogue;
+
+    public DialogueSection(string name, string text)
+    {
+        dialogue = new List<DialogueLine>();
+        DialogueLine line = new DialogueLine(name, text);
+        dialogue.Add(line);
+    }
 }
 
 [System.Serializable]
@@ -67,4 +74,10 @@ public class DialogueLine
 {
     public string name;
     public string text;
+
+    public DialogueLine(string name, string text)
+    {
+        this.name = name;
+        this.text = text;
+    }
 }

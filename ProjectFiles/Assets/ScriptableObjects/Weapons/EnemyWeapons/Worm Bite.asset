@@ -16,7 +16,7 @@ MonoBehaviour:
   action:
     targetingType: 0
     damageStats:
-      damage: 25
+      damage: 12
       damageType: 0
       randomVarience: 6
       particleEffect: {fileID: 0}
@@ -29,3 +29,4 @@ MonoBehaviour:
     accuracy: 80
     useCrit: 1
     staminaAdjust: 0
+    spriteIndex: 0

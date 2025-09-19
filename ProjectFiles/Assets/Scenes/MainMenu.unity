@@ -274,10 +274,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 718606450038523588, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -320,10 +316,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7116283469937543433, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
-      propertyPath: gameData.sceneData.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7116283469937543434, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}

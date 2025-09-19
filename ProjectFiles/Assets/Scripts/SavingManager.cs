@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class SavingManager : MonoBehaviour
 {
-    [SerializeField] string saveFileName = "data.json";
+    //[SerializeField] string saveFileName = "data.json";
 
-    void Start()
+    public void SaveToFile()
     {
-        
-    }
+        GameManager.instance.SaveGame();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

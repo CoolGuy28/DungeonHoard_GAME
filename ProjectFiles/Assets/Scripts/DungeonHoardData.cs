@@ -13,6 +13,12 @@ public class CharacterData
     public List<Skill> skills;
     public List<ConditionStats> conditions = new List<ConditionStats>();
 
+    public CharacterData(Unit unit, Item_Weapon weapon)
+    {
+        this.unit = unit;
+        this.weapon = weapon;
+        InitialiseChar();
+    }
     public void InitialiseChar()
     {
         downed = false;
@@ -153,7 +159,7 @@ public class ItemSlot
 
     public ItemSlot(Item item, int quantity)
     {
-        this.item = item;
+        this.item =  item;
         this.quantity = quantity;
     }
 }

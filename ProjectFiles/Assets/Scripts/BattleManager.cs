@@ -530,7 +530,7 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(currentActiveTeam[battleIndex].SetSprite(0, 0.75f, currentAbility.GetAction().spriteIndex));
         foreach (BattleCharObject i in targets)
         {
-            StartCoroutine(i.SetSprite(1, 0.75f));
+            StartCoroutine(i.SetSprite(1, 0.75f, 0));
             i.TakeDamage(damage, crit);
         }
     }

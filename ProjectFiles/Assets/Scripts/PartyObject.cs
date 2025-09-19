@@ -10,7 +10,8 @@ public class PartyObject : MonoBehaviour
     public Vector2[] storedDir = new Vector2[3];
     public OverworldMovement[] partyOverworldMovement = new OverworldMovement[3];
     private Collider2D standingOver;
-
+    private bool sprinting;
+    [SerializeField] private Grid grid;
     private void Start()
     {
         CreateParty();
@@ -20,12 +21,25 @@ public class PartyObject : MonoBehaviour
     {
         if (allowMovement)
         {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                sprinting = true;
+                foreach (OverworldMovement overworldMovement in partyOverworldMovement)
+                    overworldMovement.SetSprint(sprinting);
+            }
+            else if(Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                sprinting = false;
+                foreach (OverworldMovement overworldMovement in partyOverworldMovement)
+                    overworldMovement.SetSprint(sprinting);
+            }
+
             Vector2 movement = new Vector2(0f, 0f);
             
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 movement = new Vector2(0, 1);
-                if (!partyOverworldMovement[0].MovePos(movement))
+                if (!partyOverworldMovement[0].MovePos(movement, sprinting))
                 {
                     StoreDir(movement);
                     MoveParty();
@@ -34,7 +48,7 @@ public class PartyObject : MonoBehaviour
             else if (Input.GetKey(KeyCode.DownArrow))
             {
                 movement = new Vector2(0, -1);
-                if (!partyOverworldMovement[0].MovePos(movement))
+                if (!partyOverworldMovement[0].MovePos(movement, sprinting))
                 {
                     StoreDir(movement);
                     MoveParty();
@@ -43,7 +57,7 @@ public class PartyObject : MonoBehaviour
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
                 movement = new Vector2(-1, 0);
-                if (!partyOverworldMovement[0].MovePos(movement))
+                if (!partyOverworldMovement[0].MovePos(movement, sprinting))
                 {
                     StoreDir(movement);
                     MoveParty();
@@ -52,7 +66,7 @@ public class PartyObject : MonoBehaviour
             else if (Input.GetKey(KeyCode.RightArrow))
             {
                 movement = new Vector2(1, 0);
-                if (!partyOverworldMovement[0].MovePos(movement))
+                if (!partyOverworldMovement[0].MovePos(movement, sprinting))
                 {
                     StoreDir(movement);
                     MoveParty();
@@ -76,9 +90,11 @@ public class PartyObject : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Escape))
+
+            if (Input.GetKeyDown(KeyCode.X))
             {
-                GameManager.instance.LoadMenu();
+                allowMovement = false;
+                GameManager.instance.OpenOverworldMenu();
             }
         }
     }
@@ -101,7 +117,7 @@ public class PartyObject : MonoBehaviour
         for (int i = 1; i < partyOverworldMovement.Length; i++)
         {
             if (partyOverworldMovement[i] != null)
-                partyOverworldMovement[i].MovePos(storedDir[i]);
+                partyOverworldMovement[i].MovePos(storedDir[i], sprinting);
         }
     }
 
@@ -138,6 +154,16 @@ public class PartyObject : MonoBehaviour
         if (collision.gameObject.CompareTag("Interactable"))
         {
             standingOver = collision.gameObject.GetComponent<Collider2D>();
+        }
+
+        if (collision.CompareTag("Staircase"))
+        {
+            if (allowMovement)
+            {
+                Staircase c = collision.gameObject.GetComponent<Staircase>();
+                GameManager.instance.ChangeGameScene(c.GetSceneChangeIndex());
+                GameManager.instance.gameData.playerPos = c.GetSceneChangePos();
+            }
         }
     }
 
