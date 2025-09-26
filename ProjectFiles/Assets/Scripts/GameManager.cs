@@ -50,8 +50,16 @@ public class GameManager : MonoBehaviour
             this.dataPersistenceObjects = FindAllDataPersistenceObjects();
             LoadGame();
         }
+        Cursor.visible = false;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.visible = !Cursor.visible;
+        }
+    }
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().buildIndex != 2)
@@ -182,10 +190,10 @@ public class GameManager : MonoBehaviour
     public void LoadGame()
     {
         dataPersistenceObjects = FindAllDataPersistenceObjects();
-        //if (gameData.party.Count == 0 && initializeDataIfNull)
-        //{
-        //    NewGame();
-        //}
+        if (gameData.party.Count == 0 && initializeDataIfNull)
+        {
+            NewGame();
+        }
         Debug.Log("SceneLoading");
         gameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
         maxStamina = gameData.maxStamina;
@@ -217,6 +225,7 @@ public class GameManager : MonoBehaviour
         saved = true;
         gameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
         gameData.maxStamina = maxStamina;
+        partyPosition = GameObject.Find("PartyObject").transform.position;
         gameData.playerPos = partyPosition;
         gameData.party = party;
         gameData.items = items;

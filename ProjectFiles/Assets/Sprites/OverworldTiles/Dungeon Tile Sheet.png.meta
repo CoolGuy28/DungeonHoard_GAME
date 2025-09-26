@@ -1992,8 +1992,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 206c6845bbdf61f49bbb39571bfa500e
-      internalID: 1350482613
+      spriteID: 07a28111fc290634abe1a0b771539846
+      internalID: -1288024798
       vertices: []
       indices: 
       edges: []
@@ -2013,8 +2013,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 238038f6f08c57c4e95a7c6d5feca06a
-      internalID: -2128233178
+      spriteID: 6e2078f10a6d88243bbc0337dbb54fd4
+      internalID: -617857412
       vertices: []
       indices: 
       edges: []
@@ -2065,7 +2065,7 @@ TextureImporter:
       Dungeon Tile Sheet_86: -1112113092
       Dungeon Tile Sheet_28: -1947007688
       Dungeon Tile Sheet_15: 1390905233
-      Dungeon Tile Sheet_89: -2128233178
+      Dungeon Tile Sheet_89: -617857412
       Dungeon Tile Sheet_7: -1765929533
       Dungeon Tile Sheet_49: -1392806347
       Dungeon Tile Sheet_83: -115704490
@@ -2086,7 +2086,7 @@ TextureImporter:
       Dungeon Tile Sheet_18: -1388053384
       Dungeon Tile Sheet_39: -485932328
       Dungeon Tile Sheet_5: 1335303208
-      Dungeon Tile Sheet_88: 1350482613
+      Dungeon Tile Sheet_88: -1288024798
       Dungeon Tile Sheet_6: -1463922763
       Dungeon Tile Sheet_17: 1194225560
       Dungeon Tile Sheet_46: 1147076138

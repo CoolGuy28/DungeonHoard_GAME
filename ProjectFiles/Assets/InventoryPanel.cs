@@ -5,40 +5,51 @@ using TMPro;
 
 public class InventoryPanel : MonoBehaviour
 {
-    [SerializeField] private GameObject inventorySlotPrefab;
-    private List<GameObject> inventorySlots = new List<GameObject>();
-    [SerializeField] private int padding;
+    [SerializeField] private SubMenuButton inventorySlotPrefab;
+    private List<SubMenuButton> inventorySlots = new List<SubMenuButton>();
     private List<ItemSlot> itemSlots = new List<ItemSlot>();
+    [SerializeField] private int displayItemCount;
+    private int selectedIndex;
+    [SerializeField] private TMP_Text descriptionText;
     private void Start()
     {
         itemSlots = GameManager.instance.items;
     }
 
+    private void OnEnable()
+    {
+        UpdateInventory();
+    }
+
     public void UpdateInventory()
     {
         inventorySlots.Clear();
-        foreach (Transform child in transform)
+        foreach (Transform child in transform.GetChild(0))
         {
             Destroy(child.gameObject);
         }
         itemSlots = GameManager.instance.items;
-        int slotY = 437;
+        selectedIndex = 0;
         for (int i = 0; i < itemSlots.Count; i++)
         {
-            GameObject newItem = Instantiate(inventorySlotPrefab, transform, false);
-            if (i % 2 == 0)
-            {
-                slotY += padding;
-                newItem.transform.localPosition = new Vector2(-200, slotY);
-            }
-            else
-            {
-                newItem.transform.localPosition = new Vector2(200, slotY);
-            }
-
-            inventorySlotPrefab.transform.GetChild(0).GetComponent<TMP_Text>().text = itemSlots[i].item.name;
-            inventorySlotPrefab.transform.GetChild(1).GetComponent<TMP_Text>().text = itemSlots[i].quantity.ToString();
+            SubMenuButton newItem = Instantiate(inventorySlotPrefab, transform.GetChild(0), false);
+            newItem.SetSkill(itemSlots[i].item);
             inventorySlots.Add(newItem);
+            newItem.DeselectButton();
         }
+        inventorySlots[selectedIndex].SelectButton();
+        descriptionText.text = inventorySlots[selectedIndex].GetSkill().description;
+    }
+
+    public void SwitchSelected(int increaseValue)
+    {
+        inventorySlots[selectedIndex].DeselectButton();
+        selectedIndex += increaseValue;
+        if (selectedIndex < 0)
+            selectedIndex = inventorySlots.Count - 1;
+        else if (selectedIndex >= inventorySlots.Count)
+            selectedIndex = 0;
+        inventorySlots[selectedIndex].SelectButton();
+        descriptionText.text = inventorySlots[selectedIndex].GetSkill().description;
     }
 }

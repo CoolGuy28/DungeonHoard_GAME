@@ -5,9 +5,9 @@ using UnityEngine;
 public class OverworldMenu : MonoBehaviour
 {
     [SerializeField] private MenuButton[] menuButtons;
-    [SerializeField] private GameObject invPanel;
+    [SerializeField] private InventoryPanel invPanel;
     private int currentMenuButton;
-    private GameObject openedMenu;
+    [SerializeField] private string state = "Menu";
 
     private void Start()
     {
@@ -22,33 +22,70 @@ public class OverworldMenu : MonoBehaviour
 
     private void MenuControl()
     {
-        if (openedMenu == null)
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            switch (state)
             {
-                SwitchMenuButton(-1);
+                case "Menu":
+                    SwitchMenuButton(-1);
+                    break;
+                case "Inventory":
+                    invPanel.SwitchSelected(-2);
+                    break;
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            switch (state)
             {
-                SwitchMenuButton(1);
+                case "Menu":
+                    SwitchMenuButton(1);
+                    break;
+                case "Inventory":
+                    invPanel.SwitchSelected(2);
+                    break;
             }
-            if (Input.GetKeyDown(KeyCode.Z))
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            switch (state)
             {
-                menuButtons[currentMenuButton].PressButton();
+                case "Inventory":
+                    invPanel.SwitchSelected(-1);
+                    break;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            switch (state)
+            {
+                case "Inventory":
+                    invPanel.SwitchSelected(1);
+                    break;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            switch (state)
+            {
+                case "Menu":
+                    menuButtons[currentMenuButton].PressButton();
+                    break;
             }
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (openedMenu != null)
+            switch (state)
             {
-                openedMenu.SetActive(false);
-                openedMenu = null;
-            }
-            else
-            {
-                invPanel.SetActive(false);
-                GameManager.instance.CloseOverworldMenu();
+                case "Menu":
+                    invPanel.gameObject.SetActive(false);
+                    GameManager.instance.CloseOverworldMenu();
+                    break;
+                case "Inventory":
+                    invPanel.gameObject.SetActive(false);
+                    state = "Menu";
+                    break;
             }
         }
     }
@@ -64,9 +101,8 @@ public class OverworldMenu : MonoBehaviour
         menuButtons[currentMenuButton].SelectButton();
     }
 
-    public void OpenMenu(GameObject menuObj)
+    public void SetState (string state)
     {
-        menuObj.SetActive(true);
-        openedMenu = menuObj;
+        this.state = state;
     }
 }

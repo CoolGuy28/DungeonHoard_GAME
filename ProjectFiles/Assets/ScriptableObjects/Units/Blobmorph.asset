@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba726bc7603fd5498f264b0b2d8c553, type: 3}
+  m_Name: Blobmorph
+  m_EditorClassIdentifier: 
+  baseStats:
+    attack: 1
+    maxHealth: 200
+    defence: 1
+    healingEffect: 2
+    fireRes: 1.5
+    poisonRes: 0.7
+    coldRes: 0.7
+    accuracy: 1
+    speed: 1
+    critPercent: 0.2
+    critMultiplyer: 1.6
+  weapon: {fileID: 11400000, guid: 9124968a28e591a4b8580bb762092e9e, type: 2}
+  skills:
+  - {fileID: 11400000, guid: 08d6ed6907284664099ea42ed4d1634a, type: 2}
+  - {fileID: 11400000, guid: fefb1436276d37d4abfacab30f17fdb4, type: 2}
+  battleSprite: {fileID: 21300000, guid: 72fc02393520a594d8b2384e51bf28b0, type: 3}
+  basicAttack: {fileID: 21300000, guid: c26ed4680eb9d404795d17da15a940e7, type: 3}
+  attackSprites:
+  - {fileID: 21300000, guid: c26ed4680eb9d404795d17da15a940e7, type: 3}
+  - {fileID: 21300000, guid: c26ed4680eb9d404795d17da15a940e7, type: 3}
+  - {fileID: 21300000, guid: c26ed4680eb9d404795d17da15a940e7, type: 3}
+  - {fileID: 21300000, guid: c26ed4680eb9d404795d17da15a940e7, type: 3}
+  damageSprite: {fileID: 21300000, guid: 636ac188076535f46ac695cccb854655, type: 3}
+  downedSprite: {fileID: 21300000, guid: 18331053ab760ce47bc5ac79c65fd7b8, type: 3}
+  overworldAnimator: {fileID: 9100000, guid: a088b4e6322e0bc4daeea9d6d5ffdaf5, type: 2}
+  overworldDeathSprite: {fileID: 410274143, guid: 6649907fa2d108b46b9e39044a175857, type: 3}
+  spriteSize: {x: 1.5, y: 1.5}

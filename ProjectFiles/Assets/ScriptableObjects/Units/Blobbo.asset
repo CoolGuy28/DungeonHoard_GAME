@@ -27,7 +27,6 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: 57d133116b9da0c42884bfce9a395048, type: 2}
   skills:
   - {fileID: 11400000, guid: 79fccc209b1b7b2469b1651364acc0e2, type: 2}
-  - {fileID: 11400000, guid: 08d6ed6907284664099ea42ed4d1634a, type: 2}
   - {fileID: 11400000, guid: e2671744404a9c1429ef1fa9493202bb, type: 2}
   battleSprite: {fileID: 21300000, guid: 70543033c8bb1184c8ea25b06172e802, type: 3}
   basicAttack: {fileID: 21300000, guid: 1967999c3df85534fa89ef2369ea12b2, type: 3}
@@ -38,6 +37,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1967999c3df85534fa89ef2369ea12b2, type: 3}
   damageSprite: {fileID: 21300000, guid: 22b6c8cf838d939499bcb72c598b05be, type: 3}
   downedSprite: {fileID: 21300000, guid: 7b669b67e8f20b140833eb0363ed500f, type: 3}
-  overworldAnimator: {fileID: 9100000, guid: 526b7611985ca464bb491d81e8461c43, type: 2}
+  overworldAnimator: {fileID: 9100000, guid: 5414729a18302064189ee4edbb873ffb, type: 2}
   overworldDeathSprite: {fileID: 1902639933, guid: 2c8fa2b64a281d6459da5d5163a99fad, type: 3}
   spriteSize: {x: 1.5, y: 1.5}

@@ -27,7 +27,6 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: be9398df87fc3ec4bb745c9f973b62a7, type: 2}
   skills:
   - {fileID: 11400000, guid: 6594b20f96108a94a883cf402886fe0c, type: 2}
-  - {fileID: 11400000, guid: 62305966a41bf3e41b0ef6395b6cbc5c, type: 2}
   battleSprite: {fileID: 21300000, guid: 358be0efd28d1d246bd47179d5f63d19, type: 3}
   basicAttack: {fileID: 21300000, guid: 09a98f40b1ffa5347bf77768fbf4168c, type: 3}
   attackSprites:

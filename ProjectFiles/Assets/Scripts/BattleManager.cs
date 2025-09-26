@@ -94,16 +94,6 @@ public class BattleManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            _state = GameState.MagicAttack;
-            casting = true;
-            magicAttackField.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            GameManager.instance.LoadMenu();
-        }
         if (_state == GameState.AttackMenu)
         {
             MenuControl();
@@ -131,12 +121,14 @@ public class BattleManager : MonoBehaviour
     private int battleIndex;
     private void SetNewAttacker()
     {
+        currentActiveTeam[battleIndex].TickConditions();
+
         if (CheckDeadTeam(playerBattleObjects) == false)
             LostBattle();
         else if (CheckDeadTeam(enemyBattleObjects) == false)
             WonBattle();
 
-        currentActiveTeam[battleIndex].TickConditions();
+        
         battleIndex++;
         if (battleIndex >= currentActiveTeam.Count)
         {

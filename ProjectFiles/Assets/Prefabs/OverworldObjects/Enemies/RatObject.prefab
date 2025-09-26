@@ -95,8 +95,7 @@ MonoBehaviour:
   spriteObj: {fileID: 593823101560036113}
   movementAI: {fileID: 234791128641245340}
   index: -1
-  linkedEnemies:
-  - {fileID: 0}
+  linkedEnemies: []
 --- !u!61 &593823099993252214
 BoxCollider2D:
   m_ObjectHideFlags: 0

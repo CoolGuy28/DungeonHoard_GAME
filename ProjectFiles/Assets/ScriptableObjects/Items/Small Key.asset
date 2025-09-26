@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e9ce2b54130c1418cfdb27edefc5bd, type: 3}
   m_Name: Small Key
   m_EditorClassIdentifier: 
-  description: 
+  description: A small key for a locked door.
