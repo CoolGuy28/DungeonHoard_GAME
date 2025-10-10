@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
     public bool inDialogue;
     [SerializeField] private DialogueSection currentDialogue;
     private int currentLine;
-
+    private bool a = false;
     private void Start()
     {
         DialoguePanel.SetActive(false);
@@ -22,7 +22,9 @@ public class DialogueManager : MonoBehaviour
     {
         if (inDialogue)
         {
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyUp(KeyCode.Z) && !a)
+                a = true;
+            if (Input.GetKeyDown(KeyCode.Z) && a)
             {
                 if (currentLine < currentDialogue.dialogue.Count)
                 {
@@ -34,6 +36,7 @@ public class DialogueManager : MonoBehaviour
                     inDialogue = false;
                     GameObject.FindObjectOfType<PartyObject>().EndFishing();
                     DialoguePanel.SetActive(false);
+                    a = false;
                 }
             }
         }
@@ -47,7 +50,6 @@ public class DialogueManager : MonoBehaviour
         DialoguePanel.SetActive(true);
         LoadDialogueLine(section.dialogue[0]);
     }
-
     private void LoadDialogueLine(DialogueLine line)
     {
         DialogueSpeaker.text = line.name;

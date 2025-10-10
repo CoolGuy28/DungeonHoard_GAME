@@ -6,6 +6,7 @@ public class OverworldMenu : MonoBehaviour
 {
     [SerializeField] private MenuButton[] menuButtons;
     [SerializeField] private InventoryPanel invPanel;
+    [SerializeField] private GameObject mainPanel;
     private int currentMenuButton;
     [SerializeField] private string state = "Menu";
 
@@ -84,6 +85,10 @@ public class OverworldMenu : MonoBehaviour
                     break;
                 case "Inventory":
                     invPanel.gameObject.SetActive(false);
+                    state = "Menu";
+                    break;
+                case "Main":
+                    mainPanel.SetActive(false);
                     state = "Menu";
                     break;
             }

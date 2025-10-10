@@ -6,7 +6,7 @@ public class Lootable : Interactable
 {
     [SerializeField] private List<ItemSlot> itemPool;
     private bool looted;
-
+    public ButtonEvent onLootEvent;
     public override void BeginDialogue(PartyObject player)
     {
         if (looted)
@@ -21,6 +21,7 @@ public class Lootable : Interactable
             {
                 lootText = "You find " + slot.quantity.ToString() + " " + slot.item.name;
                 GameManager.instance.AddItem(slot.item, slot.quantity);
+                onLootEvent.Invoke();
             }
             else
                 lootText = "You find nothing";

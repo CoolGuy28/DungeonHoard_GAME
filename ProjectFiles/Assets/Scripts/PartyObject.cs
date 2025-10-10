@@ -12,8 +12,10 @@ public class PartyObject : MonoBehaviour
     private Collider2D standingOver;
     private bool sprinting;
     [SerializeField] private Grid grid;
+    [SerializeField] private bool allowZInput = true;
     private void Start()
     {
+        allowZInput = true;
         CreateParty();
     }
 
@@ -74,18 +76,21 @@ public class PartyObject : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.Z))
             {
-                if (standingOver != null)
+                if (allowZInput)
                 {
-                    standingOver.GetComponent<Interactable>().TryDialogue(this);
-                }
-                else
-                {
-                    RaycastHit2D hit = partyOverworldMovement[0].Interact();
-                    if (hit)
+                    if (standingOver != null)
                     {
-                        if (hit.collider.CompareTag("Interactable"))
+                        standingOver.GetComponent<Interactable>().TryDialogue(this);
+                    }
+                    else
+                    {
+                        RaycastHit2D hit = partyOverworldMovement[0].Interact();
+                        if (hit)
                         {
-                            hit.collider.GetComponent<Interactable>().BeginDialogue(this);
+                            if (hit.collider.CompareTag("Interactable"))
+                            {
+                                hit.collider.GetComponent<Interactable>().BeginDialogue(this);
+                            }
                         }
                     }
                 }
@@ -99,17 +104,30 @@ public class PartyObject : MonoBehaviour
         }
     }
 
+    public void DelayZInput()
+    {
+        allowZInput = false;
+        StartCoroutine(ZDelay());
+    }
+
+    private IEnumerator ZDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        allowZInput = true;
+    }
+
     public void CreateParty()
     {
         partyOverworldMovement[0] = this.GetComponent<OverworldMovement>();
         partyOverworldMovement[0].SetUnit(GameManager.instance.party[0].unit);
-        partyOverworldMovement[0].SetSpriteLayer(5);
         for (int i = 1; i < GameManager.instance.party.Count; i++)
         {
             partyOverworldMovement[i] = Instantiate(partyMemberPrefab, transform.position, Quaternion.identity, GameObject.Find("PlayerObjects").transform).GetComponent<OverworldMovement>();
             partyOverworldMovement[i].SetUnit(GameManager.instance.party[i].unit);
             partyOverworldMovement[i].SetSpriteLayer(5-i);
         }
+        partyOverworldMovement[0].SetSpriteLayer(10);
+        this.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = 100;
     }
 
     private void MoveParty()
@@ -139,6 +157,7 @@ public class PartyObject : MonoBehaviour
     }
     public void EndFishing()
     {
+        DelayZInput();
         allowMovement = true;
     }
 

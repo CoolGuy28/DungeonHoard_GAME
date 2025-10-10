@@ -240,7 +240,10 @@ public class BattleManager : MonoBehaviour
 
     public void SelectItemsButton()
     {
-        OpenSubMenu(GameManager.instance.GetItemList());
+        if (GameManager.instance.items.Count != 0)
+        {
+            OpenSubMenu(GameManager.instance.GetItemList());
+        }
     }
 
     [SerializeField] private List<BattleCharObject> targets;

@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 8306832700000000698ef7c433609afc07530851a3f663dc
+  m_ApplyToSortingLayers: 8306832700000000698ef7c433609afc07530851a3f663dc95ed44f5
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -181,8 +181,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -180032107
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b92356e0bd677e041a434bb71d3ce1e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -275,6 +275,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  grid: {fileID: 0}
+  allowZInput: 1
 --- !u!61 &8558502262667802907
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -342,6 +344,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4211189865124479603}
   animator: {fileID: 1815856060}
   speed: 3
+  sprintMultiplier: 1.4
   moving: 0
 --- !u!1 &8558502262974887324
 GameObject:
@@ -491,5 +494,5 @@ Transform:
   m_Children:
   - {fileID: 8558502262667802909}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

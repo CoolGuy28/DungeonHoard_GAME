@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -146,8 +146,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Suicidal Thoughts
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
+  m_sharedMaterial: {fileID: -7275419875738125690, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11
+  m_fontSize: 10.3
   m_fontSizeBase: 15.8
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.67058825, g: 0.67058825, b: 0.67058825, a: 1}
+  m_Color: {r: 0.67058825, g: 0.67058825, b: 0.67058825, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -303,8 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e022772955d221746a265b8877b690db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeColor: {r: 1, g: 1, b: 1, a: 1}
-  inactiveColor: {r: 0.67058825, g: 0.67058825, b: 0.67058825, a: 1}
+  activeColor: {r: 0.2735849, g: 0.089044146, b: 0.089044146, a: 0.6862745}
+  inactiveColor: {r: 0.67058825, g: 0.67058825, b: 0.67058825, a: 0}
   nameText: {fileID: 4658964632116095675}
   costText: {fileID: 212396025285226528}
 --- !u!1 &7243346500604764594
@@ -375,8 +375,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 20
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
+  m_sharedMaterial: {fileID: -7275419875738125690, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 14.85
   m_fontSizeBase: 15.8
   m_fontWeight: 400
   m_enableAutoSizing: 1

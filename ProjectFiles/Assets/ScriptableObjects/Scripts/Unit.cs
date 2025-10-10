@@ -17,6 +17,7 @@ public class Unit : ScriptableObject
     public RuntimeAnimatorController overworldAnimator;
     public Sprite overworldDeathSprite;
     public Vector2 spriteSize = Vector2.one;
+    public Sprite charPortrait;
 
     /*public bool IsImmune(Condition con)
     {

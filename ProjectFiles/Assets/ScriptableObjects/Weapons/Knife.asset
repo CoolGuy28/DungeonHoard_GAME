@@ -19,10 +19,11 @@ MonoBehaviour:
       damage: 14
       damageType: 0
       randomVarience: 4
-      particleEffect: {fileID: 0}
+      particleEffect: {fileID: 7960343886490436061, guid: 72f24d1f3d91a2c488294342405a4b06, type: 3}
       applyConditions: []
       conditionChance: 0
       removeConditions: []
     accuracy: 100
     useCrit: 1
     staminaAdjust: 0
+    spriteIndex: 0

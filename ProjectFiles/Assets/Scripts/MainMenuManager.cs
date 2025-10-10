@@ -62,7 +62,7 @@ public class MainMenuManager : MonoBehaviour
     public void NewGame()
     {
         
-        GameManager.instance.ChangeGameScene(1);
+        GameManager.instance.ChangeGameScene(3);
         GameManager.instance.NewGame();
     }
 }
