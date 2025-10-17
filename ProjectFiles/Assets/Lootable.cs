@@ -6,6 +6,7 @@ public class Lootable : Interactable
 {
     [SerializeField] private List<ItemSlot> itemPool;
     private bool looted;
+    [SerializeField] private Sprite lootedSprite;
     public ButtonEvent onLootEvent;
     public override void BeginDialogue(PartyObject player)
     {
@@ -29,6 +30,8 @@ public class Lootable : Interactable
             DialogueSection lootDia = new DialogueSection(" ", lootText);
             GameManager.instance.BeginDialogue(lootDia);
             looted = true;
+            if (lootedSprite != null)
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = lootedSprite;
         }
     }
 }

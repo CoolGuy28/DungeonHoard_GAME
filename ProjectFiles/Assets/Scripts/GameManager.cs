@@ -323,7 +323,7 @@ public class GameData
     public GameData()
     {
         maxStamina = 100;
-        sceneData = new OverworldScene[5];
+        sceneData = new OverworldScene[8];
         for (int i = 0; i < sceneData.Length; i++)
         {
             sceneData[i] = new OverworldScene();
@@ -334,7 +334,7 @@ public class GameData
     {
         maxStamina = 100;
         this.party = party;
-        sceneData = new OverworldScene[5];
+        sceneData = new OverworldScene[8];
         for (int i = 0; i < sceneData.Length; i++)
         {
             sceneData[i] = new OverworldScene();
@@ -355,7 +355,7 @@ public class GameData
             this.items.Add(new ItemSlot(item.item, item.quantity));
         }
         playerPos = startPos;
-        sceneData = new OverworldScene[5];
+        sceneData = new OverworldScene[8];
         for (int i = 0; i < sceneData.Length; i++)
         {
             sceneData[i] = new OverworldScene();

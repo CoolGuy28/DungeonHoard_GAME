@@ -29,4 +29,5 @@ MonoBehaviour:
       removeConditions: []
     accuracy: 0
     useCrit: 0
-    staminaAdjust: 0
+    staminaAdjust: 20
+    spriteIndex: 0
