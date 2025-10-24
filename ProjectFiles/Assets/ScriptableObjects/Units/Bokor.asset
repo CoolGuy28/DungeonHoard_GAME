@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a34e4ca42612a34eadbf976146db7ce, type: 3}
+  m_Name: Bokor
+  m_EditorClassIdentifier: 
+  baseStats:
+    attack: 1
+    maxHealth: 250
+    defence: 1
+    healingEffect: 1
+    fireRes: 1
+    poisonRes: 1
+    coldRes: 1
+    accuracy: 1
+    speed: 1
+    critPercent: 0.2
+    critMultiplyer: 1.6
+  weapon: {fileID: 11400000, guid: f721b986699b132479a56643323e5f4c, type: 2}
+  skills: []
+  battleSprite: {fileID: 21300000, guid: 53ab3fb7cd344f342bda9d8a66b774d3, type: 3}
+  basicAttack: {fileID: 21300000, guid: 69c7e270d3e68fd4ba351e84767ad21c, type: 3}
+  attackSprites:
+  - {fileID: 21300000, guid: c708d07b24f39984f9ac052732624366, type: 3}
+  - {fileID: 21300000, guid: c79dff1b32118a442a70a5e3c16241e4, type: 3}
+  - {fileID: 21300000, guid: fa3ce80da1b4edb4481ef4c03985f084, type: 3}
+  damageSprite: {fileID: 21300000, guid: 6a668095035663e45b6df81025b63594, type: 3}
+  downedSprite: {fileID: 21300000, guid: 8d5c8003b6bc6b84c96239208589c906, type: 3}
+  overworldAnimator: {fileID: 9100000, guid: 526b7611985ca464bb491d81e8461c43, type: 2}
+  overworldDeathSprite: {fileID: 410274143, guid: 6649907fa2d108b46b9e39044a175857, type: 3}
+  spriteSize: {x: 2, y: 2}
+  charPortrait: {fileID: 21300000, guid: c708d07b24f39984f9ac052732624366, type: 3}
+  damageThreshold: 0
+  weapon_Phase2: {fileID: 11400000, guid: 2e835fe305448564295cc51f091aa828, type: 2}
+  skills_Phase2: []
+  battleSprite_Phase2: {fileID: 21300000, guid: b60cf9a892120814291ef5aa15903aa4, type: 3}
+  basicAttack_Phase2: {fileID: 21300000, guid: 220438d8d614f16428ff9e1165cbc6b1, type: 3}
+  attackSprites_Phase2:
+  - {fileID: 21300000, guid: 48aeab94429fa4548bca49cca43c95ba, type: 3}
+  - {fileID: 21300000, guid: deab240e00dd7dd4e90a1c8ada7ac85f, type: 3}
+  damageSprite_Phase2: {fileID: 21300000, guid: ecb1d622a6ddcf64bb57ff7e76464057, type: 3}
+  downedSprite_Phase2: {fileID: 21300000, guid: ecb1d622a6ddcf64bb57ff7e76464057, type: 3}

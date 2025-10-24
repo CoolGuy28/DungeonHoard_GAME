@@ -1837,26 +1837,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2772618909104190864, guid: 8eb1133a720a3cc419aa9acc49c810c1, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2772618909104190864, guid: 8eb1133a720a3cc419aa9acc49c810c1, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[6]
-      value: -180032107
-      objectReference: {fileID: 0}
-    - target: {fileID: 4211189865124479603, guid: 8eb1133a720a3cc419aa9acc49c810c1, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4211189865124479603, guid: 8eb1133a720a3cc419aa9acc49c810c1, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -180032107
-      objectReference: {fileID: 0}
-    - target: {fileID: 4211189865124479603, guid: 8eb1133a720a3cc419aa9acc49c810c1, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8558502264189135556, guid: 8eb1133a720a3cc419aa9acc49c810c1, type: 3}
       propertyPath: m_Name
       value: PlayerObjects

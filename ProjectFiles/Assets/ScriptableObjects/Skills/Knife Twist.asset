@@ -31,3 +31,5 @@ MonoBehaviour:
     useCrit: 1
     staminaAdjust: 0
     spriteIndex: 1
+    hitSFX: {fileID: 8300000, guid: 733876ebae2b60647bc8d63a64c1343c, type: 3}
+    missSFX: {fileID: 8300000, guid: 429c2816bd3d1ff47b3cef6687a26c84, type: 3}

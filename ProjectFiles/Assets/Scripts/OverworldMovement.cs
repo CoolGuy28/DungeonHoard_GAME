@@ -13,12 +13,14 @@ public class OverworldMovement : MonoBehaviour
     [SerializeField] private float sprintMultiplier = 1.4f;
     private float currentSpeed;
     public bool moving;
-
+    private AudioSource audioSource;
     private void Start()
     {
         transform.position = new Vector2(Mathf.FloorToInt(transform.position.x) + 0.5f, Mathf.FloorToInt(transform.position.y) + 0.5f);
         targetPos = transform.position;
         currentSpeed = speed;
+        if (GetComponent<AudioSource>())
+            audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -38,6 +40,8 @@ public class OverworldMovement : MonoBehaviour
         {
             moving = false;
             //animator.Rebind();
+            if (audioSource != null)
+                audioSource.Pause();
             SetSprite();
             animator.speed = 0;
             spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y) * -1;
@@ -70,7 +74,8 @@ public class OverworldMovement : MonoBehaviour
                 SetSprite();
                 animator.speed = 1;
                 moving = true;
-
+                if (audioSource != null)
+                    audioSource.Play();
                 return false;
             }
         }

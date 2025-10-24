@@ -31,6 +31,8 @@ MonoBehaviour:
     useCrit: 0
     staminaAdjust: 0
     spriteIndex: 2
+    hitSFX: {fileID: 8300000, guid: 15e2578748348b7478170d5c228a0a17, type: 3}
+    missSFX: {fileID: 0}
   corruption: 0
   magicPattern:
     rotationOffset: 0

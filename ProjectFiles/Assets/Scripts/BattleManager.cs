@@ -417,7 +417,7 @@ public class BattleManager : MonoBehaviour
                         castingSpeed = spell.castingSpeed;
                         mageTargets = targets;
                         SetNewAttacker();*/
-                        AttackHit(currentAbility.GetAction().damageStats, false);
+                        AttackHit(currentAbility.GetAction().damageStats, false, currentAbility.GetAction().hitSFX);
                         SetNewAttacker();
                     }
                     else
@@ -495,15 +495,15 @@ public class BattleManager : MonoBehaviour
         {
             if (currentAbility.GetAction().useCrit && sliderPos.localPosition.x >= critChanceObject.localPosition.x - (critChanceObject.sizeDelta.x) && sliderPos.localPosition.x <= (critChanceObject.localPosition.x + 5))
             {
-                AttackHit(currentAbility.GetAction().damageStats, true);
+                AttackHit(currentAbility.GetAction().damageStats, true, currentAbility.GetAction().hitSFX);
             }
             else if (sliderPos.localPosition.x >= hitChanceObject.localPosition.x - (hitChanceObject.sizeDelta.x + 5) && sliderPos.localPosition.x <= (hitChanceObject.localPosition.x + 5))
             {
-                AttackHit(currentAbility.GetAction().damageStats, false);
+                AttackHit(currentAbility.GetAction().damageStats, false, currentAbility.GetAction().hitSFX);
             }
             else
             {
-                AttackMiss();
+                AttackMiss(currentAbility.GetAction().missSFX);
             }
             attackField.SetActive(false);
             SetNewAttacker();
@@ -513,7 +513,7 @@ public class BattleManager : MonoBehaviour
         attackSlider.value = sliderValue;
     }
 
-    private void AttackHit(DamageStats damageStats, bool crit)
+    private void AttackHit(DamageStats damageStats, bool crit, AudioClip attackSFX)
     {
         DamageStats damage = new DamageStats(damageStats);
         if (crit)
@@ -526,16 +526,16 @@ public class BattleManager : MonoBehaviour
         foreach (BattleCharObject i in targets)
         {
             StartCoroutine(i.SetSprite(1, 0.75f, 0));
-            i.TakeDamage(damage, crit);
+            i.TakeDamage(damage, crit, attackSFX);
         }
     }
 
-    private void AttackMiss()
+    private void AttackMiss(AudioClip attackSFX)
     {
         StartCoroutine(currentActiveTeam[battleIndex].SetSprite(0, 0.75f, currentAbility.GetAction().spriteIndex));
         foreach (BattleCharObject i in targets)
         {
-            i.AttackMissed();
+            i.AttackMissed(attackSFX);
         }
     }
 
@@ -543,7 +543,7 @@ public class BattleManager : MonoBehaviour
     {
         foreach (BattleCharObject i in targets)
         {
-            i.TakeDamage(damageStats, false);
+            i.TakeDamage(damageStats, false, null);
         }
         SetNewAttacker();
     }
@@ -668,7 +668,7 @@ public class BattleManager : MonoBehaviour
         foreach (BattleCharObject i in mageTargets)
         {
             //StartCoroutine(i.SetSprite(1, 0.75f));
-            i.TakeDamage(damageStats, false);
+            i.TakeDamage(damageStats, false, currentAbility.GetAction().hitSFX);
         }
     }
 
@@ -769,7 +769,8 @@ public class BattleManager : MonoBehaviour
         if (useSkill > 2)
         {
             List<Ability> enemySkills = currentActiveTeam[battleIndex].GetCharacter().GetSkills();
-            currentAbility = enemySkills[Random.Range(0, enemySkills.Count)];
+            if (enemySkills.Count > 0)
+                currentAbility = enemySkills[Random.Range(0, enemySkills.Count)];
         }
         else
         {
@@ -877,15 +878,15 @@ public class BattleManager : MonoBehaviour
         int hitChance = Random.Range(0, 100);
         if (currentAbility.GetAction().useCrit && hitChance <= currentActiveTeam[battleIndex].GetCharacter().currentStats.accuracy * currentAbility.GetAction().accuracy * currentActiveTeam[battleIndex].GetCharacter().currentStats.critPercent)
         {
-            AttackHit(currentAbility.GetAction().damageStats, true);
+            AttackHit(currentAbility.GetAction().damageStats, true, currentAbility.GetAction().hitSFX);
         }
         else if (hitChance <= currentActiveTeam[battleIndex].GetCharacter().currentStats.accuracy * currentAbility.GetAction().accuracy)
         {
-            AttackHit(currentAbility.GetAction().damageStats, false);
+            AttackHit(currentAbility.GetAction().damageStats, false, currentAbility.GetAction().hitSFX);
         }
         else
         {
-            AttackMiss();
+            AttackMiss(currentAbility.GetAction().missSFX);
         }
     }
 
@@ -895,6 +896,15 @@ public class BattleManager : MonoBehaviour
         if (team.Count <= 0)
             return false;
         foreach (BattleCharObject target in team)
+            /*if (target.GetCharacter().unit is Unit_Boss)
+            {
+                Unit_Boss boss = target.GetCharacter().unit as Unit_Boss;
+                if (target.GetCharacter().currentHealth <= boss.damageThreshold)
+                {
+                    target.GetCharacter().weapon = boss.weapon_Phase2;
+                    target.GetCharacter().skills = boss.skills_Phase2;
+                }
+            } */
             if (target.GetCharacter().downed == false)
                 liveUnits = true;
         return liveUnits;

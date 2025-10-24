@@ -12,6 +12,7 @@ public class BattleCharObject : MonoBehaviour
     [SerializeField] private GameObject ui;
     [SerializeField] private GameObject damageTextPrefab;
     [SerializeField] private GameObject conditionUIPrefab;
+    [SerializeField] private AudioSource audioSource;
 
     public void SetCharacterObject(CharacterData character, int spritePriority)
     {
@@ -40,7 +41,7 @@ public class BattleCharObject : MonoBehaviour
             UpdateConditionUI();
         }
     }
-    public void TakeDamage(DamageStats damageStats, bool crit)
+    public void TakeDamage(DamageStats damageStats, bool crit, AudioClip attackSFX)
     {
         int damageAmount = Random.Range(damageStats.damage - damageStats.randomVarience, damageStats.damage + damageStats.randomVarience);
         if (damageAmount < 0)
@@ -105,6 +106,10 @@ public class BattleCharObject : MonoBehaviour
         {
             Instantiate(damageStats.particleEffect, transform.position, Quaternion.identity, transform);
         }
+
+        if (attackSFX != null)
+            PlayAudioClip(attackSFX);
+
         if (damageStats.applyConditions.Length != 0)
         {
             foreach (ConditionStats condition in damageStats.applyConditions)
@@ -128,10 +133,12 @@ public class BattleCharObject : MonoBehaviour
         UpdateUI();
     }
 
-    public void AttackMissed()
+    public void AttackMissed(AudioClip attackSFX)
     {
         GameObject missText = CreateText();
         missText.transform.GetChild(0).GetComponent<TMP_Text>().text = "Miss";
+        if (attackSFX != null)
+            PlayAudioClip(attackSFX);
     }
 
     private GameObject CreateText()
@@ -208,6 +215,12 @@ public class BattleCharObject : MonoBehaviour
     public void SetDeselected()
     {
         spriteObj.color = new Color(0.2f, 0.2f, 0.2f);
+    }
+
+    private void PlayAudioClip(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
     public IEnumerator SetSprite(int i, float timeFrame, int attackIndex)

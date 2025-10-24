@@ -7,6 +7,7 @@ public class CharacterData
 {
     public Unit unit;
     public bool downed;
+    public bool phase2;
     public Stats currentStats;
     public int currentHealth;
     public Item_Weapon weapon;
@@ -139,6 +140,8 @@ public class Action
     public bool useCrit;
     public int staminaAdjust;
     public int spriteIndex;
+    public AudioClip hitSFX;
+    public AudioClip missSFX;
 }
 
 public class Ability : ScriptableObject

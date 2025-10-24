@@ -7,11 +7,15 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private MenuButton[] menuButtons;
     private int currentMenuButton;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip navigateClip;
+    [SerializeField] private AudioClip selectClip;
     private void Start()
     {
         foreach (var button in menuButtons)
             button.DeselectButton();
         menuButtons[currentMenuButton].SelectButton();
+        audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -23,14 +27,17 @@ public class MainMenuManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             SwitchMenuButton(-1);
+            PlayAudioClip(navigateClip);
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             SwitchMenuButton(1);
+            PlayAudioClip(navigateClip);
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
             menuButtons[currentMenuButton].PressButton();
+            PlayAudioClip(selectClip);
         }
     }
 
@@ -65,4 +72,14 @@ public class MainMenuManager : MonoBehaviour
         GameManager.instance.ChangeGameScene(3);
         GameManager.instance.NewGame();
     }
+
+    private void PlayAudioClip(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
+    }
+
 }
