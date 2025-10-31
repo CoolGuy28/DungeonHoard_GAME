@@ -22,10 +22,11 @@ MonoBehaviour:
     fireRes: 0
     poisonRes: 0
     coldRes: 0
-    accuracy: -0.4
+    accuracy: -0.25
     speed: 0
     critPercent: 0
     critMultiplyer: 0
+    increaseTargetChance: 0
   damagePerTurn:
   - damage: 7
     damageType: 4

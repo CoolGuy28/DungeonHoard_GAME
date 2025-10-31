@@ -8,11 +8,10 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private GameObject DialoguePanel;
     [SerializeField] private TMP_Text DialogueText;
-    [SerializeField] private TMP_Text DialogueSpeaker;
     public bool inDialogue;
     [SerializeField] private DialogueSection currentDialogue;
     private int currentLine;
-    private bool a = false;
+
     private void Start()
     {
         DialoguePanel.SetActive(false);
@@ -22,9 +21,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (inDialogue)
         {
-            if (Input.GetKeyUp(KeyCode.Z) && !a)
-                a = true;
-            if (Input.GetKeyDown(KeyCode.Z) && a)
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 if (currentLine < currentDialogue.dialogue.Count)
                 {
@@ -34,9 +31,8 @@ public class DialogueManager : MonoBehaviour
                 {
                     GameManager.instance.EndDialogue();
                     inDialogue = false;
-                    GameObject.FindObjectOfType<PartyObject>().EndFishing();
+                    GameObject.FindObjectOfType<PartyObject>().AllowMovement();
                     DialoguePanel.SetActive(false);
-                    a = false;
                 }
             }
         }
@@ -46,14 +42,22 @@ public class DialogueManager : MonoBehaviour
         currentLine = 0;
         currentDialogue = section;
         inDialogue = true;
-        GameObject.FindObjectOfType<PartyObject>().BeginFishing();
+        GameObject.FindObjectOfType<PartyObject>().PauseMovement();
         DialoguePanel.SetActive(true);
         LoadDialogueLine(section.dialogue[0]);
     }
     private void LoadDialogueLine(DialogueLine line)
     {
-        DialogueSpeaker.text = line.name;
-        DialogueText.text = line.text;
+        string dialogueLine = "";
+        if (line.name != null && line.name.Trim() != "")
+        {
+            DialogueText.alignment = TextAlignmentOptions.Top;
+            dialogueLine += "<size=42>" + line.name + "</size>\n";
+        }
+        else
+            DialogueText.alignment = TextAlignmentOptions.Center;
+        dialogueLine += line.text;
+        DialogueText.text = dialogueLine;
         currentLine++;
     }
 }

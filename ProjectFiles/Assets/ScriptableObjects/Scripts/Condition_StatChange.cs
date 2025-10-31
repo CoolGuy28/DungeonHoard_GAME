@@ -8,12 +8,12 @@ public class Condition_StatChange : Condition
     public Stats statAdjust;
     public override void OnConditionGained(BattleCharObject battleCharObject, int level)
     {
-        battleCharObject.GetCharacter().AdjustStats(statAdjust, 1);
+        //battleCharObject.GetCharacter().AdjustStats(statAdjust, 1);
     }
 
     public override void OnConditionEnd(BattleCharObject battleCharObject, int level)
     {
-        battleCharObject.GetCharacter().AdjustStats(statAdjust, -1);
+        battleCharObject.GetCharacter().SetCurrentStats();
         battleCharObject.GetCharacter().RemoveCondition(this);
     }
 }

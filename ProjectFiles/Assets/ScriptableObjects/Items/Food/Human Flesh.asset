@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35330e7859ede1043ab42a090b6790da, type: 3}
+  m_Name: Human Flesh
+  m_EditorClassIdentifier: 
+  description: Consume to regain your humanity
+  action:
+    targetingType: 4
+    damageStats:
+      damage: 0
+      damageType: 2
+      randomVarience: 0
+      particleEffect: {fileID: 0}
+      applyConditions:
+      - condition: {fileID: 11400000, guid: 2ba4caff59c970041aad4de124f9099c, type: 2}
+        timeFrame: 3
+        level: 0
+      applySingleRandCondition: 0
+      conditionChance: 8
+      removeConditions:
+      - {fileID: 11400000, guid: b31c0b99b09d0da4490d0fd9184aeef1, type: 2}
+      - {fileID: 11400000, guid: 808dc042d410637409121e621dc92059, type: 2}
+      - {fileID: 11400000, guid: a128f3fe81230f84fbe9529a43564d27, type: 2}
+      - {fileID: 11400000, guid: c9882793b9f1f5947a6852c0006a372c, type: 2}
+      - {fileID: 11400000, guid: 1b99f50d2aa62dd44b1ac9cbcd4516ff, type: 2}
+      - {fileID: 11400000, guid: e37045a7714f39b4e9fad8cd0e1f606d, type: 2}
+    accuracy: 0
+    useCrit: 0
+    staminaAdjust: 15
+    applySelfInjury: 0
+    spriteIndex: 0
+    hitSFX: {fileID: 0}
+    missSFX: {fileID: 0}

@@ -139,6 +139,28 @@ MonoBehaviour:
     quantity: 2
   - item: {fileID: 11400000, guid: 8679b4afce6351540935645f46cb5a33, type: 2}
     quantity: 1
+  - item: {fileID: 11400000, guid: 8679b4afce6351540935645f46cb5a33, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: e0e743cfcdb6c4f4bbcb66ae61a65ebc, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: e0e743cfcdb6c4f4bbcb66ae61a65ebc, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: e0e743cfcdb6c4f4bbcb66ae61a65ebc, type: 2}
+    quantity: 4
+  - item: {fileID: 11400000, guid: 2b83d264bc28a0c4ba0b60d15d83f5ac, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 2430cd69d63a49b40bdec0fe0c290798, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 9e64b9ca8b661024a9073c8a609a7f8e, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: c0d2abdbc3b1392458459e4399dd7105, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 0aabe02fe28c91d4cab1f22d28f96639, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: ad762b6d7cc07be48b471fcfbbd4b0c2, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 90a3b134b20a1ed439ab06b1a78c6625, type: 2}
+    quantity: 1
   lootedSprite: {fileID: 0}
   onLootEvent:
     m_PersistentCalls:

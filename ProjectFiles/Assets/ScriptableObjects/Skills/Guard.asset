@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Guard
   m_EditorClassIdentifier: 
   description: Stand guard increasing your defence.
-  staminaCost: 0
+  staminaCost: -10
   action:
     targetingType: 4
     damageStats:
@@ -25,9 +25,13 @@ MonoBehaviour:
       - condition: {fileID: 11400000, guid: b5b51f988895f904fb46bfc694ae73dd, type: 2}
         timeFrame: 2
         level: 0
+      applySingleRandCondition: 0
       conditionChance: 100
       removeConditions: []
     accuracy: 0
     useCrit: 0
-    staminaAdjust: 20
+    staminaAdjust: 10
+    applySelfInjury: 0
     spriteIndex: 0
+    hitSFX: {fileID: 0}
+    missSFX: {fileID: 0}

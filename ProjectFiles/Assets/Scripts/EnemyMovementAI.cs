@@ -21,6 +21,7 @@ public class EnemyMovementAI : MonoBehaviour
     [SerializeField] private float waitTime;
     [SerializeField] private bool tall;
     [SerializeField] private GameObject alertSprite;
+    [SerializeField] private bool idleEnemy;
     private void Start()
     {
         startPos = transform.position;
@@ -32,6 +33,8 @@ public class EnemyMovementAI : MonoBehaviour
     }
     private void Update()
     {
+        if (idleEnemy)
+            return;
         SendVision();
         if (overworldMovement.moving || idle)
             return;
@@ -219,9 +222,9 @@ public class EnemyMovementAI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("PlayerParty"))
         {
-            idle = true;
+            idleEnemy = true;
         }
     }
 }

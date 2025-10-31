@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class LockedInteraction : Interactable
 {
-    private bool locked = true;
     [SerializeField] private Item requiredItem;
+    [SerializeField] private int sceneChange;
+    [SerializeField] private Vector2 position;
 
     public override void BeginDialogue(PartyObject player)
     {
-        if (GameManager.instance.GetItemAmount(requiredItem) > 0)
+        if (!used && GameManager.instance.GetItemAmount(requiredItem) > 0)
         {
             GameManager.instance.UseItem(requiredItem);
             GameManager.instance.BeginDialogue(dialogue[1]);
-            locked = false;
+            used = true;
             gameObject.tag = "Staircase";
         }
-        else if (locked)
+        else if (!used)
         {
             GameManager.instance.BeginDialogue(dialogue[0]);
         }
-        else
+        else if (used)
         {
-            
+            GameManager.instance.ChangeGameScene(sceneChange);
+            GameManager.instance.gameData.playerPos = position;
         }
     }
 }

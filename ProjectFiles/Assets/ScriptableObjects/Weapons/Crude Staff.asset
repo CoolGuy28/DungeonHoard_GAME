@@ -16,16 +16,18 @@ MonoBehaviour:
   action:
     targetingType: 0
     damageStats:
-      damage: 4
+      damage: 5
       damageType: 0
-      randomVarience: 5
+      randomVarience: 4
       particleEffect: {fileID: 7960343886490436061, guid: 72f24d1f3d91a2c488294342405a4b06, type: 3}
       applyConditions: []
+      applySingleRandCondition: 0
       conditionChance: 0
       removeConditions: []
     accuracy: 80
     useCrit: 1
     staminaAdjust: 0
+    applySelfInjury: 0
     spriteIndex: 0
     hitSFX: {fileID: 8300000, guid: 61c818bcec38a3e4da01d1f9ff876c5d, type: 3}
     missSFX: {fileID: 8300000, guid: 429c2816bd3d1ff47b3cef6687a26c84, type: 3}

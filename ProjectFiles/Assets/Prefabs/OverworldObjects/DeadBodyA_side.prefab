@@ -224,6 +224,20 @@ MonoBehaviour:
     quantity: 2
   - item: {fileID: 11400000, guid: 8679b4afce6351540935645f46cb5a33, type: 2}
     quantity: 1
+  - item: {fileID: 11400000, guid: 8679b4afce6351540935645f46cb5a33, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: e0e743cfcdb6c4f4bbcb66ae61a65ebc, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: e0e743cfcdb6c4f4bbcb66ae61a65ebc, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: e0e743cfcdb6c4f4bbcb66ae61a65ebc, type: 2}
+    quantity: 4
+  - item: {fileID: 11400000, guid: 2b83d264bc28a0c4ba0b60d15d83f5ac, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 2430cd69d63a49b40bdec0fe0c290798, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 9e64b9ca8b661024a9073c8a609a7f8e, type: 2}
+    quantity: 1
   lootedSprite: {fileID: 0}
   onLootEvent:
     m_PersistentCalls:

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35330e7859ede1043ab42a090b6790da, type: 3}
+  m_Name: Beer
+  m_EditorClassIdentifier: 
+  description: Drink to regain your determination
+  action:
+    targetingType: 4
+    damageStats:
+      damage: 0
+      damageType: 2
+      randomVarience: 0
+      particleEffect: {fileID: 0}
+      applyConditions:
+      - condition: {fileID: 11400000, guid: 4eef0a521d07e5342907785ed08ea97f, type: 2}
+        timeFrame: 5
+        level: 0
+      applySingleRandCondition: 0
+      conditionChance: 30
+      removeConditions:
+      - {fileID: 11400000, guid: 2ba4caff59c970041aad4de124f9099c, type: 2}
+    accuracy: 0
+    useCrit: 0
+    staminaAdjust: 40
+    applySelfInjury: 0
+    spriteIndex: 0
+    hitSFX: {fileID: 0}
+    missSFX: {fileID: 0}
+  magicItem: 0

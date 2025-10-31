@@ -23,5 +23,7 @@ MonoBehaviour:
     poisonRes: 0
     coldRes: 0
     accuracy: 0
+    speed: 0
     critPercent: 0
     critMultiplyer: 0
+    increaseTargetChance: 2

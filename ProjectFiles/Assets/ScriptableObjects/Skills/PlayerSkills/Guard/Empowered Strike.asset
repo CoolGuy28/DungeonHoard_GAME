@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
+  m_Name: Empowered Strike
+  m_EditorClassIdentifier: 
+  description: Bring down a powerful strike against a foe possibly causing multiple
+    injuries
+  staminaCost: 60
+  action:
+    targetingType: 0
+    damageStats:
+      damage: 28
+      damageType: 0
+      randomVarience: 10
+      particleEffect: {fileID: 2399189984805459437, guid: c285186d5564da6479816fab77197b15, type: 3}
+      applyConditions:
+      - condition: {fileID: 11400000, guid: 2ba4caff59c970041aad4de124f9099c, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: 341f4eaf26ecbe44cac1f719f61524ca, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: f415e03f2c664b34894a30a15d0603a3, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: ef1b683d12b14514f818afcd2fbef98f, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: 50fcdba307f0ae64eac973f15a817bed, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: a7aad76470643684da45c3e4e0e3d455, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+        timeFrame: 3
+        level: 0
+      - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+        timeFrame: 5
+        level: 0
+      - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+        timeFrame: 3
+        level: 0
+      applySingleRandCondition: 0
+      conditionChance: 30
+      removeConditions: []
+    accuracy: 50
+    useCrit: 1
+    staminaAdjust: 0
+    applySelfInjury: 0
+    spriteIndex: 2
+    hitSFX: {fileID: 8300000, guid: 6a997e6ae7638a84da2b3f1944526daf, type: 3}
+    missSFX: {fileID: 8300000, guid: 429c2816bd3d1ff47b3cef6687a26c84, type: 3}

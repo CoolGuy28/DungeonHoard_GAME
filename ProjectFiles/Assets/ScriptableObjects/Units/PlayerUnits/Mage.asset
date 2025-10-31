@@ -24,12 +24,13 @@ MonoBehaviour:
     speed: 1
     critPercent: 0.24
     critMultiplyer: 1.6
+    increaseTargetChance: 0
+    actions: 1
   weapon: {fileID: 11400000, guid: 4e54b38e510a86643ad9370dcb05a447, type: 2}
   skills:
   - {fileID: 11400000, guid: 08d6ed6907284664099ea42ed4d1634a, type: 2}
-  - {fileID: 11400000, guid: 3bac7468edebf684596c0c80b0168047, type: 2}
   - {fileID: 11400000, guid: e2671744404a9c1429ef1fa9493202bb, type: 2}
-  - {fileID: 11400000, guid: 29e6c79b30caa214396ba4b2aa04a94e, type: 2}
+  - {fileID: 11400000, guid: 3bac7468edebf684596c0c80b0168047, type: 2}
   battleSprite: {fileID: 21300000, guid: b42c5aef8a3a93a448a08fb0b586f716, type: 3}
   basicAttack: {fileID: 21300000, guid: e6fd0f6358af61c4b8e3c5369c8409a3, type: 3}
   attackSprites:

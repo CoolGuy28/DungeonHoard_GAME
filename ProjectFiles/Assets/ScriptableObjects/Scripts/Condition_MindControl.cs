@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Condition_MindControl", menuName = "Condition/MindControl")]
 public class Condition_MindControl : Condition
 {
-    public override void OnConditionGained(BattleCharObject battleCharObject, int level)
+    /*public override void OnConditionGained(BattleCharObject battleCharObject, int level)
     {
         GameObject.Find("Canvas").GetComponent<BattleManager>().SwitchCharacterTeam(battleCharObject.GetCharacter());
     }
@@ -13,5 +13,5 @@ public class Condition_MindControl : Condition
     {
         GameObject.Find("Canvas").GetComponent<BattleManager>().SwitchCharacterTeam(battleCharObject.GetCharacter());
         battleCharObject.GetCharacter().RemoveCondition(this);
-    }
+    }*/
 }

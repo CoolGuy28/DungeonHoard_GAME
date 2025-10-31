@@ -22,12 +22,16 @@ MonoBehaviour:
       randomVarience: 0
       particleEffect: {fileID: 0}
       applyConditions: []
+      applySingleRandCondition: 0
       conditionChance: 0
       removeConditions: []
     accuracy: 0
     useCrit: 0
     staminaAdjust: 0
+    applySelfInjury: 0
     spriteIndex: 0
+    hitSFX: {fileID: 0}
+    missSFX: {fileID: 0}
   corruption: 0
   magicPattern:
     rotationOffset: 0
@@ -44,6 +48,7 @@ MonoBehaviour:
         randomVarience: 0
         particleEffect: {fileID: 0}
         applyConditions: []
+        applySingleRandCondition: 0
         conditionChance: 0
         removeConditions: []
       bulletSize: 0.5
@@ -62,4 +67,5 @@ MonoBehaviour:
     createGroup: 0
     groupedProjectileSettings:
       projectileSpeed: 8
+    flappyBird: 1
   castingSpeed: 0

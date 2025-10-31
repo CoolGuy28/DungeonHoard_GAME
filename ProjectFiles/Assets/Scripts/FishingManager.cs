@@ -86,7 +86,7 @@ public class FishingManager : Interactable
     {
         StopAllCoroutines();
         fishingCanvas.SetActive(false);
-        fisher.EndFishing();
+        fisher.AllowMovement();
         GameObject text = Instantiate(textPrefab, new Vector3(Random.Range(transform.position.x - 1, transform.position.x + 1), Random.Range(transform.position.y - 1, transform.position.y + 1), transform.position.z), Quaternion.identity);
         
         if (catchFish)
@@ -102,7 +102,7 @@ public class FishingManager : Interactable
     public override void BeginDialogue(PartyObject player)
     {
         fisher = player;
-        fisher.BeginFishing();
+        fisher.PauseMovement();
         BeginFishing();
     }
 }

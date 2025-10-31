@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
+  m_Name: Help
+  m_EditorClassIdentifier: 
+  description: Bring a downed ally back up.
+  staminaCost: 0
+  action:
+    targetingType: 5
+    damageStats:
+      damage: 20
+      damageType: 2
+      randomVarience: 0
+      particleEffect: {fileID: 0}
+      applyConditions:
+      - condition: {fileID: 11400000, guid: 2ba4caff59c970041aad4de124f9099c, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: 341f4eaf26ecbe44cac1f719f61524ca, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: f415e03f2c664b34894a30a15d0603a3, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: ef1b683d12b14514f818afcd2fbef98f, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: 50fcdba307f0ae64eac973f15a817bed, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: a7aad76470643684da45c3e4e0e3d455, type: 2}
+        timeFrame: -1
+        level: 0
+      - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+        timeFrame: 3
+        level: 0
+      - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+        timeFrame: 5
+        level: 0
+      - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+        timeFrame: 3
+        level: 0
+      applySingleRandCondition: 1
+      conditionChance: 60
+      removeConditions:
+      - {fileID: 11400000, guid: 129bbea2cd3631840b23c57fbfc52432, type: 2}
+      - {fileID: 11400000, guid: b1fce2f7427f34148a297068eea0997d, type: 2}
+      - {fileID: 11400000, guid: 852269738ec866744ad1fab60891d951, type: 2}
+      - {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+    accuracy: 0
+    useCrit: 0
+    staminaAdjust: 0
+    applySelfInjury: 0
+    spriteIndex: 4
+    hitSFX: {fileID: 0}
+    missSFX: {fileID: 0}

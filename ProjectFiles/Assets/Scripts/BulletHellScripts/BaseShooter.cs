@@ -282,6 +282,7 @@ public class PatternSettings
     [Header("Group Settings")]
     public bool createGroup;
     public ProjectileSettings groupedProjectileSettings;
+    public bool flappyBird;
 }
 
 [System.Serializable]

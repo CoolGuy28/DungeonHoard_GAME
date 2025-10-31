@@ -11,6 +11,7 @@ public class OverworldMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private float speed = 0.5f;
     [SerializeField] private float sprintMultiplier = 1.4f;
+    [SerializeField] private float sortingPriority;
     private float currentSpeed;
     public bool moving;
     private AudioSource audioSource;
@@ -25,7 +26,7 @@ public class OverworldMovement : MonoBehaviour
 
     private void Update()
     {
-        spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y - 1f) * -1;
+        SetSpriteLayer();
     }
 
     void FixedUpdate()
@@ -44,7 +45,7 @@ public class OverworldMovement : MonoBehaviour
                 audioSource.Pause();
             SetSprite();
             animator.speed = 0;
-            spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y) * -1;
+            SetSpriteLayer();
         }
     }
     
@@ -94,7 +95,7 @@ public class OverworldMovement : MonoBehaviour
         else
             animator.SetInteger("Movement", 0);
 
-        spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y - 1f) * -1;
+        SetSpriteLayer();
     }
 
     public RaycastHit2D Interact()
@@ -108,9 +109,9 @@ public class OverworldMovement : MonoBehaviour
         animator.runtimeAnimatorController = unit.overworldAnimator;
     }
 
-    public void SetSpriteLayer(int index)
+    public void SetSpriteLayer()
     {
-        spriteRenderer.sortingOrder = index;
+        spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y - 0.75f + -sortingPriority) * -1;
     }
 
     public void SetSprint(bool sprinting)

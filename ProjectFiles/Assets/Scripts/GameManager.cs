@@ -15,13 +15,15 @@ public class GameManager : MonoBehaviour
     public int stamina;
     public Vector2 partyPosition;
     [SerializeField] private Animator animator;
-    private int currentEnemyIndex;
+    private Vector2 currentEnemyID;
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField] private GameObject menu;
     private List<IDataPersistence> dataPersistenceObjects;
     [SerializeField] private List<CharacterData> newGameParty;
     [SerializeField] private List<ItemSlot> newGameItems;
     public bool saved;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip battleMusic;
     public static GameManager instance
     {
         get
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         foreach (CharacterData character in party)
             character.InitialiseChar();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -159,9 +162,16 @@ public class GameManager : MonoBehaviour
 
     public void BeginDialogue(DialogueSection section)
     {
+        StartCoroutine(OpenDialogue(section));
+    }
+
+    private IEnumerator OpenDialogue(DialogueSection section)
+    {
+        yield return new WaitForEndOfFrame();
         Time.timeScale = 0;
         dialogueManager.LoadDialogue(section);
     }
+
     public void EndDialogue()
     {
         Time.timeScale = 1;
@@ -212,7 +222,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < dataPersistenceObjects.Count; i++)
         {
-            dataPersistenceObjects[i].LoadData(gameData, i);
+            dataPersistenceObjects[i].LoadData(gameData);
         }
 
         GameObject.Find("PartyObject").transform.position = partyPosition;
@@ -235,7 +245,6 @@ public class GameManager : MonoBehaviour
             dataPersistenceObj.SaveData(gameData);
         }
     }
-
     public void OpenOverworldMenu()
     {
         PauseGame(true);
@@ -246,7 +255,10 @@ public class GameManager : MonoBehaviour
     {
         PauseGame(false);
         menu.SetActive(false);
-        GameObject.Find("PartyObject").GetComponent<PartyObject>().EndFishing();
+        if (GameObject.Find("PartyObject"))
+        {
+            GameObject.Find("PartyObject").GetComponent<PartyObject>().AllowMovement();
+        }
     }
 
     private void PauseGame(bool pause)
@@ -260,24 +272,42 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
-    public void LoadBattle(int currentEnemyIndex)
+    public void LoadBattle(Vector2 enemyID)
     {
-        if (!gameData.sceneData[gameData.sceneIndex].enemies[currentEnemyIndex].dead)
+        if (!GetEnemyFromStartingLoc(enemyID).dead)
         {
-            this.currentEnemyIndex = currentEnemyIndex;
+            this.currentEnemyID = enemyID;
             gameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
             StartCoroutine(ChangeScene("BattleScene"));
+            PlayMusic();
         }
+    }
+
+    public EnemyOverworldData GetEnemyFromStartingLoc(Vector2 enemyID)
+    {
+        EnemyOverworldData foundCopy = null;
+        foreach (EnemyOverworldData e in gameData.sceneData[gameData.sceneIndex].enemies)
+        {
+            if (e.SameStartingPos(enemyID) != null)
+                foundCopy = e;
+        }
+        return foundCopy;
+    }
+
+    private void PlayMusic()
+    {
+        audioSource.clip = battleMusic;
+        audioSource.Play();
     }
 
     public List<CharacterData> GetActiveEnemyList()
     {
-        return gameData.sceneData[gameData.sceneIndex].enemies[currentEnemyIndex].enemyFight;
+        return GetEnemyFromStartingLoc(currentEnemyID).enemyFight;
     }
 
     public void WonBattle()
     {
-        gameData.sceneData[gameData.sceneIndex].enemies[currentEnemyIndex].dead = true;
+        GetEnemyFromStartingLoc(currentEnemyID).dead = true;
         StartCoroutine(ChangeScene(gameData.sceneIndex));
     }
 
@@ -319,7 +349,7 @@ public class GameData
     public Vector2 playerPos;
     public int sceneIndex;
     public OverworldScene[] sceneData;
-
+    public bool seenTutorial;
     public GameData()
     {
         maxStamina = 100;

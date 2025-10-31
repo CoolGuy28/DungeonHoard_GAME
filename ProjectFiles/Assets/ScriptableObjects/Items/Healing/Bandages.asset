@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35330e7859ede1043ab42a090b6790da, type: 3}
+  m_Name: Bandages
+  m_EditorClassIdentifier: 
+  description: Use to remove bleeding
+  action:
+    targetingType: 2
+    damageStats:
+      damage: 10
+      damageType: 2
+      randomVarience: 3
+      particleEffect: {fileID: 0}
+      applyConditions: []
+      applySingleRandCondition: 0
+      conditionChance: 0
+      removeConditions:
+      - {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
+    accuracy: 0
+    useCrit: 0
+    staminaAdjust: 0
+    applySelfInjury: 0
+    spriteIndex: 0
+    hitSFX: {fileID: 0}
+    missSFX: {fileID: 0}

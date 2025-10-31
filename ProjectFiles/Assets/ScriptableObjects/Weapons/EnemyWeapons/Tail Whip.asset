@@ -29,3 +29,6 @@ MonoBehaviour:
     accuracy: 80
     useCrit: 1
     staminaAdjust: 0
+    spriteIndex: 0
+    hitSFX: {fileID: 8300000, guid: 4b04386d04f078a4bb58f5fbd9b47f4e, type: 3}
+    missSFX: {fileID: 8300000, guid: 4b04386d04f078a4bb58f5fbd9b47f4e, type: 3}

@@ -15,7 +15,7 @@ public class Condition_DOT : Condition_StatChange
     public override void OnConditionEnd(BattleCharObject battleCharObject, int level)
     {
         battleCharObject.TakeDamage(damagePerTurn[level],false, null);
-        battleCharObject.GetCharacter().AdjustStats(statAdjust, -1);
+        battleCharObject.GetCharacter().SetCurrentStats();
         battleCharObject.GetCharacter().RemoveCondition(this);
     }
 }

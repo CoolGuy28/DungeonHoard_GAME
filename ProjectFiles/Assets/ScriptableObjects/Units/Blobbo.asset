@@ -24,6 +24,8 @@ MonoBehaviour:
     speed: 1
     critPercent: 0.2
     critMultiplyer: 1.6
+    increaseTargetChance: 0
+    actions: 1
   weapon: {fileID: 11400000, guid: 57d133116b9da0c42884bfce9a395048, type: 2}
   skills:
   - {fileID: 11400000, guid: 79fccc209b1b7b2469b1651364acc0e2, type: 2}

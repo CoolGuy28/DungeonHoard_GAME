@@ -55,6 +55,7 @@ MonoBehaviour:
     enemyFight:
     - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
       downed: 0
+      phase2: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -67,12 +68,15 @@ MonoBehaviour:
         speed: 0
         critPercent: 0
         critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentHealth: 0
       weapon: {fileID: 0}
       skills: []
       conditions: []
     - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
       downed: 0
+      phase2: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -85,6 +89,8 @@ MonoBehaviour:
         speed: 0
         critPercent: 0
         critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentHealth: 0
       weapon: {fileID: 0}
       skills: []
@@ -172,6 +178,7 @@ MonoBehaviour:
   waitTime: 0.15
   tall: 0
   alertSprite: {fileID: 4243514278842075622}
+  idleEnemy: 0
 --- !u!114 &234791128641245341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +200,7 @@ MonoBehaviour:
   animator: {fileID: 8045553564783737826}
   speed: 3.2
   sprintMultiplier: 1.4
+  sortingPriority: 0
   moving: 0
 --- !u!114 &2636430318153348528
 MonoBehaviour:
@@ -217,6 +225,12 @@ MonoBehaviour:
     quantity: 0
   - item: {fileID: 11400000, guid: 5cd1353bbfe189f4d8615fbe0b45e0b9, type: 2}
     quantity: 2
+  - item: {fileID: 11400000, guid: 9e64b9ca8b661024a9073c8a609a7f8e, type: 2}
+    quantity: 1
+  lootedSprite: {fileID: 0}
+  onLootEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &593823101560036115
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +318,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &8045553564783737826
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -321,7 +335,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &4243514278842075622
 GameObject:
   m_ObjectHideFlags: 0

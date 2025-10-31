@@ -8,7 +8,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private TMP_Text tutText;
     [SerializeField] private Animator animator;
     [SerializeField] private string movementText;
-    private void Start()
+    public void StartMoveDisplay()
     {
         StartCoroutine(DisplayMovement(3));
     }

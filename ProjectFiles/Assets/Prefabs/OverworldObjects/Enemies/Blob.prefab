@@ -139,6 +139,7 @@ MonoBehaviour:
     enemyFight:
     - unit: {fileID: 11400000, guid: effc594ba623cbc47ad1ee3306d84437, type: 2}
       downed: 0
+      phase2: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -151,12 +152,15 @@ MonoBehaviour:
         speed: 0
         critPercent: 0
         critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentHealth: 0
       weapon: {fileID: 0}
       skills: []
       conditions: []
     - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
       downed: 0
+      phase2: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -169,12 +173,15 @@ MonoBehaviour:
         speed: 0
         critPercent: 0
         critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentHealth: 0
       weapon: {fileID: 0}
       skills: []
       conditions: []
     - unit: {fileID: 11400000, guid: 53412656623c1684f9b425cb7a06c0be, type: 2}
       downed: 0
+      phase2: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -187,6 +194,8 @@ MonoBehaviour:
         speed: 0
         critPercent: 0
         critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentHealth: 0
       weapon: {fileID: 0}
       skills: []
@@ -270,6 +279,7 @@ MonoBehaviour:
   waitTime: 0.15
   tall: 0
   alertSprite: {fileID: 5541763423472550322}
+  idleEnemy: 0
 --- !u!114 &8451449941295405257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +301,7 @@ MonoBehaviour:
   animator: {fileID: 1849921644499596214}
   speed: 1
   sprintMultiplier: 1.4
+  sortingPriority: 0
   moving: 0
 --- !u!114 &5953137345143389668
 MonoBehaviour:
@@ -310,7 +321,11 @@ MonoBehaviour:
       text: The fish has nothing of value
   itemPool:
   - item: {fileID: 11400000, guid: 08feb5c6419ebfc4bbd676a62881149b, type: 2}
-    quantity: 2
+    quantity: 6
+  lootedSprite: {fileID: 0}
+  onLootEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9094490920796263239
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +413,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &1849921644499596214
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -415,4 +430,4 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0

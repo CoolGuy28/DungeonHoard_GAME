@@ -11,10 +11,12 @@ public class PartyObject : MonoBehaviour
     public OverworldMovement[] partyOverworldMovement = new OverworldMovement[3];
     private Collider2D standingOver;
     private bool sprinting;
-    [SerializeField] private Grid grid;
     [SerializeField] private bool allowZInput = true;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip enemyEncounterClip;
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         allowZInput = true;
         CreateParty();
     }
@@ -112,7 +114,7 @@ public class PartyObject : MonoBehaviour
 
     private IEnumerator ZDelay()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         allowZInput = true;
     }
 
@@ -124,9 +126,7 @@ public class PartyObject : MonoBehaviour
         {
             partyOverworldMovement[i] = Instantiate(partyMemberPrefab, transform.position, Quaternion.identity, GameObject.Find("PlayerObjects").transform).GetComponent<OverworldMovement>();
             partyOverworldMovement[i].SetUnit(GameManager.instance.party[i].unit);
-            partyOverworldMovement[i].SetSpriteLayer(5-i);
         }
-        partyOverworldMovement[0].SetSpriteLayer(10);
         this.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = 100;
     }
 
@@ -151,11 +151,11 @@ public class PartyObject : MonoBehaviour
         }
     }
 
-    public void BeginFishing()
+    public void PauseMovement()
     {
         allowMovement = false;
     }
-    public void EndFishing()
+    public void AllowMovement()
     {
         DelayZInput();
         allowMovement = true;
@@ -165,9 +165,11 @@ public class PartyObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") && collision.gameObject.GetComponent<OverworldEnemyObject>())
         {
+            audioSource.clip = enemyEncounterClip;
+            audioSource.Play();
             allowMovement = false;
             GameManager.instance.partyPosition = transform.position;
-            GameManager.instance.LoadBattle(collision.gameObject.GetComponent<OverworldEnemyObject>().index);
+            GameManager.instance.LoadBattle(collision.gameObject.GetComponent<OverworldEnemyObject>().GetStartingLoc());
             GameManager.instance.SaveGame();
         }
         if (collision.gameObject.CompareTag("Interactable"))

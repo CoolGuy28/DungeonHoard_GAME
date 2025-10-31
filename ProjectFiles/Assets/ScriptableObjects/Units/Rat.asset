@@ -24,6 +24,8 @@ MonoBehaviour:
     speed: 1
     critPercent: 0.2
     critMultiplyer: 1.6
+    increaseTargetChance: 0
+    actions: 1
   weapon: {fileID: 11400000, guid: be9398df87fc3ec4bb745c9f973b62a7, type: 2}
   skills:
   - {fileID: 11400000, guid: 6594b20f96108a94a883cf402886fe0c, type: 2}
@@ -39,3 +41,4 @@ MonoBehaviour:
   overworldAnimator: {fileID: 9100000, guid: 526b7611985ca464bb491d81e8461c43, type: 2}
   overworldDeathSprite: {fileID: -450561371, guid: e3145a804ca4a9f4a81c40d51a83d40e, type: 3}
   spriteSize: {x: 1, y: 1}
+  charPortrait: {fileID: 0}

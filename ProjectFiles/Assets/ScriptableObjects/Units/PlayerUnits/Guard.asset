@@ -21,12 +21,16 @@ MonoBehaviour:
     poisonRes: 1
     coldRes: 1
     accuracy: 1
-    speed: 1
+    speed: 0.75
     critPercent: 0.24
     critMultiplyer: 1.6
+    increaseTargetChance: 0
+    actions: 1
   weapon: {fileID: 11400000, guid: 0bad41faa17e5de4c90b4b0bfa463c9b, type: 2}
   skills:
+  - {fileID: 11400000, guid: df42c501361d2ed4bb345538d1935b82, type: 2}
   - {fileID: 11400000, guid: 61b1668b9b6d20441b2d1f884e01bebb, type: 2}
+  - {fileID: 11400000, guid: fefb1436276d37d4abfacab30f17fdb4, type: 2}
   battleSprite: {fileID: 21300000, guid: f0fcdd6c4b27990489af44cb29da440a, type: 3}
   basicAttack: {fileID: 21300000, guid: a56199721e962784abd99c0f353fe6c6, type: 3}
   attackSprites:

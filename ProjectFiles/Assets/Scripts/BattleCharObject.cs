@@ -21,13 +21,18 @@ public class BattleCharObject : MonoBehaviour
         spriteObj.sortingOrder = spritePriority;
         spriteObj.gameObject.transform.localScale = character.unit.spriteSize;
         this.character = character;
+        battleSprite = character.unit.battleSprite;
+        basicAttack = character.unit.basicAttack;
+        attackSprites = character.unit.attackSprites;
+        damageSprite = character.unit.damageSprite;
+        downedSprite = character.unit.downedSprite;
         if (character.downed)
         {
-            spriteObj.sprite = character.unit.downedSprite;
+            spriteObj.sprite = downedSprite;
         }
         else
         {
-            spriteObj.sprite = character.unit.battleSprite;
+            spriteObj.sprite = battleSprite;
         }
         InitialiseUI();
     }
@@ -70,7 +75,7 @@ public class BattleCharObject : MonoBehaviour
                 damageText.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.green;
                 if (!character.downed)
                 {
-                    spriteObj.sprite = character.unit.battleSprite;
+                    spriteObj.sprite = battleSprite;
                 }
                 break;
             case DamageType.Fire:
@@ -99,7 +104,7 @@ public class BattleCharObject : MonoBehaviour
         
         if (character.downed)
         {
-            spriteObj.sprite = character.unit.downedSprite;
+            spriteObj.sprite = downedSprite;
         }
         
         if (damageStats.particleEffect != null)
@@ -112,13 +117,35 @@ public class BattleCharObject : MonoBehaviour
 
         if (damageStats.applyConditions.Length != 0)
         {
-            foreach (ConditionStats condition in damageStats.applyConditions)
+            if (damageStats.applySingleRandCondition)
             {
                 int rand = Random.Range(0, 100);
                 if (rand <= damageStats.conditionChance)
                 {
-                    character.AddCondition(new ConditionStats(condition.condition, condition.timeFrame, condition.level), this);
-                    UpdateConditionUI();
+                    List<ConditionStats> acceptedConditions = new List<ConditionStats>();
+                    foreach (ConditionStats con in damageStats.applyConditions)
+                    {
+                        if (GetCharacter().FindCondition(con.condition) == false)
+                        {
+                            acceptedConditions.Add(con);
+                        }
+                    }
+                    if (acceptedConditions.Count > 0)
+                    {
+                        AddCondition(acceptedConditions[Random.Range(0, acceptedConditions.Count)]);
+                    }
+                }
+            }
+            else
+            {
+                foreach (ConditionStats condition in damageStats.applyConditions)
+                {
+                    int rand = Random.Range(0, 100);
+                    if (rand <= damageStats.conditionChance)
+                    {
+                        character.AddCondition(new ConditionStats(condition.condition, condition.timeFrame, condition.level), this);
+                        UpdateConditionUI();
+                    }
                 }
             }
         }
@@ -148,15 +175,21 @@ public class BattleCharObject : MonoBehaviour
         return text;
     }
 
+    public void AddCondition(ConditionStats conditionStats)
+    {
+        character.AddCondition(conditionStats, this);
+        UpdateConditionUI();
+    }
+
     public void TickConditions()
     {
         if (character.conditions != null)
         {
             for (int i = 0; i < character.conditions.Count; i++)
             {
-                character.conditions[i].timeFrame--;
                 if (character.conditions[i].timeFrame != -1)
                 {
+                    character.conditions[i].timeFrame--;
                     if (character.conditions[i].timeFrame == 0)
                     {
                         character.conditions[i].condition.OnConditionEnd(this, character.conditions[i].level);
@@ -188,11 +221,36 @@ public class BattleCharObject : MonoBehaviour
             {
                 newConditionUI.GetComponent<Image>().sprite = condition.condition.GetSprite(condition.level);
             }
-            newConditionUI.transform.GetChild(0).GetComponent<TMP_Text>().text = condition.timeFrame.ToString();
+            if (condition.timeFrame > 0)
+            {
+                newConditionUI.transform.GetChild(0).GetComponent<TMP_Text>().text = condition.timeFrame.ToString();
+            }
+            else
+            {
+                newConditionUI.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
+            }
         }
     }
 
-    private void UpdateUI()
+    public void BossTransformation()
+    {
+        Unit_Boss bossUnit = character.unit as Unit_Boss;
+        character.downed = false;
+        character.baseStats = new Stats(bossUnit.baseStats_Phase2);
+        character.currentStats = new Stats(bossUnit.baseStats_Phase2);
+        character.weapon = bossUnit.weapon_Phase2;
+        character.skills = bossUnit.skills_Phase2;
+        character.currentHealth = bossUnit.baseStats_Phase2.maxHealth;
+        character.SetCurrentStats();
+        battleSprite = bossUnit.battleSprite_Phase2;
+        basicAttack = bossUnit.basicAttack_Phase2;
+        attackSprites = bossUnit.attackSprites_Phase2;
+        damageSprite = bossUnit.damageSprite_Phase2;
+        downedSprite = bossUnit.downedSprite_Phase2;
+        PlayAudioClip(bossUnit.transformSound);
+    }
+
+    public void UpdateUI()
     {
         ui.transform.GetChild(0).GetComponent<Slider>().value = character.currentHealth;
     }
@@ -223,32 +281,37 @@ public class BattleCharObject : MonoBehaviour
         audioSource.Play();
     }
 
+    public Sprite battleSprite;
+    public Sprite basicAttack;
+    public Sprite[] attackSprites;
+    public Sprite damageSprite;
+    public Sprite downedSprite;
     public IEnumerator SetSprite(int i, float timeFrame, int attackIndex)
     {
         if (!character.downed)
         {
             if (i == 0)
             {
-                spriteObj.sprite = character.unit.attackSprites[attackIndex];
+                spriteObj.sprite = attackSprites[attackIndex];
                 animator.Play("Attack");
             }
             else if (i == 1)
             {
-                spriteObj.sprite = character.unit.damageSprite;
+                spriteObj.sprite = damageSprite;
                 animator.Play("Damaged");
             }
             else
-                spriteObj.sprite = character.unit.battleSprite;
+                spriteObj.sprite = battleSprite;
 
             yield return new WaitForSeconds(timeFrame);
 
             if (character.downed)
             {
-                spriteObj.sprite = character.unit.downedSprite;
+                spriteObj.sprite = downedSprite;
             }
             else
             {
-                spriteObj.sprite = character.unit.battleSprite;
+                spriteObj.sprite = battleSprite;
             }
         }
     }

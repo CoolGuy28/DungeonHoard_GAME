@@ -7,12 +7,14 @@ public class OverworldEnemyObject : MonoBehaviour, IDataPersistence
     [SerializeField] private EnemyOverworldData enemyData;
     [SerializeField] private SpriteRenderer spriteObj;
     [SerializeField] private EnemyMovementAI movementAI;
-    public int index = -1;
     [SerializeField] private OverworldEnemyObject[] linkedEnemies;
 
+    private void Awake()
+    {
+        enemyData.startingPos = transform.position;
+    }
     private void Start()
     {
-        spriteObj.sortingOrder = index;
         if (enemyData.dead)
         {
             SetEnemyDead();
@@ -23,8 +25,9 @@ public class OverworldEnemyObject : MonoBehaviour, IDataPersistence
 
     public void SetEnemyData(EnemyOverworldData enemyData)
     {
-        this.enemyData.SetOverworldData(enemyData);
+        new EnemyOverworldData(enemyData);
         transform.position = enemyData.enemyPosition;
+        this.enemyData.dead = enemyData.dead;
         if (this.enemyData.dead)
         {
             SetEnemyDead();
@@ -33,26 +36,49 @@ public class OverworldEnemyObject : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void LoadData(GameData data, int index)
+    public void LoadData(GameData data)
     {
-        this.index = index;
-        if (index >= data.sceneData[data.sceneIndex].enemies.Count)
+        EnemyOverworldData foundCopy = null;
+        foreach (EnemyOverworldData e in data.sceneData[data.sceneIndex].enemies)
+        {
+            if (e.SameStartingPos(enemyData.startingPos) != null)
+            {
+                foundCopy = e;
+                break;
+            }
+        }
+        if (foundCopy == null)
         {
             enemyData.enemyPosition = transform.position;
-            EnemyOverworldData newData = new EnemyOverworldData();
-            newData.SetOverworldData(enemyData);
-            data.sceneData[data.sceneIndex].SaveNewEnemy(newData);
+            data.sceneData[data.sceneIndex].SaveNewEnemy(new EnemyOverworldData(enemyData));
         }
         else
         {
-            SetEnemyData(data.sceneData[data.sceneIndex].enemies[index]);
+            SetEnemyData(foundCopy);
         }
     }
 
     public void SaveData(GameData data)
     {
+        EnemyOverworldData foundCopy = null;
+        foreach (EnemyOverworldData e in data.sceneData[data.sceneIndex].enemies)
+        {
+            if (e.SameStartingPos(enemyData.startingPos) != null)
+            {
+                foundCopy = e;
+                break;
+            }
+        }
         enemyData.enemyPosition = transform.position;
-        data.sceneData[data.sceneIndex].enemies[index].SetOverworldData(enemyData);
+        if (foundCopy == null)
+            data.sceneData[data.sceneIndex].enemies.Add(new EnemyOverworldData(enemyData));
+        else
+            foundCopy = new EnemyOverworldData(enemyData);
+    }
+
+    public Vector2 GetStartingLoc()
+    {
+        return enemyData.startingPos;
     }
 
     public List<CharacterData> GetEnemies()
@@ -67,6 +93,7 @@ public class OverworldEnemyObject : MonoBehaviour, IDataPersistence
             movementAI.enabled = false;
         spriteObj.color = Color.red;
         spriteObj.sprite = enemyData.enemyFight[0].unit.overworldDeathSprite;
+        spriteObj.sortingLayerID = 0;
         spriteObj.sortingOrder = -1;
         gameObject.tag = "Interactable";
     }

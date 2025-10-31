@@ -28,8 +28,9 @@ MonoBehaviour:
     speed: 0
     critPercent: 0
     critMultiplyer: 0
+    increaseTargetChance: 0
   damagePerTurn:
-  - damage: 5
+  - damage: 3
     damageType: 3
     randomVarience: 0
     particleEffect: {fileID: 0}
@@ -43,7 +44,7 @@ MonoBehaviour:
     applyConditions: []
     conditionChance: 0
     removeConditions: []
-  - damage: 25
+  - damage: 30
     damageType: 3
     randomVarience: 0
     particleEffect: {fileID: 0}

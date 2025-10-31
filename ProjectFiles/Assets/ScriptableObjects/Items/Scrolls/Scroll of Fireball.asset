@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35330e7859ede1043ab42a090b6790da, type: 3}
+  m_Name: Scroll of Fireball
+  m_EditorClassIdentifier: 
+  description: Bring down a ball of flames apon all foes
+  action:
+    targetingType: 1
+    damageStats:
+      damage: 40
+      damageType: 3
+      randomVarience: 8
+      particleEffect: {fileID: 7512594599114799122, guid: ea1d7aa7da812424eb9dafbbb5ea8674, type: 3}
+      applyConditions:
+      - condition: {fileID: 11400000, guid: 129bbea2cd3631840b23c57fbfc52432, type: 2}
+        timeFrame: 2
+        level: 0
+      applySingleRandCondition: 0
+      conditionChance: 95
+      removeConditions: []
+    accuracy: 0
+    useCrit: 0
+    staminaAdjust: 0
+    applySelfInjury: 0
+    spriteIndex: 3
+    hitSFX: {fileID: 8300000, guid: 957023eb8cc0a1c409f655d6dfd37eac, type: 3}
+    missSFX: {fileID: 0}
+  magicItem: 1

@@ -16,7 +16,7 @@ MonoBehaviour:
   action:
     targetingType: 0
     damageStats:
-      damage: 20
+      damage: 8
       damageType: 0
       randomVarience: 6
       particleEffect: {fileID: 0}
@@ -24,8 +24,14 @@ MonoBehaviour:
       - condition: {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
         timeFrame: 5
         level: 0
+      applySingleRandCondition: 0
       conditionChance: 20
       removeConditions: []
     accuracy: 80
     useCrit: 1
     staminaAdjust: 0
+    applySelfInjury: 0
+    spriteIndex: 0
+    hitSFX: {fileID: 8300000, guid: 40da895dc9d5f0347996c941482794ce, type: 3}
+    missSFX: {fileID: 8300000, guid: 40da895dc9d5f0347996c941482794ce, type: 3}
+  magicItem: 0

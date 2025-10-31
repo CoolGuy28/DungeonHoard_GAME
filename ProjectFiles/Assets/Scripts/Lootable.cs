@@ -5,12 +5,11 @@ using UnityEngine;
 public class Lootable : Interactable
 {
     [SerializeField] private List<ItemSlot> itemPool;
-    private bool looted;
     [SerializeField] private Sprite lootedSprite;
     public ButtonEvent onLootEvent;
     public override void BeginDialogue(PartyObject player)
     {
-        if (looted)
+        if (used)
         {
             GameManager.instance.BeginDialogue(dialogue[0]);
         }
@@ -20,7 +19,7 @@ public class Lootable : Interactable
             ItemSlot slot = itemPool[Random.Range(0, itemPool.Count)];
             if (slot.quantity > 0 && slot.item != null)
             {
-                lootText = "You find " + slot.quantity.ToString() + " " + slot.item.name;
+                lootText = "You find <color=#bd2d28>" + slot.quantity.ToString() + " " + slot.item.name + "</color>";
                 GameManager.instance.AddItem(slot.item, slot.quantity);
                 onLootEvent.Invoke();
             }
@@ -29,7 +28,7 @@ public class Lootable : Interactable
 
             DialogueSection lootDia = new DialogueSection(" ", lootText);
             GameManager.instance.BeginDialogue(lootDia);
-            looted = true;
+            used = true;
             if (lootedSprite != null)
                 transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = lootedSprite;
         }

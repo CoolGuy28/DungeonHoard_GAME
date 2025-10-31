@@ -9,7 +9,7 @@ public class PartyFollower : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") && collision.gameObject.GetComponent<OverworldEnemyObject>())
         {
             GameManager.instance.partyPosition = transform.position;
-            GameManager.instance.LoadBattle(collision.gameObject.GetComponent<OverworldEnemyObject>().index);
+            GameManager.instance.LoadBattle(collision.gameObject.GetComponent<OverworldEnemyObject>().GetStartingLoc());
             GameManager.instance.SaveGame();
         }
     }

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cc5492f143dca43b981bd9c3e67a91, type: 3}
+  m_Name: Fast Attack
+  m_EditorClassIdentifier: 
+  description: Gain an extra action for the next 3 turns
+  staminaCost: 60
+  action:
+    targetingType: 4
+    damageStats:
+      damage: 0
+      damageType: 2
+      randomVarience: 0
+      particleEffect: {fileID: 0}
+      applyConditions:
+      - condition: {fileID: 11400000, guid: a45ba7800bb7cf0449b574469c338a2f, type: 2}
+        timeFrame: 4
+        level: 0
+      applySingleRandCondition: 0
+      conditionChance: 100
+      removeConditions: []
+    accuracy: 0
+    useCrit: 0
+    staminaAdjust: 0
+    applySelfInjury: 0
+    spriteIndex: 3
+    hitSFX: {fileID: 0}
+    missSFX: {fileID: 0}

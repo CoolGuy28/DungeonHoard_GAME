@@ -182,7 +182,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -990409111
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.9716981, g: 0.8624423, b: 0.2979263, a: 1}
@@ -356,6 +356,7 @@ MonoBehaviour:
     enemyFight:
     - unit: {fileID: 11400000, guid: ea4ca00ecc07a78489bd1449b9003fc1, type: 2}
       downed: 0
+      phase2: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -368,6 +369,8 @@ MonoBehaviour:
         speed: 0
         critPercent: 0
         critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentHealth: 0
       weapon: {fileID: 0}
       skills: []
@@ -451,6 +454,7 @@ MonoBehaviour:
   waitTime: 0.15
   tall: 0
   alertSprite: {fileID: 5458487249682859738}
+  idleEnemy: 0
 --- !u!114 &8242055378370928545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,6 +476,7 @@ MonoBehaviour:
   animator: {fileID: 2198883258269791454}
   speed: 1
   sprintMultiplier: 1.4
+  sortingPriority: 0
   moving: 0
 --- !u!114 &6176114716372318860
 MonoBehaviour:
@@ -490,8 +495,10 @@ MonoBehaviour:
     - name: 
       text: The corpse has nothing of value
   itemPool:
-  - item: {fileID: 11400000, guid: e0f56111d62e8a54eafaa1592d026d62, type: 2}
-    quantity: 2
+  - item: {fileID: 11400000, guid: c0d2abdbc3b1392458459e4399dd7105, type: 2}
+    quantity: 6
+  - item: {fileID: 11400000, guid: 9c854d32894b4b642b8db27f33455667, type: 2}
+    quantity: 6
   lootedSprite: {fileID: 0}
   onLootEvent:
     m_PersistentCalls:

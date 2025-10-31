@@ -30,26 +30,43 @@ public class InventoryPanel : MonoBehaviour
         }
         itemSlots = GameManager.instance.items;
         selectedIndex = 0;
-        for (int i = 0; i < itemSlots.Count; i++)
+        if (itemSlots.Count > 0)
         {
-            SubMenuButton newItem = Instantiate(inventorySlotPrefab, transform.GetChild(0), false);
-            newItem.SetSkill(itemSlots[i].item);
-            inventorySlots.Add(newItem);
-            newItem.DeselectButton();
+            for (int i = 0; i < itemSlots.Count; i++)
+            {
+                SubMenuButton newItem = Instantiate(inventorySlotPrefab, transform.GetChild(0), false);
+                newItem.SetSkill(itemSlots[i].item);
+                inventorySlots.Add(newItem);
+                newItem.DeselectButton();
+            }
+            inventorySlots[selectedIndex].SelectButton();
+            descriptionText.text = inventorySlots[selectedIndex].GetSkill().description;
         }
-        inventorySlots[selectedIndex].SelectButton();
-        descriptionText.text = inventorySlots[selectedIndex].GetSkill().description;
+        else
+            descriptionText.text = "";
     }
 
     public void SwitchSelected(int increaseValue)
     {
-        inventorySlots[selectedIndex].DeselectButton();
-        selectedIndex += increaseValue;
-        if (selectedIndex < 0)
-            selectedIndex = inventorySlots.Count - 1;
-        else if (selectedIndex >= inventorySlots.Count)
-            selectedIndex = 0;
-        inventorySlots[selectedIndex].SelectButton();
-        descriptionText.text = inventorySlots[selectedIndex].GetSkill().description;
+        if (itemSlots.Count > 0)
+        {
+            inventorySlots[selectedIndex].DeselectButton();
+            selectedIndex += increaseValue;
+            if (selectedIndex < 0)
+                selectedIndex = inventorySlots.Count - 1;
+            else if (selectedIndex >= inventorySlots.Count)
+                selectedIndex = 0;
+            inventorySlots[selectedIndex].SelectButton();
+            descriptionText.text = inventorySlots[selectedIndex].GetSkill().description;
+        }
+    }
+
+    public Item GetSelectedItem()
+    {
+        if (itemSlots.Count > 0)
+        {
+            return itemSlots[selectedIndex].item;
+        }
+        return null;
     }
 }

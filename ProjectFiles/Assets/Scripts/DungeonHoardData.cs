@@ -7,7 +7,7 @@ public class CharacterData
 {
     public Unit unit;
     public bool downed;
-    public bool phase2;
+    public Stats baseStats;
     public Stats currentStats;
     public int currentHealth;
     public Item_Weapon weapon;
@@ -24,6 +24,7 @@ public class CharacterData
     {
         downed = false;
         conditions.Clear();
+        baseStats = new Stats(unit.baseStats);
         currentStats = new Stats(unit.baseStats);
         weapon = unit.weapon;
         skills = unit.skills;
@@ -47,12 +48,28 @@ public class CharacterData
         }
     }
 
+    public void SetCurrentStats()
+    {
+        currentStats = new Stats(baseStats);
+        foreach(ConditionStats c in conditions)
+        {
+            Condition_StatChange con = c.condition as Condition_StatChange;
+            AdjustStats(con.statAdjust, 1);
+        }
+    }
+
     public void AdjustStats(Stats statAdjustment, int multiplyer)
     {
         currentStats.attack += statAdjustment.attack * multiplyer;
+        if (currentStats.attack <= 0.2)
+            currentStats.attack = 0.2f;
         currentStats.maxHealth += statAdjustment.maxHealth * multiplyer;
         currentStats.defence += statAdjustment.defence * multiplyer;
+        if (currentStats.defence <= 0.2)
+            currentStats.defence = 0.2f;
         currentStats.healingEffect += statAdjustment.healingEffect * multiplyer;
+        if (currentStats.healingEffect <= 0.2)
+            currentStats.healingEffect = 0.2f;
         currentStats.fireRes += statAdjustment.fireRes * multiplyer;
         currentStats.poisonRes += statAdjustment.poisonRes * multiplyer;
         currentStats.coldRes += statAdjustment.coldRes * multiplyer;
@@ -60,6 +77,8 @@ public class CharacterData
         currentStats.speed += statAdjustment.speed * multiplyer;
         currentStats.critPercent += statAdjustment.critPercent * multiplyer;
         currentStats.critMultiplyer += statAdjustment.critMultiplyer * multiplyer;
+        currentStats.increaseTargetChance += statAdjustment.increaseTargetChance * multiplyer;
+        currentStats.actions += statAdjustment.actions * multiplyer;
     }
 
     public void AddCondition(ConditionStats addCondition, BattleCharObject obj)
@@ -76,7 +95,23 @@ public class CharacterData
             }
         }
         conditions.Add(addCondition);
-        addCondition.condition.OnConditionGained(obj, addCondition.level);
+        if (obj != null)
+        {
+            addCondition.condition.OnConditionGained(obj, addCondition.level);
+        }
+        SetCurrentStats();
+    }
+
+    public bool FindCondition(Condition searchCondition)
+    {
+        foreach (ConditionStats c in conditions)
+        {
+            if (c.condition == searchCondition)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void RemoveCondition(Condition removeCondition)
@@ -86,6 +121,7 @@ public class CharacterData
             if (c.condition == removeCondition)
             {
                 conditions.Remove(c);
+                SetCurrentStats();
                 return;
             }
         }
@@ -114,7 +150,8 @@ public class Stats
     public float speed = 1;
     public float critPercent = 0.1f;
     public float critMultiplyer = 1.6f;
-
+    public int increaseTargetChance = 0;
+    public int actions = 1;
     public Stats(Stats stats)
     {
         this.attack = stats.attack;
@@ -128,6 +165,8 @@ public class Stats
         this.speed = stats.speed;
         this.critPercent = stats.critPercent;
         this.critMultiplyer = stats.critMultiplyer;
+        this.increaseTargetChance = stats.increaseTargetChance;
+        this.actions = stats.actions;
     }
 }
 
@@ -139,6 +178,7 @@ public class Action
     public float accuracy;
     public bool useCrit;
     public int staminaAdjust;
+    public bool applySelfInjury;
     public int spriteIndex;
     public AudioClip hitSFX;
     public AudioClip missSFX;
@@ -191,6 +231,7 @@ public class DamageStats
     public int randomVarience;
     public GameObject particleEffect;
     public ConditionStats[] applyConditions;
+    public bool applySingleRandCondition;
     public int conditionChance;
     public Condition[] removeConditions;
 
@@ -220,9 +261,10 @@ public enum DamageType
 public class OverworldScene
 {
     public List<EnemyOverworldData> enemies = new List<EnemyOverworldData>();
+    public List<InteractableData> interactions = new List<InteractableData>();
     public void SaveNewEnemy(EnemyOverworldData enemy)
     {
-        enemies.Add(enemy);
+        enemies.Add(new EnemyOverworldData(enemy));
     }
 }
 
@@ -230,14 +272,44 @@ public class OverworldScene
 public class EnemyOverworldData
 {
     public List<CharacterData> enemyFight;
+    public Vector2 startingPos;
     public Vector2 enemyPosition;
     public bool dead;
     public int displaySprite;
-    public void SetOverworldData(EnemyOverworldData data)
+    public EnemyOverworldData(EnemyOverworldData data)
     {
+        startingPos = data.startingPos;
         enemyFight = data.enemyFight;
         enemyPosition = data.enemyPosition;
         dead = data.dead;
         displaySprite = data.displaySprite;
+    }
+
+    public EnemyOverworldData SameStartingPos(Vector2 vector2)
+    {
+        if (vector2 == startingPos)
+            return this;
+        else
+            return null;
+    }
+}
+
+[System.Serializable]
+public class InteractableData
+{
+    public Vector2 startingPos;
+    public bool used;
+    public InteractableData(Vector2 startPos, bool used)
+    {
+        this.startingPos = startPos;
+        this.used = used;
+    }
+
+    public InteractableData SameStartingPos(Vector2 vector2)
+    {
+        if (vector2 == startingPos)
+            return this;
+        else
+            return null;
     }
 }
