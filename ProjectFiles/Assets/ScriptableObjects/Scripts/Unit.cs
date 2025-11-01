@@ -15,6 +15,8 @@ public class Unit : ScriptableObject
     public Sprite damageSprite;
     public Sprite downedSprite;
     public RuntimeAnimatorController overworldAnimator;
+    public Sprite[] nonAnimatedSprites;
+    public bool flipLeft;
     public Sprite overworldDeathSprite;
     public Vector2 spriteSize = Vector2.one;
     public Sprite charPortrait;

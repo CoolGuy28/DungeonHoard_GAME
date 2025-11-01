@@ -185,12 +185,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b92356e0bd677e041a434bb71d3ce1e4, type: 3}
+  m_Sprite: {fileID: 1519864339, guid: d955db48aab3eef43a2f267307189f55, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -277,8 +277,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  grid: {fileID: 0}
   allowZInput: 1
+  audioSource: {fileID: 0}
+  enemyEncounterClip: {fileID: 0}
 --- !u!61 &8558502262667802907
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -347,6 +348,7 @@ MonoBehaviour:
   animator: {fileID: 1815856060}
   speed: 3
   sprintMultiplier: 1.4
+  sortingPriority: 0
   moving: 0
 --- !u!82 &8558502263836914456
 AudioSource:
@@ -592,5 +594,5 @@ Transform:
   m_Children:
   - {fileID: 8558502262667802909}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -38,7 +38,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ffd175062ae8f31478b46f7dc9104dee, type: 3}
   damageSprite: {fileID: 21300000, guid: 3281f21ec99926f4a9cc149fef063025, type: 3}
   downedSprite: {fileID: 21300000, guid: bdee35a7d37b3164294c26ac3ae4d199, type: 3}
-  overworldAnimator: {fileID: 9100000, guid: 526b7611985ca464bb491d81e8461c43, type: 2}
-  overworldDeathSprite: {fileID: 1902639933, guid: 2c8fa2b64a281d6459da5d5163a99fad, type: 3}
+  overworldAnimator: {fileID: 0}
+  nonAnimatedSprites:
+  - {fileID: -975269302, guid: 213eecd51af1ebc4faa19a22c61ddf8a, type: 3}
+  - {fileID: -1118743677, guid: 213eecd51af1ebc4faa19a22c61ddf8a, type: 3}
+  - {fileID: -746071648, guid: 213eecd51af1ebc4faa19a22c61ddf8a, type: 3}
+  - {fileID: -1639861610, guid: 213eecd51af1ebc4faa19a22c61ddf8a, type: 3}
+  flipLeft: 0
+  overworldDeathSprite: {fileID: -975269302, guid: 213eecd51af1ebc4faa19a22c61ddf8a, type: 3}
   spriteSize: {x: 1, y: 1}
   charPortrait: {fileID: 0}

@@ -9,6 +9,8 @@ public class OverworldMovement : MonoBehaviour
     [SerializeField] private LayerMask mask;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
+    private Sprite[] unitSprites;
+    private bool flipLeft;
     [SerializeField] private float speed = 0.5f;
     [SerializeField] private float sprintMultiplier = 1.4f;
     [SerializeField] private float sortingPriority;
@@ -44,7 +46,8 @@ public class OverworldMovement : MonoBehaviour
             if (audioSource != null)
                 audioSource.Pause();
             SetSprite();
-            animator.speed = 0;
+            if (animator != null)
+                animator.speed = 0;
             SetSpriteLayer();
         }
     }
@@ -59,7 +62,8 @@ public class OverworldMovement : MonoBehaviour
             facingPos = target;
             //animator.Rebind();
             SetSprite();
-            animator.speed = 0;
+            if (animator != null)
+                animator.speed = 0;
             return true;
         }
         else
@@ -73,7 +77,8 @@ public class OverworldMovement : MonoBehaviour
                 targetPos += target;
                 facingPos = target;
                 SetSprite();
-                animator.speed = 1;
+                if (animator != null)
+                    animator.speed = 1;
                 moving = true;
                 if (audioSource != null)
                     audioSource.Play();
@@ -84,16 +89,51 @@ public class OverworldMovement : MonoBehaviour
 
     private void SetSprite()
     {
-        if (facingPos.y < 0)
-            animator.SetInteger("Movement", 1);
-        else if (facingPos.x < 0)
-            animator.SetInteger("Movement", 2);
-        else if (facingPos.x > 0)
-            animator.SetInteger("Movement", 3);
-        else if (facingPos.y > 0)
-            animator.SetInteger("Movement", 4);
+        if (animator != null)
+        {
+            if (facingPos.y < 0)
+                animator.SetInteger("Movement", 1);
+            else if (facingPos.x < 0)
+                animator.SetInteger("Movement", 2);
+            else if (facingPos.x > 0)
+                animator.SetInteger("Movement", 3);
+            else if (facingPos.y > 0)
+                animator.SetInteger("Movement", 4);
+            else
+                animator.SetInteger("Movement", 0);
+        }
         else
-            animator.SetInteger("Movement", 0);
+        {
+            if (facingPos.y < 0)
+            {
+                spriteRenderer.sprite = unitSprites[0];
+                spriteRenderer.flipX = false;
+            }
+            else if (facingPos.x < 0)
+            {
+                if (flipLeft)
+                {
+                    spriteRenderer.sprite = unitSprites[2];
+                    spriteRenderer.flipX = true;
+                }
+                else
+                {
+                    spriteRenderer.sprite = unitSprites[3];
+                    spriteRenderer.flipX = false;
+                }
+            }
+            else if (facingPos.x > 0)
+            {
+                spriteRenderer.sprite = unitSprites[2];
+                spriteRenderer.flipX = false;
+            }
+            else if (facingPos.y > 0)
+            {
+                spriteRenderer.sprite = unitSprites[1];
+                spriteRenderer.flipX = false;
+            }
+        }
+
 
         SetSpriteLayer();
     }
@@ -106,7 +146,15 @@ public class OverworldMovement : MonoBehaviour
 
     public void SetUnit(Unit unit)
     {
-        animator.runtimeAnimatorController = unit.overworldAnimator;
+        if (unit.overworldAnimator != null)
+            animator.runtimeAnimatorController = unit.overworldAnimator;
+        else
+        {
+            animator = null;
+            flipLeft = unit.flipLeft;
+            unitSprites = unit.nonAnimatedSprites;
+        }
+            
     }
 
     public void SetSpriteLayer()

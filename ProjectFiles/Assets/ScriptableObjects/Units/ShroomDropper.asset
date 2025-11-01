@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba726bc7603fd5498f264b0b2d8c553, type: 3}
+  m_Name: ShroomDropper
+  m_EditorClassIdentifier: 
+  baseStats:
+    attack: 1
+    maxHealth: 250
+    defence: 1
+    healingEffect: 1
+    fireRes: 1
+    poisonRes: 1
+    coldRes: 1
+    accuracy: 1
+    speed: 1
+    critPercent: 0.2
+    critMultiplyer: 1.6
+    increaseTargetChance: 0
+    actions: 1
+  weapon: {fileID: 11400000, guid: 38638b4cc62c1a346916cd65c1180434, type: 2}
+  skills: []
+  battleSprite: {fileID: 21300000, guid: 98996366f51d9b64a8159f81a55783ce, type: 3}
+  basicAttack: {fileID: 21300000, guid: 393690b8dace6bb42b96b6478b11ed4d, type: 3}
+  attackSprites:
+  - {fileID: 21300000, guid: 393690b8dace6bb42b96b6478b11ed4d, type: 3}
+  - {fileID: 21300000, guid: 393690b8dace6bb42b96b6478b11ed4d, type: 3}
+  - {fileID: 21300000, guid: 393690b8dace6bb42b96b6478b11ed4d, type: 3}
+  - {fileID: 21300000, guid: 393690b8dace6bb42b96b6478b11ed4d, type: 3}
+  damageSprite: {fileID: 21300000, guid: af07813329e1fa345befe8e9c2f2926c, type: 3}
+  downedSprite: {fileID: 21300000, guid: 4bcf01a1a39a5284ab713fb8309886a3, type: 3}
+  overworldAnimator: {fileID: 0}
+  nonAnimatedSprites:
+  - {fileID: 1089989625, guid: ecb47c3322b764e49b766a5f4d48529e, type: 3}
+  - {fileID: -715992249, guid: ecb47c3322b764e49b766a5f4d48529e, type: 3}
+  - {fileID: 980845986, guid: ecb47c3322b764e49b766a5f4d48529e, type: 3}
+  flipLeft: 1
+  overworldDeathSprite: {fileID: 1089989625, guid: ecb47c3322b764e49b766a5f4d48529e, type: 3}
+  spriteSize: {x: 4, y: 4}
+  charPortrait: {fileID: 0}
