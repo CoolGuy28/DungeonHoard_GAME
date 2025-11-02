@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FireResUp
   m_EditorClassIdentifier: 
   sprite:
-  - {fileID: 21300000, guid: b981b34ec2ef3fb49a3ef1985d915a79, type: 3}
+  - {fileID: 21300000, guid: 4a937be149229e84182490c41bca23e6, type: 3}
   statAdjust:
     attack: 0
     maxHealth: 0

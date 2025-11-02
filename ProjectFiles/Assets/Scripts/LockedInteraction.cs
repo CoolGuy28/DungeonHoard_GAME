@@ -5,16 +5,21 @@ using UnityEngine;
 public class LockedInteraction : Interactable
 {
     [SerializeField] private Item requiredItem;
+    [SerializeField] private int itemQuant = 1;
+    [SerializeField] private bool changeScene;
     [SerializeField] private int sceneChange;
     [SerializeField] private Vector2 position;
+    [SerializeField] private LockedInteraction linked;
 
     public override void BeginDialogue(PartyObject player)
     {
-        if (!used && GameManager.instance.GetItemAmount(requiredItem) > 0)
+        if (!used && GameManager.instance.GetItemAmount(requiredItem) >= itemQuant)
         {
             GameManager.instance.UseItem(requiredItem);
             GameManager.instance.BeginDialogue(dialogue[1]);
             used = true;
+            if (linked != null)
+                linked.used = true;
             gameObject.tag = "Staircase";
         }
         else if (!used)
@@ -23,7 +28,10 @@ public class LockedInteraction : Interactable
         }
         else if (used)
         {
-            GameManager.instance.ChangeGameScene(sceneChange);
+            if (changeScene)
+                GameManager.instance.ChangeGameScene(sceneChange);
+            else
+                GameManager.instance.DoTransition();
             GameManager.instance.gameData.playerPos = position;
         }
     }

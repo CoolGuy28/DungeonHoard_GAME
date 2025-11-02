@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ColdResUp
   m_EditorClassIdentifier: 
   sprite:
-  - {fileID: 21300000, guid: b981b34ec2ef3fb49a3ef1985d915a79, type: 3}
+  - {fileID: 21300000, guid: 117c8f8dd7bb5f8428e3545980ce92f1, type: 3}
   statAdjust:
     attack: 0
     maxHealth: 0

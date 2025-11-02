@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Hand Puppet
   m_EditorClassIdentifier: 
   baseStats:
-    attack: 1
-    maxHealth: 250
-    defence: 1
-    healingEffect: 1
-    fireRes: 1
-    poisonRes: 1
-    coldRes: 1
+    attack: 1.5
+    maxHealth: 140
+    defence: 1.4
+    healingEffect: 1.4
+    fireRes: 2
+    poisonRes: 2
+    coldRes: 2
     accuracy: 1
-    speed: 1
+    speed: 1.5
     critPercent: 0.2
     critMultiplyer: 1.6
     increaseTargetChance: 0

@@ -159,6 +159,15 @@ public class OverworldMovement : MonoBehaviour
 
     public void SetSpriteLayer()
     {
+        if (sortingPriority > 0)
+            StartCoroutine(PriorityLayer());
+        else
+            spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y - 1f + -sortingPriority) * -1;
+    }
+
+    public IEnumerator PriorityLayer()
+    {
+        yield return new WaitForEndOfFrame();
         spriteRenderer.sortingOrder = Mathf.FloorToInt(transform.position.y - 0.75f + -sortingPriority) * -1;
     }
 

@@ -14,22 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats:
     attack: 1
-    maxHealth: 30
+    maxHealth: 70
     defence: 1
-    healingEffect: 1.8
+    healingEffect: 1
     fireRes: 1
     poisonRes: 1
     coldRes: 1
     accuracy: 1
     speed: 1
-    critPercent: 0.2
-    critMultiplyer: 1.6
+    critPercent: 0.4
+    critMultiplyer: 2.3
     increaseTargetChance: 0
     actions: 1
   weapon: {fileID: 11400000, guid: 9124968a28e591a4b8580bb762092e9e, type: 2}
   skills:
-  - {fileID: 11400000, guid: 26c50d5e411b8b042a88d81c560cf3a1, type: 2}
   - {fileID: 11400000, guid: 08d6ed6907284664099ea42ed4d1634a, type: 2}
+  - {fileID: 11400000, guid: 6594b20f96108a94a883cf402886fe0c, type: 2}
   battleSprite: {fileID: 21300000, guid: f28b1cd2cc39f7145be1260808bb6ce3, type: 3}
   basicAttack: {fileID: 21300000, guid: 56b26458387006b4992fe52fe0063058, type: 3}
   attackSprites:

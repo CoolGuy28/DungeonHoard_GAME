@@ -47,12 +47,17 @@ public class Interactable : MonoBehaviour, IDataPersistence
         canInteract = true;
     }
 
+    public virtual void OnLoadInteractable()
+    {
+
+    }
+
     public void LoadData(GameData data)
     {
         InteractableData foundCopy = null;
         foreach (InteractableData i in data.sceneData[data.sceneIndex].interactions)
         {
-            if (i.SameStartingPos(startingPos) != null)
+            if (i.startingPos == startingPos)
             {
                 foundCopy = i;
                 break;
@@ -66,6 +71,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
         {
             used = foundCopy.used;
         }
+        OnLoadInteractable();
     }
 
     public void SaveData(GameData data)
@@ -73,7 +79,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
         InteractableData foundCopy = null;
         foreach (InteractableData i in data.sceneData[data.sceneIndex].interactions)
         {
-            if (i.SameStartingPos(startingPos) != null)
+            if (i.startingPos == startingPos)
             {
                 foundCopy = i;
                 break;
@@ -85,7 +91,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
         }
         else
         {
-            foundCopy = new InteractableData(startingPos, used);
+            foundCopy.SetUsed(used);
         }
     }
 }
