@@ -73,6 +73,12 @@ public class MainMenuManager : MonoBehaviour
         GameManager.instance.NewGame();
     }
 
+    public void LoadGame()
+    {
+        if (GameManager.instance.gameData.seenTutorial)
+            GameManager.instance.ChangeGameScene(GameManager.instance.gameData.sceneIndex);
+    }
+
     private void PlayAudioClip(AudioClip clip)
     {
         if (clip != null)

@@ -15,7 +15,7 @@ MonoBehaviour:
   baseStats:
     attack: 1.2
     maxHealth: 50
-    defence: 0.6
+    defence: 0.5
     healingEffect: 1.8
     fireRes: 1.8
     poisonRes: 1.8
@@ -23,7 +23,7 @@ MonoBehaviour:
     accuracy: 1
     speed: 1
     critPercent: 0.2
-    critMultiplyer: 2
+    critMultiplyer: 1.8
     increaseTargetChance: 0
     actions: 1
   weapon: {fileID: 11400000, guid: 9124968a28e591a4b8580bb762092e9e, type: 2}

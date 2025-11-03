@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<BattleCharObject> enemyBattleObjects;
     [SerializeField] private List<Condition> mageMutations;
     [SerializeField] private List<Condition> injuries;
+    [SerializeField] private GameObject tutorialLabels;
 
     private BattleCharObject bossObj;
     private int bossPhase;
@@ -50,6 +51,7 @@ public class BattleManager : MonoBehaviour
             LostBattle();
         else if (CheckDeadTeam(enemyBattleObjects) == false)
             WonBattle();
+        actionCount = currentActiveTeam[battleIndex].GetCharacter().currentStats.actions;
         SetActiveAttacker();
     }
 
@@ -134,20 +136,21 @@ public class BattleManager : MonoBehaviour
             LostBattle();
         else if (CheckDeadTeam(enemyBattleObjects) == false)
             WonBattle();
-        currentActiveTeam[battleIndex].TickConditions();
-        if (CheckDeadTeam(playerBattleObjects) == false)
-            LostBattle();
-        else if (CheckDeadTeam(enemyBattleObjects) == false)
-            WonBattle();
 
         
-        actionCount++;
-        if (currentActiveTeam[battleIndex].GetCharacter().currentStats.actions > actionCount)
+        actionCount--;
+        if (actionCount > 0)
         {
             SetActiveAttacker();
         }
         else
         {
+            currentActiveTeam[battleIndex].TickConditions();
+            if (CheckDeadTeam(playerBattleObjects) == false)
+                LostBattle();
+            else if (CheckDeadTeam(enemyBattleObjects) == false)
+                WonBattle();
+
             actionCount = 0;
             battleIndex++;
             if (battleIndex >= currentActiveTeam.Count)
@@ -162,11 +165,14 @@ public class BattleManager : MonoBehaviour
                 else
                 {
                     currentActiveTeam = playerBattleObjects;
+                    AdjustStamina(10);
                     BeginMagicPhase(false);
                 }
+                actionCount = currentActiveTeam[battleIndex].GetCharacter().currentStats.actions;
             }
             else
             {
+                actionCount = currentActiveTeam[battleIndex].GetCharacter().currentStats.actions;
                 SetActiveAttacker();
             }
         }
@@ -228,6 +234,10 @@ public class BattleManager : MonoBehaviour
         {
             menuButtons[currentMenuButton].PressButton();
         }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            tutorialLabels.SetActive(true);
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+            tutorialLabels.SetActive(false);
     }
 
     public void SwitchMenuButton(int dir)
@@ -850,80 +860,135 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private TMP_Text descriptionText;
     private List<SubMenuButton> subMenuItems = new List<SubMenuButton>();
     private int currentSubButton;
+    private int currentSubButtonSet;
+    private List<Ability> activeSubMenuList; // this is not “new gameplay data”, just reference to reuse the same list
+
     public void OpenSubMenu(List<Ability> abilityList)
     {
+        // Cache the active list so SubMenuControl can reopen it
+        activeSubMenuList = abilityList;
+
         subMenuField.SetActive(true);
-        foreach (Transform oldSkill in subMenuArea.transform)
+
+        currentSubButtonSet = 0;
+        currentSubButton = 0;
+
+        DisplaySubButtons();
+
+        if (subMenuItems.Count > 0)
         {
-            subMenuItems.Clear();
-            Destroy(oldSkill.gameObject);
+            subMenuItems[currentSubButton].SelectButton();
+            UpdateDescription();
         }
 
-        foreach (Ability abilityItem in abilityList)
+        _state = GameState.SubMenu;
+    }
+
+    private void DisplaySubButtons()
+    {
+        // Clear old items properly
+        subMenuItems.Clear();
+        foreach (Transform oldSkill in subMenuArea.transform)
+            Destroy(oldSkill.gameObject);
+
+        int startIndex = currentSubButtonSet * 4;
+        int endIndex = Mathf.Min(startIndex + 4, activeSubMenuList.Count);
+
+        for (int i = startIndex; i < endIndex; i++)
         {
+            Ability abilityItem = activeSubMenuList[i];
             SubMenuButton newItem = Instantiate(subMenuItemPrefab, subMenuArea.transform.position, Quaternion.identity, subMenuArea.transform).GetComponent<SubMenuButton>();
             newItem.SetSkill(abilityItem);
             subMenuItems.Add(newItem);
             newItem.DeselectButton();
         }
-        currentSubButton = 0;
-        subMenuItems[currentSubButton].SelectButton();
-        descriptionBox.transform.position = new Vector2(descriptionBox.transform.position.x, subMenuItems[currentSubButton].gameObject.transform.position.y);
-        titleText.text = "Selected:\n" + subMenuItems[currentSubButton].GetSkill().name;
-        descriptionText.text = subMenuItems[currentSubButton].GetSkill().description;
-        _state = GameState.SubMenu;
     }
+
     private void SubMenuControl()
     {
-        if (subMenuItems.Count != 0)
+        if (subMenuItems.Count == 0)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            subMenuItems[currentSubButton].DeselectButton();
+            currentSubButton++;
+
+            if (currentSubButton >= subMenuItems.Count)
             {
-                subMenuItems[currentSubButton].DeselectButton();
-                currentSubButton++;
-                if (currentSubButton >= subMenuItems.Count)
-                    currentSubButton = 0;
+                currentSubButtonSet++;
+
+                // Wrap around if past last set
+                if (currentSubButtonSet * 4 >= activeSubMenuList.Count)
+                    currentSubButtonSet = 0;
+
+                DisplaySubButtons();
+                currentSubButton = 0; // start at top of new page
                 subMenuItems[currentSubButton].SelectButton();
-                descriptionBox.transform.position = new Vector2(descriptionBox.transform.position.x, subMenuItems[currentSubButton].gameObject.transform.position.y);
-                titleText.text = "Selected:\n" + subMenuItems[currentSubButton].GetSkill().name;
-                descriptionText.text = subMenuItems[currentSubButton].GetSkill().description;
+                UpdateDescription();
+                return;
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+
+            subMenuItems[currentSubButton].SelectButton();
+            UpdateDescription();
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            subMenuItems[currentSubButton].DeselectButton();
+            currentSubButton--;
+
+            if (currentSubButton < 0)
             {
-                subMenuItems[currentSubButton].DeselectButton();
-                currentSubButton--;
-                if (currentSubButton < 0)
-                    currentSubButton = subMenuItems.Count - 1;
+                currentSubButtonSet--;
+                if (currentSubButtonSet < 0)
+                    currentSubButtonSet = (activeSubMenuList.Count - 1) / 4;
+
+                DisplaySubButtons();
+                // Go to bottom of previous page
+                currentSubButton = subMenuItems.Count - 1;
                 subMenuItems[currentSubButton].SelectButton();
-                descriptionBox.transform.position = new Vector2(descriptionBox.transform.position.x, subMenuItems[currentSubButton].gameObject.transform.position.y);
-                titleText.text = "Selected:\n" + subMenuItems[currentSubButton].GetSkill().name;
-                descriptionText.text = subMenuItems[currentSubButton].GetSkill().description;
+                UpdateDescription();
+                return;
             }
-            if (Input.GetKeyDown(KeyCode.Z))
+
+            subMenuItems[currentSubButton].SelectButton();
+            UpdateDescription();
+        }
+
+        // Confirm ability
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Ability selectedAbility = subMenuItems[currentSubButton].GetSkill();
+            CloseSubMenu();
+
+            if (selectedAbility is Skill skill)
             {
-                Ability selectedAbility = subMenuItems[currentSubButton].GetSkill();
-                CloseSubMenu();
-                if (selectedAbility is Skill)
-                {
-                    Skill skill = selectedAbility as Skill;
-                    if (GameManager.instance.stamina >= skill.staminaCost)
-                    {
-                        PlayerSelectTargets(skill);
-                    }
-                }
-                else if (selectedAbility is Item_Usable)
-                {
-                    PlayerSelectTargets(selectedAbility as Item_Usable);
-                }
+                if (GameManager.instance.stamina >= skill.staminaCost)
+                    PlayerSelectTargets(skill);
+            }
+            else if (selectedAbility is Item_Usable item)
+            {
+                PlayerSelectTargets(item);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.X))
-        {
             CloseSubMenu();
-        }
     }
 
+    private void UpdateDescription()
+    {
+        if (subMenuItems.Count == 0)
+            return;
+
+        var selected = subMenuItems[currentSubButton];
+        descriptionBox.transform.position = new Vector2(
+            descriptionBox.transform.position.x,
+            selected.gameObject.transform.position.y
+        );
+        titleText.text = "Selected:\n" + selected.GetSkill().name;
+        descriptionText.text = selected.GetSkill().description;
+    }
     private void CloseSubMenu()
     {
         subMenuField.SetActive(false);
@@ -1027,9 +1092,13 @@ public class BattleManager : MonoBehaviour
                     ApplyInjury(currentActiveTeam[battleIndex]);
                 if (spell.action.targetingType == TargetingType.AllEnemies || spell.action.targetingType == TargetingType.SingleEnemy)
                 {
+                    /*
                     magicPatterns = spell.magicPattern;
                     castingSpeed = spell.castingSpeed;
                     mageTargets = EnemyChooseTargets(currentAbility.GetAction().targetingType);
+                    yield return new WaitForSeconds(0.4f);
+                    attackLabelField.SetActive(false);*/
+                    AttackHit(currentAbility.GetAction().damageStats, false, currentAbility.GetAction().hitSFX);
                     yield return new WaitForSeconds(0.4f);
                     attackLabelField.SetActive(false);
                     SetNewAttacker();
@@ -1082,13 +1151,12 @@ public class BattleManager : MonoBehaviour
 
     private bool CheckDeadTeam(List<BattleCharObject> team)
     {
-        bool liveUnits = false;
         if (team.Count <= 0)
             return false;
         foreach (BattleCharObject target in team)
             if (target.GetCharacter().downed == false)
-                liveUnits = true;
-        return liveUnits;
+                return true;
+        return false;
     }
 
     private void ApplyMutation(BattleCharObject battleCharObject)

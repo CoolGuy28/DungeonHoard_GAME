@@ -175,6 +175,7 @@ public class GameManager : MonoBehaviour
     public void EndDialogue()
     {
         Time.timeScale = 1;
+        SaveGame();
     }
 
     public void NewGame()
@@ -213,7 +214,7 @@ public class GameManager : MonoBehaviour
         party = gameData.party;
         items = gameData.items;
 
-        if (gameData.sceneData[gameData.sceneIndex].enemies.Count() == 0 && GameObject.Find("PartyObject"))
+        if (gameData.sceneData[gameData.sceneIndex].enemies.Count() == 0 && GameObject.Find("PartyObject") && gameData.playerPos == Vector2.zero)
         {
             gameData.playerPos = GameObject.Find("PartyObject").transform.position;
         }
@@ -314,6 +315,16 @@ public class GameManager : MonoBehaviour
     public void ChangeGameScene(int sceneIndex)
     {
         StartCoroutine(ChangeScene(sceneIndex));
+    }
+    public void DoTransition()
+    {
+        StartCoroutine(Transition());
+    }
+    private IEnumerator Transition()
+    {
+        animator.SetBool("Fade", true);
+        yield return new WaitForSeconds(0.8f);
+        animator.SetBool("Fade", false);
     }
 
     private IEnumerator ChangeScene(int scene)

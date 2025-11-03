@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5905174349344376865}
   - component: {fileID: 6524853257368271316}
   - component: {fileID: 6524853257368271317}
-  - component: {fileID: 5078989817344858756}
+  - component: {fileID: 2651726059159021581}
   m_Layer: 0
   m_Name: Bokor
   m_TagString: Enemy
@@ -190,7 +190,7 @@ MonoBehaviour:
   sprintMultiplier: 1.4
   sortingPriority: 0
   moving: 0
---- !u!114 &5078989817344858756
+--- !u!114 &2651726059159021581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,14 +199,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 5905174349344376864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0009ceda859e52445ba94dd0fcc0fa91, type: 3}
+  m_Script: {fileID: 11500000, guid: 18bfc75b796c62343b00152ec24eb923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
   - dialogue:
     - name: 
-      text: The dead king holds a bowl of peas
+      text: The king holds nothing no longer
   used: 0
+  itemPool:
+  - item: {fileID: 11400000, guid: dd4528a1964cfa84ea930bbd99947395, type: 2}
+    quantity: 1
+  lootedSprite: {fileID: 0}
+  onLootEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5905174349790802523
 GameObject:
   m_ObjectHideFlags: 0

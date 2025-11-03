@@ -134,19 +134,20 @@ MonoBehaviour:
   - dialogue:
     - name: 
       text: The chest is empty
+  used: 0
   itemPool:
   - item: {fileID: 11400000, guid: 307bbf0dc447f2f40a61cf46ed9af012, type: 2}
     quantity: 1
   - item: {fileID: 11400000, guid: 21c8d71a635f32d44b8fb18975661dc3, type: 2}
-    quantity: 1
+    quantity: 3
   - item: {fileID: 11400000, guid: e51c489b09fbb6440a8e76d44e7e9dbe, type: 2}
-    quantity: 1
+    quantity: 2
   - item: {fileID: 11400000, guid: f4361c4f2468a064e96ed16dfa5521ac, type: 2}
     quantity: 1
   - item: {fileID: 11400000, guid: 989e1088b3e6ed144b47fdc0b4020ed3, type: 2}
-    quantity: 1
+    quantity: 5
   - item: {fileID: 11400000, guid: 994ea8f295fd4b8488e4742f91dd1baa, type: 2}
-    quantity: 1
+    quantity: 3
   - item: {fileID: 11400000, guid: ad762b6d7cc07be48b471fcfbbd4b0c2, type: 2}
     quantity: 1
   - item: {fileID: 11400000, guid: 0eb709195e029e44a81498ac99263dbf, type: 2}
@@ -174,7 +175,7 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: 5abb67d42857c924f82b9392d1453d0e, type: 2}
     quantity: 2
   - item: {fileID: 11400000, guid: 0c3a9f335967a8948813b346e9a08d22, type: 2}
-    quantity: 1
+    quantity: 2
   - item: {fileID: 11400000, guid: 0c3a9f335967a8948813b346e9a08d22, type: 2}
     quantity: 3
   - item: {fileID: 11400000, guid: 6d59a0e67a076bf4aab22044526eee74, type: 2}

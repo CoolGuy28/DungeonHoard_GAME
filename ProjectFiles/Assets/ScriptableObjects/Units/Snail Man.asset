@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats:
     attack: 1
-    maxHealth: 250
-    defence: 1
+    maxHealth: 100
+    defence: 0.6
     healingEffect: 1
     fireRes: 1
     poisonRes: 1
@@ -27,7 +27,9 @@ MonoBehaviour:
     increaseTargetChance: 0
     actions: 1
   weapon: {fileID: 11400000, guid: 38638b4cc62c1a346916cd65c1180434, type: 2}
-  skills: []
+  skills:
+  - {fileID: 11400000, guid: df42c501361d2ed4bb345538d1935b82, type: 2}
+  - {fileID: 11400000, guid: 79fccc209b1b7b2469b1651364acc0e2, type: 2}
   battleSprite: {fileID: 21300000, guid: 9193728a922592e49b05def231935ac0, type: 3}
   basicAttack: {fileID: 21300000, guid: 9ec3d26e2dedf1740b1724871917b0af, type: 3}
   attackSprites:

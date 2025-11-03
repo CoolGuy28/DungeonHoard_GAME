@@ -19,7 +19,10 @@ public class Lootable : Interactable
             ItemSlot slot = itemPool[Random.Range(0, itemPool.Count)];
             if (slot.quantity > 0 && slot.item != null)
             {
-                lootText = "You find <color=#bd2d28>" + slot.quantity.ToString() + " " + slot.item.name + "</color>";
+                lootText = "You find <color=#bd2d28>" + slot.quantity.ToString() + " " + slot.item.name;
+                if (slot.quantity > 1)
+                    lootText += "s";
+                lootText += "</color>";
                 GameManager.instance.AddItem(slot.item, slot.quantity);
                 onLootEvent.Invoke();
             }
@@ -29,6 +32,15 @@ public class Lootable : Interactable
             DialogueSection lootDia = new DialogueSection(" ", lootText);
             GameManager.instance.BeginDialogue(lootDia);
             used = true;
+            if (lootedSprite != null)
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = lootedSprite;
+        }
+    }
+
+    public override void OnLoadInteractable()
+    {
+        if (used)
+        {
             if (lootedSprite != null)
                 transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = lootedSprite;
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Broken Bone
   m_EditorClassIdentifier: 
   sprite:
-  - {fileID: 21300000, guid: d7056290e8b02dc439425b5048102368, type: 3}
+  - {fileID: 21300000, guid: 7f6dd6c0665fd6343ad3bc38514e5d3a, type: 3}
   statAdjust:
     attack: -0.1
     maxHealth: 0
@@ -27,3 +27,4 @@ MonoBehaviour:
     critPercent: 0
     critMultiplyer: 0
     increaseTargetChance: 0
+    actions: 0

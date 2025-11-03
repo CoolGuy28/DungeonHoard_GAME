@@ -52,6 +52,7 @@ public class FishingManager : Interactable
             {
                 GameManager.instance.AddItem(fishItem);
                 EndFishing(true);
+                gameObject.SetActive(false);
             }
         }
         else if (escapeSlider.value >= 1)

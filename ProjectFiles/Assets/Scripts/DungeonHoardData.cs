@@ -285,6 +285,15 @@ public class EnemyOverworldData
         displaySprite = data.displaySprite;
     }
 
+    public void Copy(EnemyOverworldData data)
+    {
+        startingPos = data.startingPos;
+        enemyFight = data.enemyFight;
+        enemyPosition = data.enemyPosition;
+        dead = data.dead;
+        displaySprite = data.displaySprite;
+    }
+
     public EnemyOverworldData SameStartingPos(Vector2 vector2)
     {
         if (vector2 == startingPos)
@@ -303,6 +312,11 @@ public class InteractableData
     {
         this.startingPos = startPos;
         this.used = used;
+    }
+
+    public void SetUsed(bool use)
+    {
+        used = use;
     }
 
     public InteractableData SameStartingPos(Vector2 vector2)
