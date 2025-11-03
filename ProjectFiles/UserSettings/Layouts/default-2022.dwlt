@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 0
+    x: 1920
     y: 43
     width: 1920
     height: 989
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 113
+  controlID: 114
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -331,7 +331,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: 1920
     y: 73
     width: 333
     height: 587
@@ -342,9 +342,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: ce7c0000
       m_LastClickedID: 0
-      m_ExpandedIDs: ca58f3ff8c5df3ff9661f3ff4867f3ff766af3ff387af3ff348ef3ff7c95f3ffda09f6ff167cf8ff1830f9ff78c9faff1efafdff28fbffff986b0000c06b0000fa7f000026800000b8820000e882000016850000368500007286000098860000b2880000ee91000018920000
+      m_ExpandedIDs: 7e40faff5c4bfaffeeedffff28fbffffde7d0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -388,7 +388,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 334
+    x: 2254
     y: 73
     width: 1073
     height: 587
@@ -659,9 +659,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 13.924929, y: 7.334716, z: -2.2108803}
+    m_Target: {x: 0.32508004, y: 6.132509, z: -2.1906657}
     speed: 2
-    m_Value: {x: 12.6861105, y: 7.3628707, z: -2.1987302}
+    m_Value: {x: 0.08564696, y: 6.4928803, z: -2.197519}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -711,9 +711,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 28.214882
+    m_Target: 14.543935
     speed: 2
-    m_Value: 26.999887
+    m_Value: 15.229251
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1108,7 +1108,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: 1920
     y: 681
     width: 1408
     height: 310
@@ -1137,14 +1137,14 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/Scenes
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\nicol\Downloads\DungeonHoard_GAME-main\ProjectFiles
+  m_LastProjectPath: C:\Users\nicol\OneDrive\Documents\GitHub\DungeonHoard_GAME\ProjectFiles
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 0c780000
-    m_LastClickedID: 30732
-    m_ExpandedIDs: 00000000d2770000d4770000d677000000ca9a3bffffff7f
+    m_SelectedIDs: 88760000
+    m_LastClickedID: 30344
+    m_ExpandedIDs: 000000006c7600008676000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1172,7 +1172,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d2770000d4770000d6770000
+    m_ExpandedIDs: 000000006c760000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1304,7 +1304,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1409
+    x: 3329
     y: 73
     width: 510
     height: 918
@@ -1345,7 +1345,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1409
+    x: 3329
     y: 73
     width: 510
     height: 918
@@ -1357,6 +1357,6 @@ MonoBehaviour:
     m_CachedPref: 155
     m_ControlHash: 1964396721
     m_PrefName: Preview_TilemapBrushInspector
-  m_Palette: {fileID: 8185016727308880021, guid: c67487e1f409aa34387cc18df120e878, type: 3}
+  m_Palette: {fileID: 8908187115590746095, guid: c717c8bd88082c94baf5adde875a7405, type: 3}
   m_DrawGridGizmo: 1
   m_DrawGizmos: 0
