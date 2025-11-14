@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<ItemSlot> newGameItems;
     public bool saved;
     private AudioSource audioSource;
+    [SerializeField] private AudioClip dungeonMusic;
     [SerializeField] private AudioClip battleMusic;
     public static GameManager instance
     {
@@ -205,7 +206,7 @@ public class GameManager : MonoBehaviour
         {
             NewGame();
         }
-        Debug.Log("SceneLoading");
+        //Debug.Log("SceneLoading");
         gameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
         maxStamina = gameData.maxStamina;
         stamina = maxStamina;
@@ -217,6 +218,8 @@ public class GameManager : MonoBehaviour
         if (gameData.sceneData[gameData.sceneIndex].enemies.Count() == 0 && GameObject.Find("PartyObject") && gameData.playerPos == Vector2.zero)
         {
             gameData.playerPos = GameObject.Find("PartyObject").transform.position;
+            audioSource.clip = dungeonMusic;
+            audioSource.Play();
         }
 
         partyPosition = gameData.playerPos;
@@ -333,6 +336,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         SceneManager.LoadScene(scene);
         animator.SetBool("Fade", false);
+        audioSource.clip = dungeonMusic;
+        audioSource.Play();
     }
 
     private IEnumerator ChangeScene(string name)

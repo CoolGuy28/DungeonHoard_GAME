@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite:
   - {fileID: 21300000, guid: 8b6a8178b39582e4fadcf1264c41d6b2, type: 3}
+  desc: Decreases your ability to heal and slowly damages over time
   statAdjust:
     attack: 0
     maxHealth: 0
@@ -26,11 +27,14 @@ MonoBehaviour:
     speed: 0
     critPercent: 0
     critMultiplyer: 0
+    increaseTargetChance: 0
+    actions: 0
   damagePerTurn:
   - damage: 2
     damageType: 0
     randomVarience: 0
     particleEffect: {fileID: 0}
     applyConditions: []
+    applySingleRandCondition: 0
     conditionChance: 0
     removeConditions: []

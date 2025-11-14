@@ -17,7 +17,7 @@ MonoBehaviour:
   action:
     targetingType: 5
     damageStats:
-      damage: 30
+      damage: 50
       damageType: 2
       randomVarience: 5
       particleEffect: {fileID: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
         timeFrame: 3
         level: 0
       applySingleRandCondition: 1
-      conditionChance: 60
+      conditionChance: 100
       removeConditions:
       - {fileID: 11400000, guid: 129bbea2cd3631840b23c57fbfc52432, type: 2}
       - {fileID: 11400000, guid: b1fce2f7427f34148a297068eea0997d, type: 2}

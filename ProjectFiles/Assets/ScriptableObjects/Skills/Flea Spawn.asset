@@ -25,11 +25,16 @@ MonoBehaviour:
       - condition: {fileID: 11400000, guid: b1fce2f7427f34148a297068eea0997d, type: 2}
         timeFrame: 6
         level: 0
+      applySingleRandCondition: 0
       conditionChance: 60
       removeConditions: []
     accuracy: 0
     useCrit: 0
     staminaAdjust: 0
+    applySelfInjury: 0
+    spriteIndex: 0
+    hitSFX: {fileID: 8300000, guid: fef99c1d36b5e4e4f807446e1e58c867, type: 3}
+    missSFX: {fileID: 8300000, guid: fef99c1d36b5e4e4f807446e1e58c867, type: 3}
   corruption: 0
   magicPattern:
     rotationOffset: 0
@@ -49,6 +54,7 @@ MonoBehaviour:
         - condition: {fileID: 11400000, guid: b1fce2f7427f34148a297068eea0997d, type: 2}
           timeFrame: 6
           level: 0
+        applySingleRandCondition: 0
         conditionChance: 100
         removeConditions: []
       bulletSize: 0.17
@@ -62,6 +68,7 @@ MonoBehaviour:
         randomVarience: 1
         particleEffect: {fileID: 5835862890695531006, guid: 6cc5a039dd2ae584c99c9d58ff585d36, type: 3}
         applyConditions: []
+        applySingleRandCondition: 0
         conditionChance: 0
         removeConditions: []
       bulletSize: 0.17
@@ -80,4 +87,5 @@ MonoBehaviour:
     createGroup: 0
     groupedProjectileSettings:
       projectileSpeed: 8
+    flappyBird: 0
   castingSpeed: 0.25

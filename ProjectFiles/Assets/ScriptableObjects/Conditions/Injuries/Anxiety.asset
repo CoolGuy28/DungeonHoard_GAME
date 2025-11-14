@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite:
   - {fileID: 21300000, guid: a69a37859d837e44fbb1e805fee469ec, type: 3}
+  desc: Feel less capable to crit
   statAdjust:
     attack: 0
     maxHealth: 0
@@ -24,7 +25,7 @@ MonoBehaviour:
     coldRes: 0
     accuracy: 0
     speed: 0
-    critPercent: -0.1
-    critMultiplyer: -0.1
+    critPercent: -0.13
+    critMultiplyer: -0.13
     increaseTargetChance: 0
     actions: 0

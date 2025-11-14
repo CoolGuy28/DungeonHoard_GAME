@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 8306832700000000698ef7c433609afc07530851a3f663dc95ed44f5
+  m_ApplyToSortingLayers: 8306832700000000698ef7c433609afc07530851a3f663dccfce2a24
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -278,7 +278,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   allowZInput: 1
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 8558502263836914456}
   enemyEncounterClip: {fileID: 0}
 --- !u!61 &8558502262667802907
 BoxCollider2D:
@@ -360,9 +360,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 72d3bbd8bf021a84180a284eb086cb77, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fc5b102448e4e19428202559a0930e5a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.381
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -594,5 +594,5 @@ Transform:
   m_Children:
   - {fileID: 8558502262667802909}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

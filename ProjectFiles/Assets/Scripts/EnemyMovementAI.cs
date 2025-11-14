@@ -21,6 +21,8 @@ public class EnemyMovementAI : MonoBehaviour
     [SerializeField] private float waitTime;
     [SerializeField] private bool tall;
     [SerializeField] private GameObject alertSprite;
+    [SerializeField] private AudioClip alertSFX;
+    private AudioSource audioSource;
     [SerializeField] private bool idleEnemy;
     private void Start()
     {
@@ -30,6 +32,7 @@ public class EnemyMovementAI : MonoBehaviour
             alertSprite.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
         alertSprite.SetActive(false);
         SetMovementTarget();
+        audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -108,7 +111,8 @@ public class EnemyMovementAI : MonoBehaviour
             playerChaseCount--;
             if (playerChaseCount <= 0)
             {
-                alertSprite.SetActive(false);
+                //alertSprite.SetActive(false);
+                PlayAlertSFX();
                 chasingPlayer = false;
                 SetMovementTarget();
             }
@@ -128,6 +132,14 @@ public class EnemyMovementAI : MonoBehaviour
         }
     }
 
+    private void PlayAlertSFX()
+    {
+        if (alertSFX != null)
+        {
+            audioSource.clip = alertSFX;
+            audioSource.Play();
+        }
+    }
     private void ReachedTarget()
     {
         SendVision();
@@ -172,7 +184,8 @@ public class EnemyMovementAI : MonoBehaviour
                     {
                         playerPos = hit.collider.gameObject.transform;
                         chasingPlayer = true;
-                        alertSprite.SetActive(true);
+                        //alertSprite.SetActive(true);
+                        PlayAlertSFX();
                         StartCoroutine(WaitAfterStop(waitTime * 0.5f));
                         playerChaseCount = tilesTillStopChase;
                         movementTarget = playerPos.position;

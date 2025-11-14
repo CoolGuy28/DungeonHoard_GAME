@@ -1363,8 +1363,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
-  m_sharedMaterial: {fileID: -7275419875738125690, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eca89f2a65d456d4ea1a8d18487a6e59, type: 2}
+  m_sharedMaterial: {fileID: -7045439680986036989, guid: eca89f2a65d456d4ea1a8d18487a6e59, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1839,7 +1839,8 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: e0f56111d62e8a54eafaa1592d026d62, type: 2}
     quantity: 2
   saved: 0
-  battleMusic: {fileID: 8300000, guid: 9fd7cf5632acf3b408d1fe29d848cbac, type: 3}
+  dungeonMusic: {fileID: 8300000, guid: 7b855bee6c87b5847a528cff517853b8, type: 3}
+  battleMusic: {fileID: 8300000, guid: 4981c76d89ab3c342b8120154815d525, type: 3}
 --- !u!114 &1282416742974154239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1892,8 +1893,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.555
   m_Pitch: 1
   Loop: 0
   Mute: 0

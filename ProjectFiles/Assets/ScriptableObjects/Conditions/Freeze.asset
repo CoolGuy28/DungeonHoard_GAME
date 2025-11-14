@@ -14,15 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite:
   - {fileID: 21300000, guid: 74c84633cf8fbec42a91d7d13ea2fac8, type: 3}
+  desc: Lowers speed making it harder to dodge
   statAdjust:
     attack: 0
     maxHealth: 0
     defence: 0
     healingEffect: 0
-    fireRes: 0.5
+    fireRes: 0.66
     poisonRes: 0
     coldRes: 0
     accuracy: 0
     speed: -0.7
     critPercent: 0
     critMultiplyer: 0
+    increaseTargetChance: 0
+    actions: 0

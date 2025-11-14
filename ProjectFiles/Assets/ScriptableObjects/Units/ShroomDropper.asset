@@ -17,7 +17,7 @@ MonoBehaviour:
     maxHealth: 170
     defence: 1
     healingEffect: 1
-    fireRes: 2.3
+    fireRes: 1.3
     poisonRes: 1
     coldRes: 1
     accuracy: 1

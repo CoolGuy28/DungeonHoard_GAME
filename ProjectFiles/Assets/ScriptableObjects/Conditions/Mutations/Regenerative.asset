@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite:
   - {fileID: 21300000, guid: 41aa5b59be9464c41b5abb88827bc81b, type: 3}
+  desc: Your skin repairs itself rapidly, though it seems weak to toxins and flames
   statAdjust:
     attack: 0
     maxHealth: 0
     defence: 0
     healingEffect: 0.3
-    fireRes: -0.1
-    poisonRes: -0.2
+    fireRes: -0.6
+    poisonRes: -0.8
     coldRes: 0
     accuracy: 0
     speed: 0

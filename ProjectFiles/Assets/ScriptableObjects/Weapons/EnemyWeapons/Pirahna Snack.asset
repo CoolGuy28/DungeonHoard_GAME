@@ -27,8 +27,14 @@ MonoBehaviour:
       - condition: {fileID: 11400000, guid: 852269738ec866744ad1fab60891d951, type: 2}
         timeFrame: 5
         level: 0
+      applySingleRandCondition: 0
       conditionChance: 20
       removeConditions: []
     accuracy: 80
     useCrit: 1
     staminaAdjust: 0
+    applySelfInjury: 0
+    spriteIndex: 0
+    hitSFX: {fileID: 8300000, guid: 25a693a6285e6b044999b712c94fa315, type: 3}
+    missSFX: {fileID: 8300000, guid: d322060c9d54f8e4882a4cbac0c6a692, type: 3}
+  magicItem: 0

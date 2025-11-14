@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 7714504175480522700}
   - component: {fileID: 7714504175480522701}
   - component: {fileID: 5538075704236860128}
+  - component: {fileID: 4258203823814359732}
   m_Layer: 0
   m_Name: Blobmorph
   m_TagString: Enemy
@@ -139,6 +140,20 @@ MonoBehaviour:
     enemyFight:
     - unit: {fileID: 11400000, guid: 065d3b7a32cf57647a5ea17b7d44f95d, type: 2}
       downed: 0
+      baseStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -151,17 +166,20 @@ MonoBehaviour:
         speed: 0
         critPercent: 0
         critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentHealth: 0
       weapon: {fileID: 0}
       skills: []
       conditions: []
+    startingPos: {x: 0, y: 0}
     enemyPosition: {x: 0, y: 0}
     dead: 0
     displaySprite: 0
   spriteObj: {fileID: 6949308297265794113}
   movementAI: {fileID: 7714504175480522700}
-  index: -1
   linkedEnemies: []
+  primaryUnit: 0
 --- !u!61 &6949308296647882278
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -234,6 +252,8 @@ MonoBehaviour:
   waitTime: 0.15
   tall: 0
   alertSprite: {fileID: 5957897431746469558}
+  alertSFX: {fileID: 0}
+  idleEnemy: 0
 --- !u!114 &7714504175480522701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +275,7 @@ MonoBehaviour:
   animator: {fileID: 570485671992765618}
   speed: 1
   sprintMultiplier: 1.4
+  sortingPriority: 0
   moving: 0
 --- !u!114 &5538075704236860128
 MonoBehaviour:
@@ -272,9 +293,110 @@ MonoBehaviour:
   - dialogue:
     - name: 
       text: The fish has nothing of value
+  used: 0
   itemPool:
   - item: {fileID: 11400000, guid: 08feb5c6419ebfc4bbd676a62881149b, type: 2}
     quantity: 2
+  lootedSprite: {fileID: 0}
+  onLootEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!82 &4258203823814359732
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6949308296647882296}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6949308297265794115
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +484,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &570485671992765618
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -379,4 +501,4 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite:
   - {fileID: 21300000, guid: 31113735b5df19d4ca2531cd623556c5, type: 3}
+  desc: Make critical attacks more often
   statAdjust:
     attack: 0
     maxHealth: 0
@@ -24,7 +25,7 @@ MonoBehaviour:
     coldRes: 0
     accuracy: 0.3
     speed: 0
-    critPercent: 0.5
+    critPercent: 0.7
     critMultiplyer: 0.5
     increaseTargetChance: 0
     actions: 0

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite:
   - {fileID: 21300000, guid: fd4dbe6500fe7fb45bc079d33d85152a, type: 3}
+  desc: Lowers your accuracy and you take 3-11 damage per turn
   statAdjust:
     attack: 0
     maxHealth: 0
@@ -27,11 +28,13 @@ MonoBehaviour:
     critPercent: 0
     critMultiplyer: 0
     increaseTargetChance: 0
+    actions: 0
   damagePerTurn:
   - damage: 7
     damageType: 4
     randomVarience: 4
     particleEffect: {fileID: 0}
     applyConditions: []
+    applySingleRandCondition: 0
     conditionChance: 0
     removeConditions: []

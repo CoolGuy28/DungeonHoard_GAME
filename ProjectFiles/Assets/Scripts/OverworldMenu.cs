@@ -16,7 +16,22 @@ public class OverworldMenu : MonoBehaviour
         foreach (var button in menuButtons)
             button.DeselectButton();
         menuButtons[currentMenuButton].SelectButton();
-        menuButtons[currentMenuButton].PressButton();
+        if (currentMenuButton == 0)
+        {
+            mainPanel.gameObject.SetActive(true);
+            invPanel.gameObject.SetActive(false);
+        }
+        else if (currentMenuButton == 1)
+        {
+            mainPanel.gameObject.SetActive(false);
+            invPanel.gameObject.SetActive(true);
+            invPanel.UpdateInventory();
+        }
+        else
+        {
+            mainPanel.gameObject.SetActive(false);
+            invPanel.gameObject.SetActive(false);
+        }
     }
     private void Update()
     {
@@ -184,6 +199,22 @@ public class OverworldMenu : MonoBehaviour
         else if (currentMenuButton >= menuButtons.Length)
             currentMenuButton = 0;
         menuButtons[currentMenuButton].SelectButton();
+        if (currentMenuButton == 0)
+        {
+            mainPanel.gameObject.SetActive(true);
+            invPanel.gameObject.SetActive(false);
+        }
+        else if (currentMenuButton == 1)
+        {
+            mainPanel.gameObject.SetActive(false);
+            invPanel.gameObject.SetActive(true);
+            invPanel.UpdateInventory();
+        }
+        else
+        {
+            mainPanel.gameObject.SetActive(false);
+            invPanel.gameObject.SetActive(false);
+        }
     }
 
     public void SetState (string state)

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite:
   - {fileID: 21300000, guid: 41aa5b59be9464c41b5abb88827bc81b, type: 3}
+  desc: Armoured scales that increase defence but lower speed
   statAdjust:
     attack: 0
     maxHealth: 0

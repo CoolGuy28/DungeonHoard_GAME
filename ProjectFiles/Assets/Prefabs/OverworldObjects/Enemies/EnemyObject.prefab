@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &7846863875476486586
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,7 +104,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &828534510362944304
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 1539445444}
   - component: {fileID: 1539445445}
   - component: {fileID: 2085409773013234068}
+  - component: {fileID: -1702559357544589283}
   m_Layer: 0
   m_Name: EnemyObject
   m_TagString: Enemy
@@ -142,7 +143,7 @@ Transform:
   - {fileID: 828534509773855048}
   - {fileID: 1900651792011306998}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &828534510362944303
 MonoBehaviour:
@@ -160,6 +161,20 @@ MonoBehaviour:
     enemyFight:
     - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
       downed: 0
+      baseStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -172,12 +187,28 @@ MonoBehaviour:
         speed: 0
         critPercent: 0
         critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentHealth: 0
       weapon: {fileID: 0}
       skills: []
       conditions: []
     - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
       downed: 0
+      baseStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -190,17 +221,20 @@ MonoBehaviour:
         speed: 0
         critPercent: 0
         critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentHealth: 0
       weapon: {fileID: 0}
       skills: []
       conditions: []
+    startingPos: {x: 0, y: 0}
     enemyPosition: {x: 0, y: 0}
     dead: 0
     displaySprite: 0
   spriteObj: {fileID: 828534509773855049}
   movementAI: {fileID: 1539445444}
-  index: -1
   linkedEnemies: []
+  primaryUnit: 0
 --- !u!61 &828534510362944302
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -277,6 +311,8 @@ MonoBehaviour:
   waitTime: 0.15
   tall: 0
   alertSprite: {fileID: 4152838414963510206}
+  alertSFX: {fileID: 8300000, guid: d45f77c3c1d598f42ac3c423b12c8d5d, type: 3}
+  idleEnemy: 0
 --- !u!114 &1539445445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +334,7 @@ MonoBehaviour:
   animator: {fileID: 7846863875476486586}
   speed: 3.35
   sprintMultiplier: 1.4
+  sortingPriority: 0
   moving: 0
 --- !u!114 &2085409773013234068
 MonoBehaviour:
@@ -315,6 +352,103 @@ MonoBehaviour:
   - dialogue:
     - name: 
       text: The rat has nothing of value
+  used: 0
+--- !u!82 &-1702559357544589283
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828534510362944304}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4152838414963510206
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 234791128641245340}
   - component: {fileID: 234791128641245341}
   - component: {fileID: 2636430318153348528}
+  - component: {fileID: 71406704423224470}
   m_Layer: 0
   m_Name: RatObject
   m_TagString: Enemy
@@ -37,7 +38,7 @@ Transform:
   - {fileID: 593823101560036112}
   - {fileID: 1811113310634517934}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &593823099993252215
 MonoBehaviour:
@@ -55,7 +56,20 @@ MonoBehaviour:
     enemyFight:
     - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
       downed: 0
-      phase2: 0
+      baseStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -76,7 +90,20 @@ MonoBehaviour:
       conditions: []
     - unit: {fileID: 11400000, guid: d05f0855367c0d3479b2b6fe097c5a2e, type: 2}
       downed: 0
-      phase2: 0
+      baseStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -95,13 +122,15 @@ MonoBehaviour:
       weapon: {fileID: 0}
       skills: []
       conditions: []
+    startingPos: {x: 0, y: 0}
     enemyPosition: {x: 0, y: 0}
     dead: 0
     displaySprite: 0
   spriteObj: {fileID: 593823101560036113}
   movementAI: {fileID: 234791128641245340}
-  index: -1
-  linkedEnemies: []
+  linkedEnemies:
+  - {fileID: 0}
+  primaryUnit: 0
 --- !u!61 &593823099993252214
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -161,13 +190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e6b5e134557084c88213f281a58e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomMovement: 0
-  randomMovementRange: 0
-  pathingPoints:
-  - {x: 0.5, y: -6.5}
-  - {x: -2.5, y: -6.5}
-  - {x: -2.5, y: -9.5}
-  - {x: 0.5, y: -9.5}
+  randomMovement: 1
+  randomMovementRange: 4
+  pathingPoints: []
   overworldMovement: {fileID: 234791128641245341}
   movementTarget: {x: 0, y: 0}
   mask:
@@ -178,6 +203,7 @@ MonoBehaviour:
   waitTime: 0.15
   tall: 0
   alertSprite: {fileID: 4243514278842075622}
+  alertSFX: {fileID: 8300000, guid: d45f77c3c1d598f42ac3c423b12c8d5d, type: 3}
   idleEnemy: 0
 --- !u!114 &234791128641245341
 MonoBehaviour:
@@ -218,6 +244,7 @@ MonoBehaviour:
   - dialogue:
     - name: 
       text: The rat has nothing of value
+  used: 0
   itemPool:
   - item: {fileID: 0}
     quantity: 0
@@ -231,6 +258,102 @@ MonoBehaviour:
   onLootEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!82 &71406704423224470
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593823099993252200}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &593823101560036115
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Condition : ScriptableObject
 {
     public Sprite[] sprite;
-
+    [TextArea] public string desc;
     public virtual void OnConditionGained(BattleCharObject battleCharObject, int level)
     {
     }

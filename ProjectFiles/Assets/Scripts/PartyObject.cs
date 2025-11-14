@@ -181,12 +181,20 @@ public class PartyObject : MonoBehaviour
         {
             if (allowMovement)
             {
-                PauseMovement();
+                
                 Staircase c = collision.gameObject.GetComponent<Staircase>();
                 if (c.GetChangeScene())
+                {
+                    PauseMovement();
                     GameManager.instance.ChangeGameScene(c.GetSceneChangeIndex());
+                }
                 else
+                {
                     GameManager.instance.DoTransition();
+                    transform.position = c.GetSceneChangePos();
+                    overworldMovement.moving = false;
+                }
+                    
                 GameManager.instance.gameData.playerPos = c.GetSceneChangePos();
             }
         }

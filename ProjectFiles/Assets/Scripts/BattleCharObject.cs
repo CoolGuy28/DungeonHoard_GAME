@@ -13,6 +13,8 @@ public class BattleCharObject : MonoBehaviour
     [SerializeField] private GameObject damageTextPrefab;
     [SerializeField] private GameObject conditionUIPrefab;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private GameObject currentObIcon;
+    //[SerializeField] private GameObject hiddenInfo;
 
     public void SetCharacterObject(CharacterData character, int spritePriority)
     {
@@ -232,6 +234,30 @@ public class BattleCharObject : MonoBehaviour
         }
     }
 
+    /*public void DisplayHiddenInfo()
+    {
+        hiddenInfo.SetActive(true);
+        Stats stats = character.currentStats;
+        string statsText = "Attack - " + stats.attack + "\nDefence - " + stats.defence + "\nMaxHp - " + stats.maxHealth + "\nHealing - " + stats.healingEffect + "\nFireRes - " + stats.fireRes + "\nColdRes - " + stats.coldRes +
+            "\nPoiRes - " + stats.poisonRes + "\nSpeed - " + stats.speed + "\nAccuracy - " + stats.accuracy + "\nCrit% - " + stats.critPercent + "\nCritMult - " + stats.critMultiplyer + "\nActions - " + stats.actions;
+        hiddenInfo.transform.GetChild(1).GetComponent<TMP_Text>().text = statsText;
+        string condText = "";
+        if (character.conditions.Count > 0)
+        {
+            condText = "Conditions";
+            foreach (ConditionStats condition in character.conditions)
+            {
+                condText += "\n" + condition.condition.name;
+            }
+        }
+        hiddenInfo.transform.GetChild(2).GetComponent<TMP_Text>().text = condText;
+    }
+
+    public void HideHiddenInfo()
+    {
+        hiddenInfo.SetActive(false);
+    }*/
+
     public void BossTransformation()
     {
         Unit_Boss bossUnit = character.unit as Unit_Boss;
@@ -273,6 +299,16 @@ public class BattleCharObject : MonoBehaviour
     public void SetDeselected()
     {
         spriteObj.color = new Color(0.2f, 0.2f, 0.2f);
+    }
+
+    public void SelectAsCurrentControl()
+    {
+        currentObIcon.SetActive(true);
+    }
+
+    public void DeselectAsCurrentControl()
+    {
+        currentObIcon.SetActive(false);
     }
 
     private void PlayAudioClip(AudioClip clip)

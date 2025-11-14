@@ -306,8 +306,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Body
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
-  m_sharedMaterial: {fileID: -7275419875738125690, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eca89f2a65d456d4ea1a8d18487a6e59, type: 2}
+  m_sharedMaterial: {fileID: -7045439680986036989, guid: eca89f2a65d456d4ea1a8d18487a6e59, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -441,8 +441,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Yaya - Thief
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
-  m_sharedMaterial: {fileID: -7275419875738125690, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eca89f2a65d456d4ea1a8d18487a6e59, type: 2}
+  m_sharedMaterial: {fileID: -7045439680986036989, guid: eca89f2a65d456d4ea1a8d18487a6e59, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -657,8 +657,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 100
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
-  m_sharedMaterial: {fileID: -7275419875738125690, guid: bcc7d0a6ae0042040a7b7fc6fda770e4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eca89f2a65d456d4ea1a8d18487a6e59, type: 2}
+  m_sharedMaterial: {fileID: -7045439680986036989, guid: eca89f2a65d456d4ea1a8d18487a6e59, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

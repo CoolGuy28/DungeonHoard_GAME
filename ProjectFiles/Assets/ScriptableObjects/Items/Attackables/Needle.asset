@@ -33,6 +33,6 @@ MonoBehaviour:
     staminaAdjust: 0
     applySelfInjury: 0
     spriteIndex: 0
-    hitSFX: {fileID: 0}
-    missSFX: {fileID: 0}
+    hitSFX: {fileID: 8300000, guid: 25a693a6285e6b044999b712c94fa315, type: 3}
+    missSFX: {fileID: 8300000, guid: d322060c9d54f8e4882a4cbac0c6a692, type: 3}
   magicItem: 0

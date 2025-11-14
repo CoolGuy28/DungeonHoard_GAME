@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite:
   - {fileID: 21300000, guid: 500b8aca69807204685474b18e58a99e, type: 3}
+  desc: You are harder to hit and unsuspecting targets take more damage
   statAdjust:
-    attack: 1.5
+    attack: 1.8
     maxHealth: 0
     defence: 0
     healingEffect: 0
     fireRes: 0
     poisonRes: 0
     coldRes: 0
-    accuracy: 0.2
-    speed: 1
+    accuracy: 0.6
+    speed: 1.3
     critPercent: 0
     critMultiplyer: 0
     increaseTargetChance: 0

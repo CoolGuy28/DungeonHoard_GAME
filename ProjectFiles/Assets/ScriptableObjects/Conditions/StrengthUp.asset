@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite:
   - {fileID: 21300000, guid: 21be1f45f1c3888469b144d0cc260126, type: 3}
+  desc: Deal more damage
   statAdjust:
     attack: 0.8
     maxHealth: 0

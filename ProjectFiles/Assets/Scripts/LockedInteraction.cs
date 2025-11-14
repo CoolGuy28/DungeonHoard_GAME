@@ -10,7 +10,12 @@ public class LockedInteraction : Interactable
     [SerializeField] private int sceneChange;
     [SerializeField] private Vector2 position;
     [SerializeField] private LockedInteraction linked;
-
+    private AudioSource audioSource;
+    [SerializeField] AudioClip openSound;
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void BeginDialogue(PartyObject player)
     {
         if (!used && GameManager.instance.GetItemAmount(requiredItem) >= itemQuant)
@@ -21,6 +26,11 @@ public class LockedInteraction : Interactable
             if (linked != null)
                 linked.used = true;
             gameObject.tag = "Staircase";
+            if (audioSource != null && openSound != null)
+            {
+                audioSource.clip = openSound;
+                audioSource.Play();
+            }
         }
         else if (!used)
         {

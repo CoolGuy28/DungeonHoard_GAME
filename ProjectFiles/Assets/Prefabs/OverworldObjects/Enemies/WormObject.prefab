@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 7670738781466012883}
   - component: {fileID: 7670738781466012882}
   - component: {fileID: 6456870133254633117}
+  - component: {fileID: 2366114741589726919}
   m_Layer: 0
   m_Name: WormObject
   m_TagString: Enemy
@@ -244,7 +245,20 @@ MonoBehaviour:
     enemyFight:
     - unit: {fileID: 11400000, guid: 070b9c87c56b77949881f9cf9806b2b5, type: 2}
       downed: 0
-      phase2: 0
+      baseStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -265,7 +279,20 @@ MonoBehaviour:
       conditions: []
     - unit: {fileID: 11400000, guid: 070b9c87c56b77949881f9cf9806b2b5, type: 2}
       downed: 0
-      phase2: 0
+      baseStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -286,7 +313,20 @@ MonoBehaviour:
       conditions: []
     - unit: {fileID: 11400000, guid: 070b9c87c56b77949881f9cf9806b2b5, type: 2}
       downed: 0
-      phase2: 0
+      baseStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -307,7 +347,20 @@ MonoBehaviour:
       conditions: []
     - unit: {fileID: 11400000, guid: 070b9c87c56b77949881f9cf9806b2b5, type: 2}
       downed: 0
-      phase2: 0
+      baseStats:
+        attack: 0
+        maxHealth: 0
+        defence: 0
+        healingEffect: 0
+        fireRes: 0
+        poisonRes: 0
+        coldRes: 0
+        accuracy: 0
+        speed: 0
+        critPercent: 0
+        critMultiplyer: 0
+        increaseTargetChance: 0
+        actions: 0
       currentStats:
         attack: 0
         maxHealth: 0
@@ -326,13 +379,16 @@ MonoBehaviour:
       weapon: {fileID: 0}
       skills: []
       conditions: []
+    startingPos: {x: 0, y: 0}
     enemyPosition: {x: 0, y: 0}
     dead: 0
     displaySprite: 0
   spriteObj: {fileID: 6993100629214439262}
   movementAI: {fileID: 7670738781466012883}
-  index: -1
-  linkedEnemies: []
+  linkedEnemies:
+  - {fileID: 0}
+  - {fileID: 0}
+  primaryUnit: 0
 --- !u!61 &6993100629829737785
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -393,7 +449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomMovement: 1
-  randomMovementRange: 6
+  randomMovementRange: 2
   pathingPoints:
   - {x: 13.5, y: -4.5}
   - {x: 15.5, y: -4.5}
@@ -409,6 +465,7 @@ MonoBehaviour:
   waitTime: 0.15
   tall: 1
   alertSprite: {fileID: 6039934918516356521}
+  alertSFX: {fileID: 0}
   idleEnemy: 0
 --- !u!114 &7670738781466012882
 MonoBehaviour:
@@ -449,6 +506,7 @@ MonoBehaviour:
   - dialogue:
     - name: 
       text: The worm has nothing of value
+  used: 0
   itemPool:
   - item: {fileID: 11400000, guid: 0c3a9f335967a8948813b346e9a08d22, type: 2}
     quantity: 1
@@ -466,3 +524,99 @@ MonoBehaviour:
   onLootEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!82 &2366114741589726919
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993100629829737767}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

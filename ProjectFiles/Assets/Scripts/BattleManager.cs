@@ -152,6 +152,7 @@ public class BattleManager : MonoBehaviour
                 WonBattle();
 
             actionCount = 0;
+            currentActiveTeam[battleIndex].DeselectAsCurrentControl();
             battleIndex++;
             if (battleIndex >= currentActiveTeam.Count)
             {
@@ -193,6 +194,7 @@ public class BattleManager : MonoBehaviour
                 {
                     Unit_Player character = (Unit_Player)playerUnits[battleIndex].unit;
                     portrait.sprite = character.charPortrait;
+                    currentActiveTeam[battleIndex].SelectAsCurrentControl();
                 }
                 else
                 {
@@ -235,9 +237,36 @@ public class BattleManager : MonoBehaviour
             menuButtons[currentMenuButton].PressButton();
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
             tutorialLabels.SetActive(true);
+            ShowCharInfo();
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
+            ShowCharInfo();
         if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
             tutorialLabels.SetActive(false);
+        }
+    }
+
+    private void ShowCharInfo()
+    {
+        GameObject displayInfo = tutorialLabels.transform.GetChild(6).gameObject;
+        Stats stats = currentActiveTeam[battleIndex].GetCharacter().currentStats;
+        string statsText = "Attack - " + stats.attack + "\nDefence - " + stats.defence + "\nMaxHp - " + stats.maxHealth + "\nHealing - " + stats.healingEffect + "\nFireRes - " + stats.fireRes + "\nColdRes - " + stats.coldRes +
+            "\nPoiRes - " + stats.poisonRes + "\nSpeed - " + stats.speed + "\nAccuracy - " + stats.accuracy + "\nCrit% - " + stats.critPercent + "\nCritMult - " + stats.critMultiplyer + "\nActions - " + stats.actions;
+        displayInfo.transform.GetChild(0).GetComponent<TMP_Text>().text = statsText;
+        string condText = "";
+        if (currentActiveTeam[battleIndex].GetCharacter().conditions.Count > 0)
+        {
+            condText = "Conditions: ";
+            foreach (ConditionStats condition in currentActiveTeam[battleIndex].GetCharacter().conditions)
+            {
+                condText += "\n\n" + condition.condition.name + " - " + condition.condition.desc;
+            }
+        }
+        displayInfo.transform.GetChild(1).GetComponent<TMP_Text>().text = condText;
+        displayInfo.transform.GetChild(2).GetComponent<TMP_Text>().text = currentActiveTeam[battleIndex].GetCharacter().unit.name;
     }
 
     public void SwitchMenuButton(int dir)

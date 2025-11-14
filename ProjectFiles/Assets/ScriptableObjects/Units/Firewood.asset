@@ -15,7 +15,7 @@ MonoBehaviour:
   baseStats:
     attack: 1
     maxHealth: 200
-    defence: 1
+    defence: 1.4
     healingEffect: 2
     fireRes: 0
     poisonRes: 1

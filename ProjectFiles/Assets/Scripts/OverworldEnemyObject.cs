@@ -94,6 +94,7 @@ public class OverworldEnemyObject : MonoBehaviour, IDataPersistence
             movementAI.enabled = false;
         spriteObj.color = Color.red;
         spriteObj.sprite = enemyData.enemyFight[primaryUnit].unit.overworldDeathSprite;
+        spriteObj.sortingLayerName = "DeadEnemies";
         spriteObj.sortingOrder = -100;
         gameObject.tag = "Interactable";
     }

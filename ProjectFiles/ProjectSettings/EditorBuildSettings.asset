@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 15ed8fe6b29c50141908be572d0e74a2
   - enabled: 1
-    path: Assets/Scenes/1-PrisonFloor.unity
-    guid: e28a60bc8b50a9d498f4b7d31b282980
+    path: Assets/Scenes/1-StartingFloor.unity
+    guid: f9decfcea66c66146b06f9eae48f609f
   - enabled: 1
     path: Assets/Scenes/BattleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
@@ -25,7 +25,7 @@ EditorBuildSettings:
     guid: 62f28e0546635184288dff76b5547e61
   - enabled: 1
     path: Assets/Scenes/4-FloodedUpperFloor.unity
-    guid: 0c3f1d988d438314babb27deb01fa179
+    guid: 74ef231a6c8bab54ea3afdd9c29daa96
   - enabled: 1
     path: Assets/Scenes/5-ChamberFloor.unity
     guid: 9fa90853243e4dc428ab484212b3f5d1

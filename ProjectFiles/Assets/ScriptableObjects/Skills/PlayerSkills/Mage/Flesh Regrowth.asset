@@ -30,8 +30,8 @@ MonoBehaviour:
     staminaAdjust: 0
     applySelfInjury: 0
     spriteIndex: 1
-    hitSFX: {fileID: 0}
-    missSFX: {fileID: 0}
+    hitSFX: {fileID: 8300000, guid: f9f9ae112f38ef946a957cf26ad61bd0, type: 3}
+    missSFX: {fileID: 8300000, guid: f9f9ae112f38ef946a957cf26ad61bd0, type: 3}
   corruption: 0
   magicPattern:
     rotationOffset: 0
@@ -67,4 +67,5 @@ MonoBehaviour:
     createGroup: 0
     groupedProjectileSettings:
       projectileSpeed: 8
+    flappyBird: 0
   castingSpeed: 0

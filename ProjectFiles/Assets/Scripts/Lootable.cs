@@ -7,6 +7,13 @@ public class Lootable : Interactable
     [SerializeField] private List<ItemSlot> itemPool;
     [SerializeField] private Sprite lootedSprite;
     public ButtonEvent onLootEvent;
+    private AudioSource audioSource;
+    [SerializeField] AudioClip lootSound;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void BeginDialogue(PartyObject player)
     {
         if (used)
@@ -34,6 +41,11 @@ public class Lootable : Interactable
             used = true;
             if (lootedSprite != null)
                 transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = lootedSprite;
+            if (audioSource != null && lootSound != null)
+            {
+                audioSource.clip = lootSound;
+                audioSource.Play();
+            }
         }
     }
 
