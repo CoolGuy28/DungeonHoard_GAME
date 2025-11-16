@@ -3370,7 +3370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.14943041, g: 0.4339623, b: 0.16170488, a: 1}
+  m_Color: {r: 0.18063691, g: 0.2830189, b: 0.13483447, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4732,6 +4732,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
   - {fileID: 11400000, guid: 09f97046340b72a46b1e3a1e4625883c, type: 2}
   tutorialLabels: {fileID: 129765709}
+  backgroundImage: {fileID: 1371251957}
   targets:
   - {fileID: 0}
   attackField: {fileID: 143094270}

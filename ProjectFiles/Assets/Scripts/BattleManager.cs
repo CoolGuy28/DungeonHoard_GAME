@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<Condition> mageMutations;
     [SerializeField] private List<Condition> injuries;
     [SerializeField] private GameObject tutorialLabels;
-
+    [SerializeField] private SpriteRenderer backgroundImage;
     private BattleCharObject bossObj;
     private int bossPhase;
     private void Start()
@@ -37,6 +37,11 @@ public class BattleManager : MonoBehaviour
         subMenuField.SetActive(false);
         magicAttackField.SetActive(false);
         attackLabelField.SetActive(false);
+        if (GameManager.instance.GetCurrentEnemyBackground() != null)
+        {
+            backgroundImage.sprite = GameManager.instance.GetCurrentEnemyBackground();
+        }
+            
         foreach (var button in menuButtons)
             button.DeselectButton();
         menuButtons[currentMenuButton].SelectButton();
@@ -181,7 +186,7 @@ public class BattleManager : MonoBehaviour
 
     private void SetActiveAttacker()
     {
-        if (currentActiveTeam[battleIndex].GetCharacter().downed)
+        if (currentActiveTeam[battleIndex].GetCharacter().downed || currentActiveTeam[battleIndex].GetCharacter().currentStats.actions <= 0)
         {
             SetNewAttacker();
         }
@@ -204,6 +209,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 BeginEnemyAttack();
+                
             }
         }
     }

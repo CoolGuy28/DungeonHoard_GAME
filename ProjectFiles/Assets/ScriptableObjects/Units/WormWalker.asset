@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba726bc7603fd5498f264b0b2d8c553, type: 3}
+  m_Name: WormWalker
+  m_EditorClassIdentifier: 
+  baseStats:
+    attack: 1.5
+    maxHealth: 180
+    defence: 1
+    healingEffect: 1
+    fireRes: 1.8
+    poisonRes: 0.6
+    coldRes: 1.8
+    accuracy: 1
+    speed: 1
+    critPercent: 0.2
+    critMultiplyer: 1.6
+    increaseTargetChance: 0
+    actions: 1
+  weapon: {fileID: 11400000, guid: 4c145242aec6a294f823a1915a680217, type: 2}
+  skills:
+  - {fileID: 11400000, guid: 6594b20f96108a94a883cf402886fe0c, type: 2}
+  - {fileID: 11400000, guid: 08d6ed6907284664099ea42ed4d1634a, type: 2}
+  battleSprite: {fileID: 21300000, guid: 37cf5e4357d6f0743887dc6766c67d57, type: 3}
+  basicAttack: {fileID: 21300000, guid: 6c46d429e4a555a498e09dbcc80a30b8, type: 3}
+  attackSprites:
+  - {fileID: 21300000, guid: 6c46d429e4a555a498e09dbcc80a30b8, type: 3}
+  - {fileID: 21300000, guid: 6c46d429e4a555a498e09dbcc80a30b8, type: 3}
+  - {fileID: 21300000, guid: 6c46d429e4a555a498e09dbcc80a30b8, type: 3}
+  - {fileID: 21300000, guid: 6c46d429e4a555a498e09dbcc80a30b8, type: 3}
+  damageSprite: {fileID: 21300000, guid: c9944f8fc79cbfd47b9b22df8e307cbb, type: 3}
+  downedSprite: {fileID: 21300000, guid: 3d92bc7e033f3cb4fb1ad51c7a3fd128, type: 3}
+  overworldAnimator: {fileID: 0}
+  nonAnimatedSprites:
+  - {fileID: -1935227976, guid: d10e9b608e214ad47b22020786ca327b, type: 3}
+  - {fileID: 2019034318, guid: d10e9b608e214ad47b22020786ca327b, type: 3}
+  - {fileID: -263848319, guid: d10e9b608e214ad47b22020786ca327b, type: 3}
+  flipLeft: 1
+  overworldDeathSprite: {fileID: -1935227976, guid: d10e9b608e214ad47b22020786ca327b, type: 3}
+  spriteSize: {x: 1, y: 1}
+  charPortrait: {fileID: 0}

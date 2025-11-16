@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Regenerative
   m_EditorClassIdentifier: 
   sprite:
-  - {fileID: 21300000, guid: 41aa5b59be9464c41b5abb88827bc81b, type: 3}
+  - {fileID: 21300000, guid: fa1da74309593e647b7e23f2521ec268, type: 3}
   desc: Your skin repairs itself rapidly, though it seems weak to toxins and flames
   statAdjust:
     attack: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Feathers
   m_EditorClassIdentifier: 
   sprite:
-  - {fileID: 21300000, guid: 41aa5b59be9464c41b5abb88827bc81b, type: 3}
+  - {fileID: 21300000, guid: b2aa23defc03f2b42843b1e9632809b8, type: 3}
   desc: Bright feathers grow causing you to be targeted more by enemies
   statAdjust:
     attack: 0

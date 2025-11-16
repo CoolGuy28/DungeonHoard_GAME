@@ -358,7 +358,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 16
-      m_TileSpriteIndex: 2
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 0
       m_TileColorIndex: 12
       m_TileObjectToInstantiateIndex: 65535
@@ -418,7 +418,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 12
       m_TileObjectToInstantiateIndex: 65535
@@ -709,10 +709,10 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 12
     m_Data: {fileID: -56760647, guid: 277c68773ee613149a3b73a884f32a52, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -1354573311, guid: 277c68773ee613149a3b73a884f32a52, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -1215997181, guid: 277c68773ee613149a3b73a884f32a52, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: 803970839, guid: 474b15a186b094542a3befc373f48cb3, type: 3}
   - m_RefCount: 1
@@ -735,10 +735,10 @@ Tilemap:
     m_Data: {fileID: -1954725599, guid: 8687d663083fd7b4d8bab923560132ad, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 1777511576, guid: 8687d663083fd7b4d8bab923560132ad, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -1354573311, guid: 277c68773ee613149a3b73a884f32a52, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -1215997181, guid: 277c68773ee613149a3b73a884f32a52, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1802649817, guid: dc3a9e04f687efb42838180aba6970cc, type: 3}
   - m_RefCount: 1
@@ -831,7 +831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 593823099993252200, guid: 7e57783551562e546ba1ae9c83a71b37, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 593823099993252212, guid: 7e57783551562e546ba1ae9c83a71b37, type: 3}
       propertyPath: m_RootOrder
@@ -875,6 +875,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 593823099993252212, guid: 7e57783551562e546ba1ae9c83a71b37, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 593823099993252215, guid: 7e57783551562e546ba1ae9c83a71b37, type: 3}
+      propertyPath: linkedEnemies.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 593823099993252215, guid: 7e57783551562e546ba1ae9c83a71b37, type: 3}

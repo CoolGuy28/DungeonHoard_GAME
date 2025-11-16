@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chitinous Skin
   m_EditorClassIdentifier: 
   sprite:
-  - {fileID: 21300000, guid: 41aa5b59be9464c41b5abb88827bc81b, type: 3}
+  - {fileID: 21300000, guid: 516ac5d9f8f57fc46b1adf87b7e3181c, type: 3}
   desc: Armoured scales that increase defence but lower speed
   statAdjust:
     attack: 0

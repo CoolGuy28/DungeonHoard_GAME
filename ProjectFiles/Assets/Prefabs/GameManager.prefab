@@ -702,9 +702,9 @@ MonoBehaviour:
   onPressEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281372883}
-        m_TargetAssemblyTypeName: SavingManager, Assembly-CSharp
-        m_MethodName: SaveToFile
+      - m_Target: {fileID: 7116283469937543433}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SaveGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1151,8 +1151,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -287.88}
-  m_SizeDelta: {x: 0, y: -575.77}
+  m_AnchoredPosition: {x: 0, y: -301.85806}
+  m_SizeDelta: {x: 0, y: -603.7261}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &759669765605564118
 CanvasRenderer:
@@ -1559,7 +1559,6 @@ GameObject:
   - component: {fileID: 7116283469937543432}
   - component: {fileID: 7116283469937543433}
   - component: {fileID: 1282416742974154239}
-  - component: {fileID: 1281372883}
   - component: {fileID: 327480032}
   - component: {fileID: 2049609437803434383}
   m_Layer: 0
@@ -1836,7 +1835,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 29e6c79b30caa214396ba4b2aa04a94e, type: 2}
     conditions: []
   newGameItems:
-  - item: {fileID: 11400000, guid: e0f56111d62e8a54eafaa1592d026d62, type: 2}
+  - item: {fileID: 11400000, guid: 5cd1353bbfe189f4d8615fbe0b45e0b9, type: 2}
     quantity: 2
   saved: 0
   dungeonMusic: {fileID: 8300000, guid: 7b855bee6c87b5847a528cff517853b8, type: 3}
@@ -1856,20 +1855,9 @@ MonoBehaviour:
   DialoguePanel: {fileID: 718606450038523588}
   DialogueText: {fileID: 1283627638756556122}
   inDialogue: 0
+  defaultFont: {fileID: 11400000, guid: ba1dc381bbf173d44b3757de95c770bc, type: 2}
   currentDialogue:
     dialogue: []
---- !u!114 &1281372883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7116283469937543434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2f2661751f793f48b1b1887a52e7efb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &327480032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1896,7 +1884,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.555
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2013,8 +2001,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.3942, y: -2.7848}
-  m_SizeDelta: {x: 698.2095, y: 156.66}
+  m_AnchoredPosition: {x: -5.3942, y: -7.2852}
+  m_SizeDelta: {x: 698.2095, y: 165.6608}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &57393110116113067
 CanvasRenderer:
@@ -2044,7 +2032,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <size=42>fdsfdsf</size>\n<i>text</i>  gfgf
+  m_text: <size=42>fdsfdsf</size>\n
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ba1dc381bbf173d44b3757de95c770bc, type: 2}
   m_sharedMaterial: {fileID: 7009957088536940227, guid: ba1dc381bbf173d44b3757de95c770bc, type: 2}
@@ -2077,7 +2065,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535

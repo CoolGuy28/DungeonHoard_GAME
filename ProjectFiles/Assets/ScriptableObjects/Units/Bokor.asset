@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats:
     attack: 1
-    maxHealth: 200
+    maxHealth: 300
     defence: 0.7
     healingEffect: 1
     fireRes: 1
@@ -27,12 +27,15 @@ MonoBehaviour:
     increaseTargetChance: 0
     actions: 1
   weapon: {fileID: 11400000, guid: f721b986699b132479a56643323e5f4c, type: 2}
-  skills: []
+  skills:
+  - {fileID: 11400000, guid: f4397a44941e0f342a046da6bb6109df, type: 2}
+  - {fileID: 11400000, guid: 79fccc209b1b7b2469b1651364acc0e2, type: 2}
   battleSprite: {fileID: 21300000, guid: 53ab3fb7cd344f342bda9d8a66b774d3, type: 3}
   basicAttack: {fileID: 21300000, guid: 69c7e270d3e68fd4ba351e84767ad21c, type: 3}
   attackSprites:
   - {fileID: 21300000, guid: c708d07b24f39984f9ac052732624366, type: 3}
   - {fileID: 21300000, guid: c79dff1b32118a442a70a5e3c16241e4, type: 3}
+  - {fileID: 21300000, guid: fa3ce80da1b4edb4481ef4c03985f084, type: 3}
   - {fileID: 21300000, guid: fa3ce80da1b4edb4481ef4c03985f084, type: 3}
   damageSprite: {fileID: 21300000, guid: 6a668095035663e45b6df81025b63594, type: 3}
   downedSprite: {fileID: 21300000, guid: 8d5c8003b6bc6b84c96239208589c906, type: 3}
@@ -60,12 +63,15 @@ MonoBehaviour:
     increaseTargetChance: 0
     actions: 2
   weapon_Phase2: {fileID: 11400000, guid: 2e835fe305448564295cc51f091aa828, type: 2}
-  skills_Phase2: []
+  skills_Phase2:
+  - {fileID: 11400000, guid: 6594b20f96108a94a883cf402886fe0c, type: 2}
   battleSprite_Phase2: {fileID: 21300000, guid: b60cf9a892120814291ef5aa15903aa4, type: 3}
   basicAttack_Phase2: {fileID: 21300000, guid: 220438d8d614f16428ff9e1165cbc6b1, type: 3}
   attackSprites_Phase2:
   - {fileID: 21300000, guid: 48aeab94429fa4548bca49cca43c95ba, type: 3}
   - {fileID: 21300000, guid: deab240e00dd7dd4e90a1c8ada7ac85f, type: 3}
+  - {fileID: 21300000, guid: deab240e00dd7dd4e90a1c8ada7ac85f, type: 3}
+  - {fileID: 21300000, guid: deab240e00dd7dd4e90a1c8ada7ac85f, type: 3}
   damageSprite_Phase2: {fileID: 21300000, guid: ecb1d622a6ddcf64bb57ff7e76464057, type: 3}
   downedSprite_Phase2: {fileID: 21300000, guid: ecb1d622a6ddcf64bb57ff7e76464057, type: 3}
-  transformSound: {fileID: 8300000, guid: 40da895dc9d5f0347996c941482794ce, type: 3}
+  transformSound: {fileID: 8300000, guid: e827c7b70eb9f234cbfef6404d642661, type: 3}

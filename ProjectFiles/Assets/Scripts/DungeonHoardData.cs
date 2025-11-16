@@ -71,8 +71,14 @@ public class CharacterData
         if (currentStats.healingEffect <= 0.2)
             currentStats.healingEffect = 0.2f;
         currentStats.fireRes += statAdjustment.fireRes * multiplyer;
+        if (currentStats.fireRes <= 0)
+            currentStats.fireRes = 0;
         currentStats.poisonRes += statAdjustment.poisonRes * multiplyer;
+        if (currentStats.poisonRes <= 0)
+            currentStats.poisonRes = 0;
         currentStats.coldRes += statAdjustment.coldRes * multiplyer;
+        if (currentStats.coldRes <= 0)
+            currentStats.fireRes = 0;
         currentStats.accuracy += statAdjustment.accuracy * multiplyer;
         currentStats.speed += statAdjustment.speed * multiplyer;
         currentStats.critPercent += statAdjustment.critPercent * multiplyer;
@@ -276,6 +282,7 @@ public class EnemyOverworldData
     public Vector2 enemyPosition;
     public bool dead;
     public int displaySprite;
+    public Sprite combatBackground;
     public EnemyOverworldData(EnemyOverworldData data)
     {
         startingPos = data.startingPos;
@@ -283,6 +290,7 @@ public class EnemyOverworldData
         enemyPosition = data.enemyPosition;
         dead = data.dead;
         displaySprite = data.displaySprite;
+        combatBackground = data.combatBackground;
     }
 
     public void Copy(EnemyOverworldData data)
@@ -292,6 +300,7 @@ public class EnemyOverworldData
         enemyPosition = data.enemyPosition;
         dead = data.dead;
         displaySprite = data.displaySprite;
+        combatBackground = data.combatBackground;
     }
 
     public EnemyOverworldData SameStartingPos(Vector2 vector2)

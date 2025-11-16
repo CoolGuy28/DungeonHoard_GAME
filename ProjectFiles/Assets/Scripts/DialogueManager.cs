@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject DialoguePanel;
     [SerializeField] private TMP_Text DialogueText;
     public bool inDialogue;
+    [SerializeField] private TMP_FontAsset defaultFont;
     [SerializeField] private DialogueSection currentDialogue;
     private int currentLine;
 
@@ -44,6 +45,20 @@ public class DialogueManager : MonoBehaviour
         inDialogue = true;
         GameObject.FindObjectOfType<PartyObject>().PauseMovement();
         DialoguePanel.SetActive(true);
+        DialogueText.font = defaultFont;
+        LoadDialogueLine(section.dialogue[0]);
+    }
+    public void LoadDialogue(DialogueSection section, TMP_FontAsset newFont)
+    {
+        currentLine = 0;
+        currentDialogue = section;
+        inDialogue = true;
+        GameObject.FindObjectOfType<PartyObject>().PauseMovement();
+        DialoguePanel.SetActive(true);
+        if (newFont != null)
+            DialogueText.font = newFont;
+        else
+            DialogueText.font = defaultFont;
         LoadDialogueLine(section.dialogue[0]);
     }
     private void LoadDialogueLine(DialogueLine line)

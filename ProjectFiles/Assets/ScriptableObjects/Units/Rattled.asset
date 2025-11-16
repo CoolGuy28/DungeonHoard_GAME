@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats:
     attack: 1
-    maxHealth: 110
-    defence: 1
+    maxHealth: 210
+    defence: 0.85
     healingEffect: 1
     fireRes: 1
     poisonRes: 1
     coldRes: 1
     accuracy: 1
     speed: 1
-    critPercent: 0.2
+    critPercent: 0.4
     critMultiplyer: 1.6
     increaseTargetChance: 0
     actions: 1

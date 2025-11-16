@@ -17,7 +17,7 @@ MonoBehaviour:
   action:
     targetingType: 0
     damageStats:
-      damage: 20
+      damage: 27
       damageType: 5
       randomVarience: 7
       particleEffect: {fileID: 7512594599114799122, guid: b7289bf73ba9b5046a935249e3cd0438, type: 3}

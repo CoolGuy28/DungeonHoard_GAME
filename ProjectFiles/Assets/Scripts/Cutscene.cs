@@ -7,6 +7,7 @@ public class Cutscene : MonoBehaviour
     [SerializeField] private DialogueSection[] cutsceneText;
     [SerializeField] private TutorialManager tutorialManager;
     [SerializeField] private GameObject[] tutorialObj;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class Cutscene : MonoBehaviour
             foreach (GameObject t in tutorialObj)
                 t.SetActive(false);
         }
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     public void CutsceneDialogue(int index)
@@ -26,5 +28,11 @@ public class Cutscene : MonoBehaviour
     {
         tutorialManager.StartMoveDisplay();
         GameManager.instance.gameData.seenTutorial = true;
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }

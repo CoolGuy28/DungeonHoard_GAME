@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats:
     attack: 1
-    maxHealth: 200
+    maxHealth: 250
     defence: 1.4
     healingEffect: 2
     fireRes: 0

@@ -8,7 +8,8 @@ public class Explodable : Interactable
     [SerializeField] private Vector2 position;
     private AudioSource audioSource;
     [SerializeField] AudioClip fuseSound;
-    [SerializeField] AudioClip explodeSound;
+    [SerializeField] private GameObject explodeSound;
+    [SerializeField] private GameObject explosionVFX;
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -35,9 +36,8 @@ public class Explodable : Interactable
         audioSource.clip = fuseSound;
         audioSource.Play();
         yield return new WaitForSeconds(3f);
-        audioSource.clip = explodeSound;
-        audioSource.Play();
-        yield return new WaitForSeconds(1f);
+        Instantiate(explosionVFX,transform.position, Quaternion.identity);
+        Instantiate(explodeSound, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
     }
 

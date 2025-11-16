@@ -16,9 +16,9 @@ MonoBehaviour:
   action:
     targetingType: 4
     damageStats:
-      damage: 15
+      damage: 2
       damageType: 2
-      randomVarience: 5
+      randomVarience: 1
       particleEffect: {fileID: 0}
       applyConditions: []
       applySingleRandCondition: 0
@@ -26,8 +26,9 @@ MonoBehaviour:
       removeConditions: []
     accuracy: 0
     useCrit: 0
-    staminaAdjust: 30
+    staminaAdjust: 16
     applySelfInjury: 0
     spriteIndex: 0
     hitSFX: {fileID: 0}
     missSFX: {fileID: 0}
+  magicItem: 0

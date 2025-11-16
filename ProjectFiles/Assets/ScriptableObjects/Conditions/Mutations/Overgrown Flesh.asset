@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Overgrown Flesh
   m_EditorClassIdentifier: 
   sprite:
-  - {fileID: 21300000, guid: 41aa5b59be9464c41b5abb88827bc81b, type: 3}
+  - {fileID: 21300000, guid: eedd6fb6b72c9aa44b7f97158008bfba, type: 3}
   desc: Rolls of flesh burst from your skin giving more health but lowering your
     defence
   statAdjust:
@@ -25,7 +25,7 @@ MonoBehaviour:
     poisonRes: 0
     coldRes: 0
     accuracy: 0
-    speed: -0.075
+    speed: -0.2
     critPercent: 0
     critMultiplyer: 0
     increaseTargetChance: 0

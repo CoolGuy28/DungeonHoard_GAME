@@ -12,6 +12,8 @@ public class LockedInteraction : Interactable
     [SerializeField] private LockedInteraction linked;
     private AudioSource audioSource;
     [SerializeField] AudioClip openSound;
+    [SerializeField] private bool finalDoor;
+    [SerializeField] private GameObject finalExitCanvas;
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -38,11 +40,18 @@ public class LockedInteraction : Interactable
         }
         else if (used)
         {
-            if (changeScene)
-                GameManager.instance.ChangeGameScene(sceneChange);
+            if (finalDoor)
+            {
+                finalExitCanvas.SetActive(true);
+            }
             else
-                GameManager.instance.DoTransition();
-            GameManager.instance.gameData.playerPos = position;
+            {
+                if (changeScene)
+                    GameManager.instance.ChangeGameScene(sceneChange);
+                else
+                    GameManager.instance.DoTransition();
+                GameManager.instance.gameData.playerPos = position;
+            }
         }
     }
 }

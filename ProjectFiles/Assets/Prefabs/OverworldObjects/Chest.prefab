@@ -137,8 +137,8 @@ MonoBehaviour:
       text: The chest is empty
   used: 0
   itemPool:
-  - item: {fileID: 11400000, guid: 307bbf0dc447f2f40a61cf46ed9af012, type: 2}
-    quantity: 1
+  - item: {fileID: 11400000, guid: 5cd1353bbfe189f4d8615fbe0b45e0b9, type: 2}
+    quantity: 3
   - item: {fileID: 11400000, guid: e51c489b09fbb6440a8e76d44e7e9dbe, type: 2}
     quantity: 2
   - item: {fileID: 11400000, guid: f4361c4f2468a064e96ed16dfa5521ac, type: 2}
@@ -201,6 +201,12 @@ MonoBehaviour:
     quantity: 1
   - item: {fileID: 11400000, guid: 21c8d71a635f32d44b8fb18975661dc3, type: 2}
     quantity: 3
+  - item: {fileID: 11400000, guid: e0f56111d62e8a54eafaa1592d026d62, type: 2}
+    quantity: 3
+  - item: {fileID: 11400000, guid: e0f56111d62e8a54eafaa1592d026d62, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: e0f56111d62e8a54eafaa1592d026d62, type: 2}
+    quantity: 1
   lootedSprite: {fileID: -1947007688, guid: dc3a9e04f687efb42838180aba6970cc, type: 3}
   onLootEvent:
     m_PersistentCalls:

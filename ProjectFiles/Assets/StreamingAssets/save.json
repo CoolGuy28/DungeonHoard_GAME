@@ -1,0 +1,316 @@
+﻿{
+    "party": [
+        {
+            "unit": {
+                "instanceID": 28262
+            },
+            "downed": false,
+            "baseStats": {
+                "attack": 1.2000000476837159,
+                "maxHealth": 100,
+                "defence": 1.0,
+                "healingEffect": 1.0,
+                "fireRes": 1.0,
+                "poisonRes": 1.0,
+                "coldRes": 1.0,
+                "accuracy": 1.2000000476837159,
+                "speed": 1.2000000476837159,
+                "critPercent": 0.30000001192092898,
+                "critMultiplyer": 1.600000023841858,
+                "increaseTargetChance": 0,
+                "actions": 1
+            },
+            "currentStats": {
+                "attack": 1.2000000476837159,
+                "maxHealth": 100,
+                "defence": 1.0,
+                "healingEffect": 1.0,
+                "fireRes": 1.0,
+                "poisonRes": 1.0,
+                "coldRes": 1.0,
+                "accuracy": 1.2000000476837159,
+                "speed": 1.2000000476837159,
+                "critPercent": 0.30000001192092898,
+                "critMultiplyer": 1.600000023841858,
+                "increaseTargetChance": 0,
+                "actions": 1
+            },
+            "currentHealth": 100,
+            "weapon": {
+                "instanceID": 28264
+            },
+            "skills": [
+                {
+                    "instanceID": 28266
+                },
+                {
+                    "instanceID": 28328
+                },
+                {
+                    "instanceID": 28330
+                }
+            ],
+            "conditions": []
+        },
+        {
+            "unit": {
+                "instanceID": 28270
+            },
+            "downed": false,
+            "baseStats": {
+                "attack": 1.0,
+                "maxHealth": 100,
+                "defence": 0.800000011920929,
+                "healingEffect": 1.0,
+                "fireRes": 1.0,
+                "poisonRes": 1.0,
+                "coldRes": 1.0,
+                "accuracy": 1.0,
+                "speed": 0.75,
+                "critPercent": 0.23999999463558198,
+                "critMultiplyer": 1.600000023841858,
+                "increaseTargetChance": 0,
+                "actions": 1
+            },
+            "currentStats": {
+                "attack": 1.0,
+                "maxHealth": 100,
+                "defence": 0.800000011920929,
+                "healingEffect": 1.0,
+                "fireRes": 1.0,
+                "poisonRes": 1.0,
+                "coldRes": 1.0,
+                "accuracy": 1.0,
+                "speed": 0.75,
+                "critPercent": 0.23999999463558198,
+                "critMultiplyer": 1.600000023841858,
+                "increaseTargetChance": 0,
+                "actions": 1
+            },
+            "currentHealth": 100,
+            "weapon": {
+                "instanceID": 28272
+            },
+            "skills": [
+                {
+                    "instanceID": 28366
+                },
+                {
+                    "instanceID": 28368
+                },
+                {
+                    "instanceID": 28274
+                }
+            ],
+            "conditions": []
+        },
+        {
+            "unit": {
+                "instanceID": 28276
+            },
+            "downed": false,
+            "baseStats": {
+                "attack": 1.0,
+                "maxHealth": 100,
+                "defence": 1.0,
+                "healingEffect": 1.0,
+                "fireRes": 1.0,
+                "poisonRes": 1.0,
+                "coldRes": 1.0,
+                "accuracy": 1.0,
+                "speed": 1.0,
+                "critPercent": 0.23999999463558198,
+                "critMultiplyer": 1.600000023841858,
+                "increaseTargetChance": 0,
+                "actions": 1
+            },
+            "currentStats": {
+                "attack": 1.0,
+                "maxHealth": 100,
+                "defence": 1.0,
+                "healingEffect": 1.0,
+                "fireRes": 1.0,
+                "poisonRes": 1.0,
+                "coldRes": 1.0,
+                "accuracy": 1.0,
+                "speed": 1.0,
+                "critPercent": 0.23999999463558198,
+                "critMultiplyer": 1.600000023841858,
+                "increaseTargetChance": 0,
+                "actions": 1
+            },
+            "currentHealth": 100,
+            "weapon": {
+                "instanceID": 28278
+            },
+            "skills": [
+                {
+                    "instanceID": 28280
+                },
+                {
+                    "instanceID": 28284
+                },
+                {
+                    "instanceID": 28282
+                }
+            ],
+            "conditions": []
+        }
+    ],
+    "items": [
+        {
+            "item": {
+                "instanceID": 38512
+            },
+            "quantity": 2
+        },
+        {
+            "item": {
+                "instanceID": 29180
+            },
+            "quantity": 5
+        }
+    ],
+    "maxStamina": 100,
+    "playerPos": {
+        "x": 0.5,
+        "y": -5.5
+    },
+    "sceneIndex": 3,
+    "sceneData": [
+        {
+            "enemies": [],
+            "interactions": []
+        },
+        {
+            "enemies": [],
+            "interactions": []
+        },
+        {
+            "enemies": [],
+            "interactions": []
+        },
+        {
+            "enemies": [
+                {
+                    "enemyFight": [
+                        {
+                            "unit": {
+                                "instanceID": 35518
+                            },
+                            "downed": false,
+                            "baseStats": {
+                                "attack": 0.0,
+                                "maxHealth": 0,
+                                "defence": 0.0,
+                                "healingEffect": 0.0,
+                                "fireRes": 0.0,
+                                "poisonRes": 0.0,
+                                "coldRes": 0.0,
+                                "accuracy": 0.0,
+                                "speed": 0.0,
+                                "critPercent": 0.0,
+                                "critMultiplyer": 0.0,
+                                "increaseTargetChance": 0,
+                                "actions": 0
+                            },
+                            "currentStats": {
+                                "attack": 0.0,
+                                "maxHealth": 0,
+                                "defence": 0.0,
+                                "healingEffect": 0.0,
+                                "fireRes": 0.0,
+                                "poisonRes": 0.0,
+                                "coldRes": 0.0,
+                                "accuracy": 0.0,
+                                "speed": 0.0,
+                                "critPercent": 0.0,
+                                "critMultiplyer": 0.0,
+                                "increaseTargetChance": 0,
+                                "actions": 0
+                            },
+                            "currentHealth": 0,
+                            "weapon": {
+                                "instanceID": 0
+                            },
+                            "skills": [],
+                            "conditions": []
+                        }
+                    ],
+                    "startingPos": {
+                        "x": 0.5,
+                        "y": -8.5
+                    },
+                    "enemyPosition": {
+                        "x": 0.5,
+                        "y": -8.5
+                    },
+                    "dead": false,
+                    "displaySprite": 0,
+                    "combatBackground": {
+                        "instanceID": 0
+                    }
+                }
+            ],
+            "interactions": [
+                {
+                    "startingPos": {
+                        "x": 1.5,
+                        "y": 1.5
+                    },
+                    "used": false
+                },
+                {
+                    "startingPos": {
+                        "x": -1.5,
+                        "y": -1.5
+                    },
+                    "used": false
+                },
+                {
+                    "startingPos": {
+                        "x": 3.5,
+                        "y": -5.5
+                    },
+                    "used": true
+                },
+                {
+                    "startingPos": {
+                        "x": 0.5,
+                        "y": -8.5
+                    },
+                    "used": false
+                }
+            ]
+        },
+        {
+            "enemies": [],
+            "interactions": []
+        },
+        {
+            "enemies": [],
+            "interactions": []
+        },
+        {
+            "enemies": [],
+            "interactions": []
+        },
+        {
+            "enemies": [],
+            "interactions": []
+        },
+        {
+            "enemies": [],
+            "interactions": []
+        },
+        {
+            "enemies": [],
+            "interactions": []
+        },
+        {
+            "enemies": [],
+            "interactions": []
+        }
+    ],
+    "seenTutorial": true
+}

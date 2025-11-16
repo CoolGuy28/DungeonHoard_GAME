@@ -3177,6 +3177,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1282416742974154239, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
+      propertyPath: defaultFont
+      value: 
+      objectReference: {fileID: 11400000, guid: ba1dc381bbf173d44b3757de95c770bc, type: 2}
     - target: {fileID: 7116283469937543432, guid: 32461d8d860512b48a92f4a7b2f5bbb2, type: 3}
       propertyPath: m_RootOrder
       value: 0

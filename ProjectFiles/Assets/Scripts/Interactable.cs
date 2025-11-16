@@ -49,7 +49,15 @@ public class Interactable : MonoBehaviour, IDataPersistence
 
     public virtual void OnLoadInteractable()
     {
+    }
 
+    private void SetSortingLayer()
+    {
+        foreach(Transform t in transform)
+        {
+            if(t.GetComponent<SpriteRenderer>())
+                t.GetComponent<SpriteRenderer>().sortingOrder = Mathf.FloorToInt(transform.position.y * -1);
+        }
     }
 
     public void LoadData(GameData data)
@@ -72,6 +80,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
             used = foundCopy.used;
         }
         OnLoadInteractable();
+        SetSortingLayer();
     }
 
     public void SaveData(GameData data)

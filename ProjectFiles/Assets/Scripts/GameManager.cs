@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using TMPro;
+using System.IO;
+using System.Text;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +28,7 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] private AudioClip dungeonMusic;
     [SerializeField] private AudioClip battleMusic;
+    //private string savePath;
     public static GameManager instance
     {
         get
@@ -45,6 +49,11 @@ public class GameManager : MonoBehaviour
         foreach (CharacterData character in party)
             character.InitialiseChar();
         audioSource = GetComponent<AudioSource>();
+
+        //savePath = Path.Combine(Application.streamingAssetsPath, "save.json");
+
+        //if (!Directory.Exists(Application.streamingAssetsPath))
+        //    Directory.CreateDirectory(Application.streamingAssetsPath);
     }
 
     private void Start()
@@ -166,11 +175,25 @@ public class GameManager : MonoBehaviour
         StartCoroutine(OpenDialogue(section));
     }
 
+    public void BeginDialogue(DialogueSection section, TMP_FontAsset font)
+    {
+        if (font != null)
+            StartCoroutine(OpenDialogue(section, font));
+        else
+            StartCoroutine(OpenDialogue(section));
+    }
     private IEnumerator OpenDialogue(DialogueSection section)
     {
         yield return new WaitForEndOfFrame();
         Time.timeScale = 0;
         dialogueManager.LoadDialogue(section);
+    }
+
+    private IEnumerator OpenDialogue(DialogueSection section, TMP_FontAsset font)
+    {
+        yield return new WaitForEndOfFrame();
+        Time.timeScale = 0;
+        dialogueManager.LoadDialogue(section, font);
     }
 
     public void EndDialogue()
@@ -249,6 +272,40 @@ public class GameManager : MonoBehaviour
             dataPersistenceObj.SaveData(gameData);
         }
     }
+
+    /*public void SaveToFile()
+    {
+        SaveGame();
+
+        string json = JsonUtility.ToJson(gameData, true);
+        File.WriteAllText(savePath, json, Encoding.UTF8);
+        Debug.Log("Game saved to: " + savePath);
+    }
+
+    public void LoadFromFile()
+    {
+        if (!File.Exists(savePath))
+        {
+            Debug.LogWarning("No save file found at: " + savePath);
+            return;
+        }
+
+        string json = File.ReadAllText(savePath);
+        GameData loaded = JsonUtility.FromJson<GameData>(json);
+
+        if (loaded == null)
+        {
+            Debug.LogError("Could not parse save JSON.");
+            return;
+        }
+
+        gameData = loaded;
+
+        LoadGame();
+        Debug.Log("Loaded from StreamingAssets: " + savePath);
+        
+    }*/
+
     public void OpenOverworldMenu()
     {
         PauseGame(true);
@@ -309,10 +366,15 @@ public class GameManager : MonoBehaviour
         return GetEnemyFromStartingLoc(currentEnemyID).enemyFight;
     }
 
+    public Sprite GetCurrentEnemyBackground()
+    {
+        return GetEnemyFromStartingLoc(currentEnemyID).combatBackground;
+    }
+
     public void WonBattle()
     {
         GetEnemyFromStartingLoc(currentEnemyID).dead = true;
-        StartCoroutine(ChangeScene(gameData.sceneIndex));
+        StartCoroutine(ChangeScene(gameData.sceneIndex, 1.6f));
     }
 
     public void ChangeGameScene(int sceneIndex)
@@ -348,6 +410,16 @@ public class GameManager : MonoBehaviour
         animator.SetBool("Fade", false);
     }
 
+    private IEnumerator ChangeScene(int scene, float time)
+    {
+        animator.SetBool("Fade", true);
+        yield return new WaitForSeconds(time);
+        SceneManager.LoadScene(scene);
+        animator.SetBool("Fade", false);
+        audioSource.clip = dungeonMusic;
+        audioSource.Play();
+    }
+
     private List<IDataPersistence> FindAllDataPersistenceObjects() 
     {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
@@ -369,7 +441,7 @@ public class GameData
     public GameData()
     {
         maxStamina = 100;
-        sceneData = new OverworldScene[8];
+        sceneData = new OverworldScene[11];
         for (int i = 0; i < sceneData.Length; i++)
         {
             sceneData[i] = new OverworldScene();
@@ -380,7 +452,7 @@ public class GameData
     {
         maxStamina = 100;
         this.party = party;
-        sceneData = new OverworldScene[8];
+        sceneData = new OverworldScene[11];
         for (int i = 0; i < sceneData.Length; i++)
         {
             sceneData[i] = new OverworldScene();
@@ -401,7 +473,7 @@ public class GameData
             this.items.Add(new ItemSlot(item.item, item.quantity));
         }
         playerPos = startPos;
-        sceneData = new OverworldScene[8];
+        sceneData = new OverworldScene[11];
         for (int i = 0; i < sceneData.Length; i++)
         {
             sceneData[i] = new OverworldScene();

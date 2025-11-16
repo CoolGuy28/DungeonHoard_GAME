@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Extra Eye
   m_EditorClassIdentifier: 
   sprite:
-  - {fileID: 21300000, guid: 41aa5b59be9464c41b5abb88827bc81b, type: 3}
+  - {fileID: 21300000, guid: 511f939d6cdea404f83fc8e2b43ea7e5, type: 3}
   desc: A new eye grows on your skin giving more accuracy for less health
   statAdjust:
     attack: 0
-    maxHealth: -10
+    maxHealth: -18
     defence: 0
     healingEffect: 0
     fireRes: 0

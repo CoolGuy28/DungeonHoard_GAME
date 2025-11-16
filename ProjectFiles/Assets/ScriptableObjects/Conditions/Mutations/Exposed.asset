@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Exposed
   m_EditorClassIdentifier: 
   sprite:
-  - {fileID: 21300000, guid: 41aa5b59be9464c41b5abb88827bc81b, type: 3}
+  - {fileID: 21300000, guid: 7745b5496604083458fce229e6b7c6f0, type: 3}
   desc: Your skin weakens and feels more exposed to the elements
   statAdjust:
     attack: 0
     maxHealth: 0
     defence: 0
     healingEffect: 0
-    fireRes: -0.1
-    poisonRes: -0.1
-    coldRes: -0.1
+    fireRes: -0.3
+    poisonRes: -0.3
+    coldRes: -0.3
     accuracy: 0
     speed: 0
     critPercent: 0
